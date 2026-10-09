@@ -101,6 +101,7 @@ export function requireAuth(req, res, next) {
 }
 
 // configs/middlewares.js
+
 /** 
  * Middleware para redirigir a usuarios autenticados
  * Si el usuario ya tiene sesión activa, lo redirige a la página principal
@@ -111,11 +112,10 @@ export function redirectIfAuthenticated(req, res, next) {
   
   // Si está autenticado Y está intentando acceder a rutas de autenticación
   const isAuthRoute = [
-    '/sign-in',
-    '/sign-up',
-    '/login',
-    '/register',
-    '/reset-password'
+    // '/sign-in',
+    // '/sign-up',
+    '/login'//, '/register',
+    // '/reset-password'
   ].some(route => req.path === route);
   
   if (isAuthenticated && isAuthRoute) {
@@ -126,6 +126,25 @@ export function redirectIfAuthenticated(req, res, next) {
   // Si no está autenticado o no es una ruta de auth, continuar
   next();
 }
+
+export function redirecionarSiLogueado(req, res, next) {
+  // Verificar si el usuario tiene sesión activa
+  const isAuthenticated = req.session && req.session.correo && req.session.role;
+  
+  // Si está autenticado Y está intentando acceder a rutas de autenticación
+  const isAuthRoute = [
+    '/login',
+  ].some(route => req.path === route);
+  
+  if (isAuthenticated && isAuthRoute) {
+    // Redirigir al home si ya está logueado y quiere acceder a rutas de auth
+    return res.redirect(`/${req.session.role}`);
+  }
+  
+  // Si no está autenticado o no es una ruta de auth, continuar
+  next();
+}
+
 
 export function viewFlash(req, res, next) {
   res.locals.successMessage = req.flash('success');

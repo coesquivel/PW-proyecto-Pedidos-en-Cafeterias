@@ -38,10 +38,10 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      port: 3005,
+      port: 3000,
       proxy: {
-        '/api': 'http://localhost:4005',
-        '/healthz': 'http://localhost:4005'
+        '/api': 'http://localhost:4000',
+        '/healthz': 'http://localhost:4000'
       }
     }
   }
