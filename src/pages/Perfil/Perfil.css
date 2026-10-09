@@ -1,0 +1,288 @@
+/* Ajusta estas variables a las de tu enterprise.css si ya las tienes */
+.perfil-container {
+    --pf-rojo: #d93a2b;
+    --pf-rojo-oscuro: #bf2f21;
+    --pf-borde: #ece3dd;
+    --pf-texto: #2a2220;
+    --pf-suave: #6f6560;
+    --pf-aviso-bg: #fbf1de;
+    --pf-aviso-borde: #f0dfba;
+    --pf-aviso-texto: #85571a;
+
+    max-width: 1000px;
+    padding: 1rem 0 2.5rem;
+    color: var(--pf-texto);
+}
+
+.perfil-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0.25rem 0 1.25rem;
+}
+
+/* ===== Panel ===== */
+.perfil-panel {
+    background: #fff;
+    border: 1px solid var(--pf-borde);
+    border-radius: 14px;
+    padding: 1.25rem;
+}
+
+.perfil-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.perfil-datos {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.perfil-fila-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+/* ===== Campos ===== */
+.perfil-label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--pf-suave);
+}
+
+.perfil-input {
+    font-size: 0.85rem;
+    border-color: var(--pf-borde);
+    border-radius: 8px;
+    padding: 0.55rem 0.7rem;
+    background: #fffdfc;
+}
+
+.perfil-input:focus {
+    border-color: var(--pf-rojo);
+    box-shadow: 0 0 0 0.2rem rgba(217, 58, 43, 0.15);
+}
+
+.perfil-textarea {
+    resize: vertical;
+    min-height: 96px;
+}
+
+.perfil-contador {
+    margin: 0.3rem 0 0;
+    font-size: 0.72rem;
+    color: var(--pf-suave);
+}
+
+/* ===== Placeholder rayado (logo y fotos sin imagen) ===== */
+.placeholder-rayado {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        135deg,
+        #f6e3df 0,
+        #f6e3df 6px,
+        #fbefec 6px,
+        #fbefec 12px
+    );
+}
+
+/* ===== Galería ===== */
+.perfil-galeria {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.foto-item,
+.foto-agregar {
+    position: relative;
+    width: 100px;
+    height: 76px;
+    border-radius: 8px;
+}
+
+.foto-item {
+    overflow: visible;
+}
+
+.foto-item img,
+.foto-item .placeholder-rayado {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.foto-item .placeholder-rayado {
+    position: absolute;
+}
+
+.foto-quitar {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: var(--pf-rojo);
+    color: #fff;
+    font-size: 0.95rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.foto-quitar:hover {
+    background: var(--pf-rojo-oscuro);
+}
+
+.foto-agregar {
+    border: 1px solid var(--pf-borde);
+    background: #fff;
+    color: var(--pf-rojo);
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.foto-agregar:hover {
+    background: #fff6f4;
+}
+
+/* ===== Columna del logotipo ===== */
+.perfil-logo-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.perfil-logo-col .perfil-label {
+    margin-bottom: 0;
+}
+
+.logo-caja {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--pf-borde);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-caja img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo-texto {
+    position: relative;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem;
+    color: var(--pf-suave);
+}
+
+.btn-logo {
+    background: #fff;
+    color: var(--pf-rojo);
+    border: 1px solid var(--pf-rojo);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-logo:hover {
+    background: #fff3f1;
+}
+
+.perfil-sin-guardar {
+    margin: 0.25rem 0 0;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: var(--pf-aviso-texto);
+    background: var(--pf-aviso-bg);
+    border: 1px solid var(--pf-aviso-borde);
+    border-radius: 8px;
+}
+
+/* ===== Acciones ===== */
+.perfil-acciones {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.25rem;
+}
+
+.btn-cancelar,
+.btn-guardar {
+    border-radius: 8px;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-cancelar {
+    background: #fff;
+    color: var(--pf-texto);
+    border: 1px solid var(--pf-borde);
+}
+
+.btn-cancelar:hover:not(:disabled) {
+    background: #faf5f2;
+}
+
+.btn-guardar {
+    background: var(--pf-rojo);
+    color: #fff;
+    border: 1px solid var(--pf-rojo);
+}
+
+.btn-guardar:hover:not(:disabled) {
+    background: var(--pf-rojo-oscuro);
+}
+
+.btn-cancelar:disabled,
+.btn-guardar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.perfil-aviso {
+    margin: 0.9rem 0 0;
+    font-size: 0.85rem;
+    color: #2f7a3a;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .perfil-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .perfil-fila-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .perfil-logo-col {
+        order: -1;
+        max-width: 220px;
+    }
+}

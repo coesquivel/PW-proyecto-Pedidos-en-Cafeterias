@@ -1,0 +1,210 @@
+.enterprise-navbar {
+    width: 100%;
+    height: 52px;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px 0 28px;
+    box-sizing: border-box;
+    background: #211815;
+    color: #FFFFFF;
+    border-bottom: 1px solid #3A302C;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.enterprise-navbar__left {
+    height: 100%;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow: hidden;
+}
+
+.enterprise-navbar__brand {
+    flex-shrink: 0;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.enterprise-navbar__separator {
+    margin: 0 8px;
+    color: #8D817B;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.enterprise-navbar__panel {
+    flex-shrink: 0;
+    color: #AFA5A0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.enterprise-navbar__sede {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    margin-left: 14px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    border: 1px solid #4B403B;
+    border-radius: 7px;
+    background: #2A211E;
+    color: #D8D0CC;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.enterprise-navbar__sede:hover {
+    background: #312622;
+    border-color: #62554E;
+}
+
+.enterprise-navbar__sede-name {
+    color: #D8D0CC;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.enterprise-navbar__chevron {
+    margin-left: 8px;
+    color: #9E938E;
+    font-size: 11px;
+    line-height: 1;
+}
+
+.enterprise-navbar__right {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+.enterprise-navbar__status {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.enterprise-navbar__status-label {
+    color: #A99F9A;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.enterprise-navbar__status-button {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.enterprise-navbar__status-button--open   { background: #6BAE35; color: #FFFFFF; }
+.enterprise-navbar__status-button--closed { background: #B4322B; color: #FFFFFF; }
+
+.enterprise-navbar__status-dot {
+    width: 8px;
+    height: 8px;
+    margin-right: 6px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.enterprise-navbar__status-chevron {
+    margin-left: 8px;
+    font-size: 10px;
+    opacity: 0.85;
+}
+
+.enterprise-navbar__user {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 6px;
+    box-sizing: border-box;
+    border: 1px solid #4B403B;
+    border-radius: 7px;
+    background: #211815;
+    color: #D8D0CC;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.enterprise-navbar__user:hover {
+    background: #2A211E;
+    border-color: #62554E;
+}
+
+.enterprise-navbar__avatar {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #E8E2DE;
+    color: #6C5E57;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.enterprise-navbar__user-name {
+    margin-left: 8px;
+    color: #D8D0CC;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.enterprise-navbar__user-chevron {
+    margin-left: 8px;
+    color: #9E938E;
+    font-size: 10px;
+    line-height: 1;
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+    .enterprise-navbar { padding-left: 16px; padding-right: 12px; }
+    .enterprise-navbar__status-label,
+    .enterprise-navbar__panel,
+    .enterprise-navbar__separator { display: none; }
+}
+
+@media (max-width: 520px) {
+    .enterprise-navbar__sede,
+    .enterprise-navbar__user-name,
+    .enterprise-navbar__user-chevron { display: none; }
+    .enterprise-navbar__user { width: 36px; padding: 0; justify-content: center; }
+}
+
+@media (max-width: 380px) {
+    .enterprise-navbar { padding-left: 12px; padding-right: 10px; }
+    .enterprise-navbar__status { display: none; }
+}

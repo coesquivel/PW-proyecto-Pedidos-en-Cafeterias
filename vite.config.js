@@ -22,6 +22,8 @@ export default defineConfig(({ mode }) => {
         input: {
           'web': resolve(__dirname, 'src/entries/web.jsx'),
           'admin': resolve(__dirname, 'src/entries/admin.jsx'),
+          'owner': resolve(__dirname, 'src/entries/owner.jsx'),
+          'enterprise': resolve(__dirname, 'src/entries/enterprise.jsx'),
         },
         output: {
           entryFileNames: `js/[name]${minSuffix}.js`,
@@ -36,10 +38,10 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      port: 3000,
+      port: 3005,
       proxy: {
-        '/api': 'http://localhost:4000',
-        '/healthz': 'http://localhost:4000'
+        '/api': 'http://localhost:4005',
+        '/healthz': 'http://localhost:4005'
       }
     }
   }

@@ -1,0 +1,30 @@
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background-color: var(--marron);
+            color: white;
+            padding: 12px 0;
+            font-size: 0.75rem;
+        }
+
+        .footer-brand {
+            font-weight: 700;
+            color: white;
+            margin-right: 20px;
+        }
+
+        .footer-link {
+            color: #c4b8b3;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .copyright {
+            color: #8c7e78;
+        }

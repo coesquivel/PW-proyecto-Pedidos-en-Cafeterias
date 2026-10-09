@@ -38,7 +38,7 @@ export default function bootstrap(app) {
   app.use((req, res, next) => {
     const allowedOrigins = process.env.CORS_ORIGIN 
       ? process.env.CORS_ORIGIN.split(',') 
-      : ['https://*.vercel.app', 'http://localhost:4000', 'http://localhost:3000'];
+      : ['https://*.vercel.app', 'http://localhost:4005', 'http://localhost:3005'];
     
     const origin = req.headers.origin;
     if (allowedOrigins.includes('*') || (origin && allowedOrigins.some(allowed => origin.includes(allowed.replace('*', ''))))) {

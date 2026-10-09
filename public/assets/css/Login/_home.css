@@ -1,0 +1,324 @@
+:root {
+    --rojo: #df3d2e;
+    --rojo-hover: #c83225;
+    --crema: #fffaf7;
+    --rosa: #fde9e5;
+    --marron: #281a16;
+    --gris: #756b67;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: white;
+    color: #29201d;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================
+    LOGIN
+========================== */
+
+.login-wrapper {
+    flex: 1;
+    display: flex;
+}
+
+.login-left {
+    background-color: var(--rosa);
+    padding: 45px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-left-content {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.login-left h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #281a16;
+    margin: 0 0 12px;
+}
+
+.login-left p {
+    color: #7d726e;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 22px;
+}
+
+.login-img-container {
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.login-img-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.login-right {
+    background-color: #faf8f7;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================
+    LOGIN CARD
+========================== */
+
+.login-card {
+    background-color: white;
+    border-radius: 14px;
+    padding: 30px 28px;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.login-card h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #281a16;
+    margin: 0 0 20px;
+}
+
+.form-label-custom {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #796d68;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.form-control-custom {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #e8e2df;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 0.85rem;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-control-custom:focus {
+    border-color: var(--rojo);
+    box-shadow: 0 0 0 2px rgba(223, 61, 46, 0.1);
+}
+
+.form-check-label {
+    font-size: 0.75rem;
+    color: #796d68;
+}
+
+.forgot-link {
+    color: var(--rojo);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.forgot-link:hover {
+    color: var(--rojo-hover);
+    text-decoration: underline;
+}
+
+.btn-submit {
+    background-color: var(--rojo);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    height: 40px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: var(--rojo-hover);
+}
+
+.register-text {
+    text-align: center;
+    font-size: 0.78rem;
+    color: #796d68;
+    margin: 14px 0 0;
+}
+
+.register-text a {
+    color: var(--rojo);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.register-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+    TABLET
+========================== */
+
+@media (max-width: 991px) {
+    .login-wrapper {
+        flex-direction: column;
+    }
+
+    .login-left {
+        padding: 35px 20px;
+    }
+
+    .login-right {
+        padding: 30px 20px;
+    }
+
+    .login-left-content {
+        max-width: 600px;
+    }
+}
+
+/* =========================
+    CELULAR
+========================== */
+
+@media (max-width: 767px) {
+    .navbar {
+        min-height: 52px;
+    }
+
+    .navbar .nav-link {
+        padding: 8px 0 !important;
+    }
+
+    .btn-login {
+        display: inline-block;
+        margin: 10px 15px 10px 0;
+    }
+
+    .btn-register-outline {
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .login-left {
+        padding: 25px 16px;
+    }
+
+    .login-left h1 {
+        font-size: 1.55rem;
+        margin-bottom: 8px;
+    }
+
+    .login-left p {
+        font-size: 0.82rem;
+        margin-bottom: 15px;
+    }
+
+    .login-img-container {
+        border-radius: 10px;
+    }
+
+    .login-right {
+        padding: 20px 16px;
+    }
+
+    .login-card {
+        padding: 24px 20px;
+        border-radius: 12px;
+    }
+
+    .login-card h2 {
+        font-size: 1.2rem;
+        margin-bottom: 18px;
+    }
+
+    footer {
+        padding: 12px 0;
+    }
+
+    footer .container-fluid {
+        gap: 8px;
+    }
+
+    .footer-brand,
+    .footer-link {
+        margin-right: 12px;
+    }
+
+    .copyright {
+        width: 100%;
+    }
+}
+
+/* =========================
+    CELULAR PEQUEÑO
+========================== */
+
+@media (max-width: 480px) {
+    .login-left {
+        padding: 20px 14px;
+    }
+
+    .login-left h1 {
+        font-size: 1.4rem;
+    }
+
+    .login-left p {
+        font-size: 0.78rem;
+    }
+
+    .login-right {
+        padding: 16px 12px;
+    }
+
+    .login-card {
+        padding: 22px 17px;
+    }
+
+    .form-control-custom {
+        height: 38px;
+        font-size: 0.8rem;
+    }
+
+    .btn-submit {
+        height: 38px;
+        font-size: 0.85rem;
+    }
+
+    footer {
+        font-size: 0.68rem;
+    }
+
+    .footer-brand,
+    .footer-link {
+        margin-right: 8px;
+    }
+}

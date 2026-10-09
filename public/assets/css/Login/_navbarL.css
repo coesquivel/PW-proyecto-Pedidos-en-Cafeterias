@@ -1,0 +1,54 @@
+       /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            background-color: white;
+            min-height: 55px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .navbar-brand {
+            color: var(--rojo) !important;
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+
+        .navbar .nav-link {
+            color: #655d5a;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 8px 14px !important;
+        }
+
+        .navbar .nav-link:hover {
+            color: var(--rojo);
+        }
+
+        .btn-login {
+            color: var(--rojo);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .btn-login:hover {
+            color: var(--rojo-hover);
+        }
+
+        .btn-register-outline {
+            background-color: transparent;
+            color: var(--rojo);
+            border: 1px solid var(--rojo);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 18px;
+            text-decoration: none;
+        }
+
+        .btn-register-outline:hover {
+            background-color: var(--rojo);
+            color: white;
+        }
