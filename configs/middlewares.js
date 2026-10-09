@@ -145,6 +145,31 @@ export function redirecionarSiLogueado(req, res, next) {
   next();
 }
 
+// Verificar que el usuario tenga el rol autorizado
+export function requireRole(rolePermitido) {
+ return (req, res, next) => {
+  // Verificar si existe una sesión autenticada
+  const isAuthenticated = req.session && req.session.correo && req.session.role;
+
+  // Si no ha iniciado sesión, redirigir al login
+  if (!isAuthenticated) { return res.redirect('/login'); }
+
+  // Si el rol no corresponde, enviarlo a su propia vista
+  // if (req.session.role !== rolePermitido) { return res.redirect(`/${req.session.role}`); }
+
+  // Si el rol no corresponde, error
+  if (req.session.role !== rolePermitido){
+    return res.status(401).render('401',{
+      title: 'Acceso no autorizado',
+      message: `Debes tener el rol de ${req.session.role}`,
+      statusCode: 401,
+    }
+
+    )
+  }
+
+  // El usuario tiene permiso para acceder
+  next(); }; }
 
 export function viewFlash(req, res, next) {
   res.locals.successMessage = req.flash('success');
