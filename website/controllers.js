@@ -3,6 +3,7 @@ export function home(req, res) {
   return res.render('website/home', {
     title: 'Crear cuenta :)',
     currentPage: 'home',
+    log_in_out: esta_logeado(req),
     description:
       'Esta es una aplicación de ejemplo creada con Node.js, Express y EJS.'
   });
@@ -63,4 +64,14 @@ return res.render('website/login', {
     title: 'Login',
     mensaje: 'No encontrado',
   });
+}
+
+function esta_logeado(req) {
+  const isAuthenticated = req.session && req.session.correo && req.session.role;
+  let b = 'Cerrar sesión';
+  if (!isAuthenticated) {
+    req.session.role = null;
+    b = 'Iniciar sesión';
+  }
+  return b;
 }
