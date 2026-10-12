@@ -16,6 +16,7 @@ import Agotados from '../pages/Agotados/Agotados';
 import Perfil from '../pages/Perfil/Perfil';
 import Horario from '../pages/Horario/Horario';
 import Micarta from '../pages/Micarta/Micarta';
+import Resenas from '../pages/Resenas/Resenas';
 // import Agotados from '../pages/Agotados';
 
 // 3. CSS base
@@ -46,6 +47,7 @@ function EnterpriseApp() {
             <Route path="/enterprises/perfil" element={<Perfil />} />
             <Route path="/enterprises/horario" element={<Horario />} />
             <Route path="/enterprises/Micarta" element={<Micarta />} />
+            <Route path="/enterprises/Resenas" element={<Resenas />} />
             {/* <Route path="/enterprises/agotados" element={<Agotados />} /> */}
           </Routes>
 

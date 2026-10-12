@@ -22,5 +22,6 @@ router.get('/enterprises/Micarta', requireRole('enterprises'), enterprises.Micar
 router.get('/enterprises/agotados', requireRole('enterprises'), enterprises.agotados);
 router.get('/enterprises/perfil', requireRole('enterprises'), enterprises.perfil);
 router.get('/enterprises/horario', requireRole('enterprises'), enterprises.horario);
+router.get('/enterprises/resenas', requireRole('enterprises'), enterprises.resenas);
 
 export default router;
