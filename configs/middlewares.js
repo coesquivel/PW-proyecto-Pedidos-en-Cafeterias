@@ -157,11 +157,14 @@ export function requireRole(rolePermitido) {
   // Si el rol no corresponde, enviarlo a su propia vista
   // if (req.session.role !== rolePermitido) { return res.redirect(`/${req.session.role}`); }
 
+  const printRole = rolePermitido.toLowerCase()
+  .split(' ').map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1)).join(' ');
+
   // Si el rol no corresponde, error
   if (req.session.role !== rolePermitido){
-    return res.status(401).render('401',{
+    return res.status(401).render('401_RequireRol',{
       title: 'Acceso no autorizado',
-      message: `Debes tener el rol de ${req.session.role}`,
+      message: `Debes tener el rol de ${printRole}`,
       statusCode: 401,
     }
 

@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+  >
+
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="/dist/css/index.css">
+
+  <title>404 | Página no encontrada</title>
+
+  <style>
+    /* ==============================
+       CONFIGURACIÓN GENERAL
+    ============================== */
+
+    :root {
+      /* Colores */
+      --error-bg: #fdf9f6;
+      --error-text: #30221e;
+      --error-muted: #826d64;
+      --error-primary: #df3e32;
+      --error-primary-hover: #c93228;
+      --error-border: #f0e5df;
+      --error-icon-bg: #fce9e6;
+
+      /* ESCALA GLOBAL DE TIPOGRAFÍA */
+      --error-font-scale: 1.45;
+
+      /* Tamaños base de fuente */
+      --error-label-size: 10px;
+      --error-title-size: clamp(24px, 4vw, 30px);
+      --error-message-size: 13px;
+      --error-button-size: 11px;
+
+      /* Tamaños de fuente responsive */
+      --error-title-mobile-size: 25px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background-color: var(--error-bg);
+      color: var(--error-text);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ==============================
+       CONTENEDOR PRINCIPAL
+    ============================== */
+
+    .error-page {
+      width: 100%;
+      max-width: 560px;
+      margin: auto;
+      text-align: center;
+    }
+
+    /* ==============================
+       ICONO
+    ============================== */
+
+    .error-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 54px;
+      height: 54px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background-color: var(--error-icon-bg);
+      color: var(--error-primary);
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    /* ==============================
+       ETIQUETA DEL ERROR
+    ============================== */
+
+    .error-label {
+      margin: 0 0 7px;
+      color: var(--error-primary);
+      font-size: calc(
+        var(--error-label-size) * var(--error-font-scale)
+      );
+      font-weight: 700;
+      letter-spacing: 1.7px;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    /* ==============================
+       TÍTULO Y DESCRIPCIÓN
+    ============================== */
+
+    .error-title {
+      margin: 0;
+      color: var(--error-text);
+      font-size: clamp(
+        calc(24px * var(--error-font-scale)),
+        calc(4vw * var(--error-font-scale)),
+        calc(30px * var(--error-font-scale))
+      );
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.8px;
+    }
+
+    .error-message {
+      max-width: 470px;
+      margin: 9px auto 0;
+      color: var(--error-muted);
+      font-size: calc(
+        var(--error-message-size) * var(--error-font-scale)
+      );
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* ==============================
+       BOTONES
+    ============================== */
+
+    .error-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 17px;
+    }
+
+    .error-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 37px;
+      padding: 10px 18px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: calc(
+        var(--error-button-size) * var(--error-font-scale)
+      );
+      font-weight: 700;
+      line-height: 1.2;
+      text-decoration: none;
+      cursor: pointer;
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+    }
+
+    .error-button-primary {
+      background-color: var(--error-primary);
+      border-color: var(--error-primary);
+      color: #fff;
+    }
+
+    .error-button-primary:hover {
+      background-color: var(--error-primary-hover);
+      border-color: var(--error-primary-hover);
+      color: #fff;
+    }
+
+    .error-button-secondary {
+      background-color: transparent;
+      border-color: var(--error-border);
+      color: var(--error-text);
+    }
+
+    .error-button-secondary:hover {
+      background-color: #f7eee9;
+      border-color: #e8d8cf;
+      color: var(--error-text);
+    }
+
+    .error-button:focus-visible {
+      outline: 3px solid #df3e3255;
+      outline-offset: 3px;
+    }
+
+    /* ==============================
+       RESPONSIVE
+    ============================== */
+
+    @media (max-width: 480px) {
+      body {
+        padding: 20px;
+      }
+
+      .error-icon {
+        width: 52px;
+        height: 52px;
+        margin-bottom: 18px;
+      }
+
+      .error-title {
+        font-size: calc(
+          var(--error-title-mobile-size) * var(--error-font-scale)
+        );
+      }
+
+      .error-message {
+        font-size: calc(
+          var(--error-message-size) * var(--error-font-scale)
+        );
+      }
+
+      .error-actions {
+        gap: 10px;
+      }
+
+      .error-button {
+        min-height: 40px;
+        padding: 11px 16px;
+      }
+    }
+
+    /* ==============================
+       ACCESIBILIDAD
+    ============================== */
+
+    @media (prefers-reduced-motion: reduce) {
+      .error-button {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="error-page" role="main">
+
+    <!-- Icono -->
+    <div class="error-icon" aria-hidden="true">
+      <i class="fa-solid fa-lock"></i>
+    </div>
+
+    <!-- Código y título -->
+    <p class="error-label">
+      Error 404
+    </p>
+
+    <h1 class="error-title">
+      Acceso no Autorizado
+    </h1>
+
+    <!-- Mensaje -->
+    <p class="error-message">
+      <%= message || 'El enlace pudo cambiar o el producto ya no está en la carta del local. Busca en el directorio o vuelve al inicio.' %>
+    </p>
+
+    <!-- Acciones -->
+    <div class="error-actions">
+
+      <a href="/" class="error-button error-button-primary">
+        Volver al inicio
+      </a>
+
+      <a href="/login" class="error-button error-button-secondary">
+        Cerrar sesión
+      </a>
+
+    </div>
+
+  </main>
+
+</body>
+</html>
