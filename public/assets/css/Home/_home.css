@@ -155,6 +155,16 @@ body {
     text-decoration: underline;
 }
 
+/* Quitar el subrayado de los enlaces de las tarjetas */
+.local-card-link,
+.local-card-link:hover,
+.local-card-link:focus,
+.local-card-link:visited,
+.local-card-link:active {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* =========================
     TARJETAS DE LOCALES
 ========================= */
