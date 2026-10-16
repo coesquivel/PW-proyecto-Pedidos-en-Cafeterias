@@ -93,3 +93,11 @@ function esta_logeado(req) {
   }
   return b;
 }
+
+export const crearCuenta = (req, res) => {
+  res.render('website/CrearCuenta');
+};
+
+export const RecuperarContrasena = (req, res) => {
+  res.render('website/RecuperarContrasena');
+};
