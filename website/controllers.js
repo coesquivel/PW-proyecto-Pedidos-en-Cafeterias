@@ -10,9 +10,14 @@ export function home(req, res) {
 }
 
 export function login(req, res) { 
-  return res.render('website/login', {
+  res.render('website/login', {
     title: 'Login',
-    
+  });
+}
+
+export function register(req, res) { 
+  res.render('website/register', {
+    title: 'register',
   });
 }
 
