@@ -13,13 +13,10 @@ router.post('/login', controller.ingresar);
 router.get('/register', controller.register);
 router.get('/locales', controller.locales);
 router.get('/locales/:id', controller.detalleLocal);
-
 router.post('/sign-in', redirectIfAuthenticated, controller.login);
 router.get('/sign-out', requireAuth, controller.logout);
-router.get('/api/v1/sessions', api.sessionInfo);
-
-router.get('/register', redirectIfAuthenticated, controller.crearCuenta);
 router.get('/RecuperarContrasena', redirectIfAuthenticated, controller.RecuperarContrasena);
 
+router.get('/api/v1/sessions', api.sessionInfo);
 
 export default router;

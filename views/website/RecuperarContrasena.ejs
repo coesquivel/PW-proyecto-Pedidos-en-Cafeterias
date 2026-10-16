@@ -9,118 +9,13 @@
   <link rel="stylesheet" href="/assets/css/Login/_navbarL.css">
   <link rel="stylesheet" href="/assets/css/Login/_footerL.css">
   <link rel="stylesheet" href="/assets/css/Login/_home.css">
-  
- 
-  <style>
-    :root {
-      --bs-body-font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
-      --bs-body-font-size: .875rem;
-      --bs-body-color: #302522;
-      --bs-body-bg: #fffaf8;
-      --cp-red: #dc3d2d;
-      --cp-red-dark: #c93427;
-      --cp-muted: #78645e;
-      --cp-line: #f0e5e1;
-      --cp-green: #4f9d2d;
-      --cp-amber: #e0a100;
-    }
- 
-    .font-display { font-family: Poppins, Inter, sans-serif; }
- 
-    /* Botones */
-    .btn-primary {
-      --bs-btn-bg: var(--cp-red);
-      --bs-btn-border-color: var(--cp-red);
-      --bs-btn-hover-bg: var(--cp-red-dark);
-      --bs-btn-hover-border-color: var(--cp-red-dark);
-      --bs-btn-active-bg: var(--cp-red-dark);
-      --bs-btn-active-border-color: var(--cp-red-dark);
-      --bs-btn-disabled-bg: var(--cp-red);
-      --bs-btn-disabled-border-color: var(--cp-red);
-      --bs-btn-focus-shadow-rgb: 220, 61, 45;
-      --bs-btn-border-radius: .5625rem;
-      --bs-btn-font-size: .75rem;
-      --bs-btn-font-weight: 700;
-    }
-    .btn-outline-cp {
-      --bs-btn-color: var(--cp-red);
-      --bs-btn-border-color: #f0a59c;
-      --bs-btn-hover-color: var(--cp-red);
-      --bs-btn-hover-bg: #fff5f2;
-      --bs-btn-hover-border-color: var(--cp-red);
-      --bs-btn-active-color: var(--cp-red);
-      --bs-btn-active-bg: #fff5f2;
-      --bs-btn-active-border-color: var(--cp-red);
-      --bs-btn-border-radius: .6875rem;
-      --bs-btn-padding-x: 1.05rem;
-      --bs-btn-padding-y: .6rem;
-      --bs-btn-font-size: .75rem;
-      --bs-btn-font-weight: 600;
-    }
-    /* Botón secundario suave ("Reenviar enlace") */
-    .btn-soft {
-      --bs-btn-color: var(--bs-body-color);
-      --bs-btn-bg: #fff;
-      --bs-btn-border-color: #f0d5cf;
-      --bs-btn-hover-color: var(--cp-red-dark);
-      --bs-btn-hover-bg: #fff5f2;
-      --bs-btn-hover-border-color: #e9b9b0;
-      --bs-btn-active-bg: #fff5f2;
-      --bs-btn-active-border-color: var(--cp-red);
-      --bs-btn-disabled-color: var(--bs-body-color);
-      --bs-btn-disabled-bg: #fff;
-      --bs-btn-disabled-border-color: #f0d5cf;
-      --bs-btn-disabled-opacity: .75;
-      --bs-btn-border-radius: .5625rem;
-      --bs-btn-font-size: .75rem;
-      --bs-btn-font-weight: 600;
-    }
-    /* Indicador de pasos */
-    .step { width: 24px; height: 24px; flex: 0 0 24px; border: 1px solid #eadbd5; background: #fff; color: #8c7770; font-size: .6875rem; transition: background .2s, border-color .2s, color .2s; }
-    .step.active, .step.done { border-color: var(--cp-red); background: var(--cp-red); color: #fff; font-weight: 700; }
-    .step-line { height: 1px; margin: 0 7px; background: #eadbd5; }
- 
-    /* Tarjeta */
-    .recovery { width: min(100%, 464px); }
-    .card-cp { padding: 24px 22px 20px; border: 1px solid #f0e8e4; border-radius: 13px; box-shadow: 0 7px 20px rgba(77, 44, 34, .08); }
-    .card-cp h1 { font-size: 1.25rem; letter-spacing: -.35px; }
-    .card-cp h1:focus { outline: none; }
-    .intro { color: var(--cp-muted); font-size: .78rem; line-height: 1.55; }
-    .hint { color: var(--cp-muted); font-size: .6875rem; }
- 
-    /* Formulario */
-    .form-label { color: #6f5750; font-size: .625rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-    .form-control { height: 42px; border-color: var(--cp-line); border-radius: .5625rem; font-size: .75rem; }
-    .form-control::placeholder { color: #9b8983; }
-    .form-control:focus { border-color: #e27265; box-shadow: 0 0 0 3px rgba(220, 61, 45, .12); }
-    .alert-cp { padding: 10px 12px; border: 0; border-radius: 8px; color: #8a342b; background: #fff2ef; font-size: .75rem; }
- 
-    /* Paso 2: icono */
-    .icon-circle { width: 48px; height: 48px; border-radius: 50%; background: #fde6e1; color: var(--cp-red); }
- 
-    /* Paso 3: medidor de seguridad */
-    .strength .progress { flex: 1; height: 4px; background: #eadbd5; border-radius: 4px; }
-    .strength .progress-bar { width: 0; background: var(--cp-red); transition: width .25s, background-color .25s; }
-    .strength-label { min-width: 44px; text-align: right; font-size: .6875rem; font-weight: 600; }
- 
- 
-  </style>
+  <link rel="stylesheet" href="/assets/css/Login/_olvide.css">
+
 </head>
 <body class="min-vh-100 d-flex flex-column">
  
-  <!-- Navbar -->
-  <header class="navbar navbar-cp d-flex align-items-center gap-4">
-    <a class="navbar-brand font-display fw-bold" href="/" aria-label="Campus Pide, inicio">Campus Pide</a>
-    <nav class="d-none d-md-flex align-items-center gap-4" aria-label="Navegación principal">
-      <a class="nav-link" href="/locales">Locales</a>
-      <a class="nav-link" href="/como-funciona">Cómo funciona</a>
-      <a class="nav-link" href="/registrar-local">Registrar mi local</a>
-    </nav>
-    <div class="ms-auto d-flex align-items-center gap-3 gap-md-4">
-      <a class="link-cp" href="/iniciar-sesion">Iniciar sesión</a>
-      <a class="btn btn-outline-cp" href="/crear-cuenta">Crear cuenta</a>
-    </div>
-  </header>
+    <!-- NAVBAR -->
+    <%- include('partials/Login/_navbar') %>
  
   <main class="flex-grow-1 d-flex align-items-center justify-content-center px-3 py-5">
     <section class="recovery">
