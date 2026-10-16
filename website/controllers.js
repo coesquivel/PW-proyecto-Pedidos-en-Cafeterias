@@ -14,3 +14,17 @@ export function login(req, res) {
     
   });
 }
+
+export function registrarLocal(req, res) { 
+  return res.render('website/registrarLocal', {
+    title: 'registrarLocal',
+    
+  });
+}
+
+export function comoFunciona(req, res) { 
+  return res.render('website/comoFunciona', {
+    title: 'comoFunciona',
+    
+  });
+}

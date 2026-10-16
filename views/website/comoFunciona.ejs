@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cómo funciona | Campus Pide</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Tipografía del sistema de diseño -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Estilos compartidos del Navbar y Footer -->
+    <link rel="stylesheet" href="/assets/css/Home/_navbarH.css">
+    <link rel="stylesheet" href="/assets/css/Home/_footerH.css">
+    <link rel="stylesheet" href="/assets/css/ComoFunciona/_comoFunciona.css">
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR COMPARTIDO -->
+    <%- include('partials/Home/_navbar') %>
+
+    <main class="page-container">
+
+        <!-- HERO: PRESENTACIÓN -->
+        <section class="hero">
+
+            <div class="hero-content">
+                <div class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    Tu campus, más práctico
+                </div>
+
+                <h1>
+                    Tu comida lista,
+                    <span>sin hacer cola.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Con Campus Pide puedes explorar las cafeterías del campus,
+                    elegir tus productos favoritos y programar la hora de recojo.
+                    Tú decides qué pedir y cuándo recogerlo.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#pasos" class="btn-custom btn-secondary-custom">
+                        Conocer el proceso
+                    </a>
+                </div>
+
+                <div class="hero-note">
+                    <svg width="17" height="17" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="m8 12 3 3 5-6"></path>
+                    </svg>
+                    <span>
+                        Realiza tu pedido con anticipación y paga directamente
+                        en el punto de recojo.
+                    </span>
+                </div>
+            </div>
+
+            <!-- TARJETA ILUSTRATIVA DEL PEDIDO -->
+            <div class="hero-visual">
+                <div class="order-window">
+
+                    <div class="window-header">
+                        <div>
+                            <div class="window-title">Tu pedido</div>
+                            <div class="window-subtitle">
+                                Ejemplo de pedido confirmado
+                            </div>
+                        </div>
+
+                        <span class="status-pill status-ready">
+                            <span>●</span> Listo para recoger
+                        </span>
+                    </div>
+
+                    <div class="product-row">
+                        <div class="product-image" aria-hidden="true">🥪</div>
+
+                        <div class="product-info">
+                            <div class="product-name">Sándwich especial</div>
+                            <div class="product-detail">
+                                1 unidad · Sin cebolla
+                            </div>
+                        </div>
+
+                        <div class="product-price">S/ 12.50</div>
+                    </div>
+
+                    <div class="product-row">
+                        <div class="product-image green" aria-hidden="true">🥤</div>
+
+                        <div class="product-info">
+                            <div class="product-name">Jugo de naranja</div>
+                            <div class="product-detail">
+                                1 unidad · Mediano
+                            </div>
+                        </div>
+
+                        <div class="product-price">S/ 5.00</div>
+                    </div>
+
+                    <div class="order-total">
+                        <span>Total del pedido</span>
+                        <strong>S/ 17.50</strong>
+                    </div>
+
+                    <div class="pickup-box">
+                        <div class="pickup-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="1.8" stroke-linecap="round"
+                                 stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <path d="M12 7v5l3 2"></path>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <div class="pickup-label">Hora de recojo</div>
+                            <div class="pickup-time">11:30 a. m.</div>
+                        </div>
+
+                        <div class="pickup-code">
+                            <div class="pickup-label">Código</div>
+                            <strong>CP-024</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="floating-badge">
+                    <div class="floating-icon">
+                        <svg width="19" height="19" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" aria-hidden="true">
+                            <path d="m5 12 4 4L19 6"></path>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <strong>¡Pedido preparado!</strong>
+                        <span>Ya puedes acercarte al local</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENEFICIOS PRINCIPALES -->
+        <section class="benefits" aria-label="Beneficios de Campus Pide">
+            <article class="benefit">
+                <div class="benefit-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M12 7v5l3 2"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h3>Ahorra tiempo</h3>
+                    <p>Programa tu recojo y evita esperar en la cola para realizar tu pedido.</p>
+                </div>
+            </article>
+
+            <article class="benefit">
+                <div class="benefit-icon green">
+                    <svg width="22" height="22" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 8H6"></path>
+                        <circle cx="10" cy="21" r="1"></circle>
+                        <circle cx="19" cy="21" r="1"></circle>
+                    </svg>
+                </div>
+                <div>
+                    <h3>Elige a tu manera</h3>
+                    <p>Revisa las cartas, compara precios y personaliza tus productos disponibles.</p>
+                </div>
+            </article>
+
+            <article class="benefit">
+                <div class="benefit-icon yellow">
+                    <svg width="22" height="22" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h3>Pedido identificado</h3>
+                    <p>Consulta el avance de tu pedido y utiliza su código al momento de recogerlo.</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- CÓMO FUNCIONA: CUATRO PASOS -->
+        <section class="steps-section" id="pasos">
+            <div class="section-heading">
+                <div class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    Así de sencillo
+                </div>
+                <h2 class="section-title">Tu pedido en 4 pasos</h2>
+                <p class="section-description">
+                    Desde que eliges qué comer hasta que recoges tu pedido,
+                    todo el proceso está pensado para que aproveches mejor tu tiempo en el campus.
+                </p>
+            </div>
+
+            <div class="steps-grid">
+                <article class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">
+                        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path><path d="M8 11h6"></path></svg>
+                    </div>
+                    <h3>Explora los locales</h3>
+                    <p>Consulta las cafeterías disponibles en el campus, revisa sus horarios y descubre sus cartas.</p>
+                    <span class="step-tag">Encuentra tu favorito</span>
+                </article>
+
+                <article class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">
+                        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </div>
+                    <h3>Arma tu pedido</h3>
+                    <p>Agrega productos al carrito, elige las opciones disponibles y verifica el total.</p>
+                    <span class="step-tag">Personaliza tu compra</span>
+                </article>
+
+                <article class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">
+                        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h18"></path><path d="m9 15 2 2 4-4"></path></svg>
+                    </div>
+                    <h3>Confirma y programa</h3>
+                    <p>Confirma tu pedido, selecciona una hora de recojo válida y guarda el código generado.</p>
+                    <span class="step-tag">Elige tu hora</span>
+                </article>
+
+                <article class="step-card">
+                    <div class="step-number">04</div>
+                    <div class="step-icon">
+                        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v13H3z"></path><path d="M7 7V4h10v3"></path><path d="m8 13 2.5 2.5L16 10"></path></svg>
+                    </div>
+                    <h3>Recoge y disfruta</h3>
+                    <p>Sigue el estado de tu pedido, acércate al local y presenta el código para recibirlo.</p>
+                    <span class="step-tag">¡A disfrutar!</span>
+                </article>
+            </div>
+        </section>
+
+        <!-- PREGUNTAS FRECUENTES -->
+        <section class="faq-section" id="preguntas">
+            <div class="section-heading">
+                <div class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    Resolvemos tus dudas
+                </div>
+                <h2 class="section-title">Preguntas frecuentes</h2>
+                <p class="section-description">Lo que necesitas saber antes de realizar tu primer pedido.</p>
+            </div>
+
+            <div class="faq-list">
+                <article class="faq-item open">
+                    <button class="faq-question" type="button" aria-expanded="true">
+                        ¿Necesito una cuenta para realizar pedidos?
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"></path></svg>
+                    </button>
+                    <div class="faq-answer">
+                        Puedes explorar los locales y consultar sus cartas como visitante. Para confirmar pedidos, hacer seguimiento y calificarlos, necesitas registrarte e iniciar sesión como comensal.
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" type="button" aria-expanded="false">
+                        ¿Cómo elijo la hora para recoger mi pedido?
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"></path></svg>
+                    </button>
+                    <div class="faq-answer">
+                        Al confirmar tu pedido, selecciona una hora disponible dentro del horario de atención del local. La hora debe respetar el tiempo estimado de preparación y la hora de cierre.
+                    </div>
+                </article>
+
+                <article class="faq-item">
+                    <button class="faq-question" type="button" aria-expanded="false">
+                        ¿Cómo pago mi pedido?
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"></path></svg>
+                    </button>
+                    <div class="faq-answer">
+                        El pago se realiza directamente en el punto de recojo. La plataforma no incluye pasarelas de pago ni cobros en línea.
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER COMPARTIDO -->
+    <%- include('partials/Home/_footer') %>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- INTERACCIÓN DE LAS PREGUNTAS FRECUENTES -->
+    <script>
+        document.querySelectorAll('.faq-question').forEach((button) => {
+            button.addEventListener('click', () => {
+                const currentItem = button.closest('.faq-item');
+                const isOpen = currentItem.classList.contains('open');
+
+                document.querySelectorAll('.faq-item').forEach((item) => {
+                    item.classList.remove('open');
+                    const question = item.querySelector('.faq-question');
+                    if (question) question.setAttribute('aria-expanded', 'false');
+                });
+
+                if (!isOpen) {
+                    currentItem.classList.add('open');
+                    button.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
