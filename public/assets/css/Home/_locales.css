@@ -1,0 +1,193 @@
+/* Paleta Campus Pide */
+:root {
+    --cp-primary: #d93829;
+    --cp-primary-hover: #b82b1e;
+    --cp-hero-bg: #fdf0ed;
+    --cp-page-bg: #fcfaf9;
+    --cp-open-green: #4ea845;
+    --cp-closed-gray: #e9ecef;
+    --cp-text-dark: #222222;
+    --cp-text-muted: #6c757d;
+    --cp-border: #ece7e5;
+}
+
+body {
+    background-color: var(--cp-page-bg);
+    color: var(--cp-text-dark);
+}
+
+/* Header de la vista Locales */
+.locales-header {
+    background-color: var(--cp-hero-bg);
+    padding: 2.5rem 0;
+    border-bottom: 1px solid #f5dcd6;
+}
+
+.locales-header h1 {
+    font-weight: 800;
+    font-size: 2.2rem;
+    color: var(--cp-text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.locales-header p {
+    color: #555;
+    font-size: 1rem;
+}
+
+/* Breadcrumb */
+.breadcrumb-item a {
+    color: var(--cp-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.breadcrumb-item.active {
+    color: var(--cp-text-muted);
+    font-size: 0.9rem;
+}
+
+/* Barra de filtros */
+.filters-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--cp-border);
+}
+
+.filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.filter-btn {
+    background-color: #ffffff;
+    border: 1px solid var(--cp-border);
+    color: #444;
+    padding: 0.45rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    border-color: var(--cp-primary);
+    color: var(--cp-primary);
+}
+
+.filter-btn.active {
+    background-color: var(--cp-primary);
+    border-color: var(--cp-primary);
+    color: #ffffff;
+}
+
+.locales-count {
+    font-size: 0.9rem;
+    color: var(--cp-text-muted);
+}
+
+/* Enlace de tarjeta e interactividad */
+.local-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+.local-card {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid var(--cp-border);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.local-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+    border-color: #e2cfc9;
+}
+
+.local-image {
+    height: 185px;
+    overflow: hidden;
+    background-color: #f3f3f3;
+}
+
+.local-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.local-card:hover .local-image img {
+    transform: scale(1.03);
+}
+
+.time-pill {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(4px);
+    color: #222;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border-radius: 50px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.local-info {
+    padding: 1.15rem;
+    flex-grow: 1;
+}
+
+.local-specialty {
+    font-size: 0.88rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+.local-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f2efed;
+    font-size: 0.85rem;
+}
+
+.products-count {
+    color: var(--cp-text-muted);
+    font-weight: 500;
+}
+
+.action-link {
+    color: var(--cp-primary);
+    font-weight: 600;
+    transition: transform 0.2s ease;
+}
+
+.local-card:hover .action-link {
+    transform: translateX(3px);
+}
+
+/* Estado vacío */
+.empty-state {
+    background: #ffffff;
+    border: 1px dashed #dcd6d3;
+    border-radius: 14px;
+    padding: 3rem 1.5rem;
+    margin-top: 1rem;
+}

@@ -11,6 +11,8 @@ router.get('/', controller.home);
 router.get('/login', redirecionarSiLogueado, controller.login);
 router.post('/login', controller.ingresar);
 router.get('/register', controller.register);
+router.get('/locales', controller.locales);
+router.get('/locales/:id', controller.detalleLocal);
 
 router.post('/sign-in', redirectIfAuthenticated, controller.login);
 router.get('/sign-out', requireAuth, controller.logout);

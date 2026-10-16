@@ -14,7 +14,20 @@ export function login(req, res) {
     title: 'Login',
   });
 }
+export function locales(req, res) { 
+  res.render('website/locales', {
+    title: 'locales',
+  });
+}
 
+export function detalleLocal(req, res) {
+  const localId = parseInt(req.params.id, 10);
+  
+  res.render('website/local', {
+    title: 'Detalle del Local',
+    localId: localId
+  });
+}
 export function register(req, res) { 
   res.render('website/register', {
     title: 'register',
