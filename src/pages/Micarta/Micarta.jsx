@@ -192,7 +192,12 @@ const Micarta = () => {
   const handleNuevaCategoria = () => alert('Acción: Nueva categoría');
   const handleNuevoProducto = () => alert('Acción: Nuevo producto');
   const handleEditarProducto = (id) => alert(`Editar producto con ID: ${id}`);
-  const handleQuitarProducto = (id) => alert(`Quitar producto con ID: ${id}`);
+  const handleQuitarProducto = (id) => {
+  setProductsData((prev) => ({
+    ...prev,
+    [activeCategory]: prev[activeCategory].filter((p) => p.id !== id),
+  }));
+};
 
   return (
     <div className="micarta-container container-fluid p-4">
