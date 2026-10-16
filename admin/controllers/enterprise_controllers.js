@@ -45,6 +45,13 @@ export function perfil(req, res) {
     currentPage: 'perfil',
   });
 }
+
+export function PerfilVistaPrevia(req, res) {
+  return res.render('enterprises/PerfilVistaPrevia', {
+    title: 'Bienvenido Empresa',
+    currentPage: 'PerfilVistaPrevia',
+  });
+}
 export function horario(req, res) {
   return res.render('enterprises/horario', {
     title: 'Bienvenido Empresa',

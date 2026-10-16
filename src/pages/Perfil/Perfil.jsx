@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import './Perfil.css';
+import { useNavigate } from 'react-router-dom';
 
 const MAX_DESC = 240;
 const MAX_FOTOS = 6;
@@ -32,6 +33,7 @@ const unir = (items) =>
     items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} y ${items[items.length - 1]}`;
 
 export default function Perfil() {
+    const navigate = useNavigate();
     const [guardado, setGuardado] = useState({ perfil: PERFIL_INICIAL, logo: LOGO_INICIAL, fotos: FOTOS_INICIALES });
     const [perfil, setPerfil] = useState(PERFIL_INICIAL);
     const [logo, setLogo] = useState(LOGO_INICIAL);
@@ -261,7 +263,7 @@ export default function Perfil() {
                         <button type="button" className="btn-cancelar" onClick={cancelar} disabled={!hayCambios}>
                             Cancelar
                         </button>
-                        <button type="button" className="btn-guardar" onClick={guardar} disabled={!hayCambios}>
+                        <button type="button" className="btn-guardar" onClick={() => navigate('/enterprises/PerfilVistaPrevia')} disabled={!hayCambios}>
                             Guardar cambios
                         </button>
                     </div>

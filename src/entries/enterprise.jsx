@@ -14,6 +14,7 @@ import Entrega from '../pages/Entrega/Entrega';
 import OpcionesAgregados from '../pages/OpcionesAgregados/OpcionesAgregados';
 import Agotados from '../pages/Agotados/Agotados';
 import Perfil from '../pages/Perfil/Perfil';
+import PerfilVistaPrevia from '../pages/Perfil/PerfilVistaPrevia';
 import Horario from '../pages/Horario/Horario';
 import Micarta from '../pages/Micarta/Micarta';
 import Resenas from '../pages/Resenas/Resenas';
@@ -45,6 +46,7 @@ function EnterpriseApp() {
             <Route path="/enterprises/opcionesAgregados" element={<OpcionesAgregados />} />
             <Route path="/enterprises/agotados" element={<Agotados />} />
             <Route path="/enterprises/perfil" element={<Perfil />} />
+            <Route path="/enterprises/PerfilVistaPrevia" element={<PerfilVistaPrevia />} />
             <Route path="/enterprises/horario" element={<Horario />} />
             <Route path="/enterprises/Micarta" element={<Micarta />} />
             <Route path="/enterprises/Resenas" element={<Resenas />} />

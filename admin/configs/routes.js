@@ -21,6 +21,7 @@ router.get('/enterprises/opcionesAgregados', requireRole('enterprises'), enterpr
 router.get('/enterprises/Micarta', requireRole('enterprises'), enterprises.Micarta);
 router.get('/enterprises/agotados', requireRole('enterprises'), enterprises.agotados);
 router.get('/enterprises/perfil', requireRole('enterprises'), enterprises.perfil);
+router.get('/enterprises/PerfilVistaPrevia', requireRole('enterprises'), enterprises.PerfilVistaPrevia);
 router.get('/enterprises/horario', requireRole('enterprises'), enterprises.horario);
 router.get('/enterprises/resenas', requireRole('enterprises'), enterprises.resenas);
 

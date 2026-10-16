@@ -41,7 +41,7 @@ const sections = [
     items: [
       {
         label: 'Perfil del local',
-        path: '/enterprises/perfil',
+        path: '/enterprises/PerfilVistaPrevia',
       },
       {
         label: 'Horario de atención',

@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap");
+
+
+/* ---------- Pantalla completa ----------
+   Quita límites de ancho/centrado que traen las plantillas de Vite o CRA
+   (por ejemplo #root { max-width: 1280px; padding: 2rem } y body { display: flex }). */
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  text-align: left;
+  background: #fffaf7;
+}
+
+/* Solo lo que Bootstrap no trae. Todo dentro de .pv-app para no afectar el resto del proyecto. */
+
+.pv-app {
+  /* Variables de Bootstrap sobrescritas solo dentro de este componente */
+  --bs-body-font-family: "Inter", system-ui, sans-serif;
+  --bs-body-font-size: 0.75rem;
+  --bs-body-bg: #fffaf7;
+  --bs-body-color: #1f1715;
+  --bs-danger: #e0392b;
+  --bs-danger-rgb: 224, 57, 43;
+  --bs-success: #4f9a1f;
+  --bs-success-rgb: 79, 154, 31;
+  --bs-border-color: #ece4e0;
+
+  --pv-rayas-1: #f6e6e1;
+  --pv-rayas-2: #f9eeea;
+
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  font-family: var(--bs-body-font-family);
+  font-size: var(--bs-body-font-size);
+}
+
+/* Botón "Editar perfil" con el rojo de la marca */
+.pv-app .btn-outline-danger {
+  --bs-btn-color: #e0392b;
+  --bs-btn-border-color: #e0392b;
+  --bs-btn-hover-bg: #e0392b;
+  --bs-btn-hover-border-color: #e0392b;
+  --bs-btn-active-bg: #e0392b;
+  --bs-btn-active-border-color: #e0392b;
+  font-size: 0.65rem;
+}
+
+.pv-xs { font-size: 0.6rem; }
+.pv-app .breadcrumb { --bs-breadcrumb-divider: "›"; }
+.pv-titulo { font-family: "Poppins", sans-serif; font-weight: 600; }
+
+/* Tarjeta a todo el ancho disponible */
+.pv-card { width: 100%; border-radius: 8px; }
+
+/* Fondo rayado reutilizable para portada, logo y galería */
+.pv-placeholder {
+  background: repeating-linear-gradient(135deg, var(--pv-rayas-1) 0 6px, var(--pv-rayas-2) 6px 12px);
+  display: grid;
+  place-items: center;
+  font-family: ui-monospace, monospace;
+  font-size: 0.45rem;
+  color: #6b605c;
+}
+.pv-portada { height: clamp(98px, 14vw, 180px); }
+.pv-logo-local { width: 48px; height: 48px; border-radius: 8px; }
+.pv-foto { height: 66px; border-radius: 8px; }
+
+.pv-nombre { font-family: "Poppins", sans-serif; font-weight: 600; font-size: 1rem; }
+.pv-chip-claro { background: #e7f3dc; color: #2f5c12; font-weight: 600; }
+.pv-descripcion { font-size: 0.62rem; line-height: 1.45; max-width: 420px; }
+
+.pv-datos dt { font-size: 0.42rem; letter-spacing: 0.07em; font-weight: 600; color: #6b605c; }
+.pv-datos dd { font-size: 0.6rem; margin-bottom: 0; }
