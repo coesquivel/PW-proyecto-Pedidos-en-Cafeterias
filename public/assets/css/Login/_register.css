@@ -1,0 +1,60 @@
+
+    /* Estilos de ESTA página (todo cuelga de .registro-page para no chocar con nada) */
+    body { background-color: #fffaf7; color: #29201d; }
+
+    .registro-page { max-width: 1100px; padding-top: 24px; padding-bottom: 40px; }
+
+    .registro-page .breadcrumb { margin-bottom: 0; }
+
+    .registro-page .custom-card,
+    .registro-page .info-card {
+      background: #fff;
+      border: 1px solid #eee4df;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(50, 30, 20, 0.04);
+    }
+    .registro-page .info-card { align-self: flex-start; }
+
+    .registro-page .custom-label {
+      margin-bottom: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      color: #6a5a53;
+    }
+
+    .registro-page .custom-input {
+      height: 40px;
+      border: 1px solid #e2d2cd;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+    .registro-page .custom-input:focus {
+      border-color: #df3d2e;
+      box-shadow: 0 0 0 3px rgba(223, 61, 46, 0.12);
+    }
+    .registro-page .form-check-input:checked {
+      background-color: #df3d2e;
+      border-color: #df3d2e;
+    }
+
+    .registro-page .btn-danger-custom {
+      padding: 9px 22px;
+      background: #df3d2e;
+      border: 1px solid #df3d2e;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .registro-page .btn-danger-custom:hover { background: #c83225; border-color: #c83225; color: #fff; }
+
+    .registro-page .btn-outline-custom {
+      padding: 9px 22px;
+      background: #fff;
+      border: 1px solid #e2d2cd;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #29201d;
+    }
+    .registro-page .btn-outline-custom:hover { background: #faf7f6; color: #29201d; }
+  
