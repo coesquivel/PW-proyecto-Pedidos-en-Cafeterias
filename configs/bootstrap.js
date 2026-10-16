@@ -13,7 +13,7 @@ import crypto from 'crypto';
 
 import websiteRoutes from '../website/routes.js';
 import adminRoutes from '../admin/configs/routes.js';
-import { notFoundHandler, viewFlash, viewEnv, viewSession, viewHelpers } from './middlewares.js';
+import { manejarError, notFoundHandler, viewFlash, viewEnv, viewSession, viewHelpers } from './middlewares.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -152,4 +152,6 @@ export default function bootstrap(app) {
 
   // Middleware 404
   app.use(notFoundHandler);
+  //Middleware 500
+  app.use(manejarError);
 }

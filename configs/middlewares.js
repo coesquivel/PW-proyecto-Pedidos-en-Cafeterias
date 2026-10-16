@@ -174,6 +174,17 @@ export function requireRole(rolePermitido) {
   // El usuario tiene permiso para acceder
   next(); }; }
 
+export const manejarError = (err, req, res, next) => {
+  console.error(" ERROR INTERNO | ERROR INESPERADO:", err.stack);
+
+  res.status(500);
+
+  res.render('500', { 
+    title: 'Error 500',
+    error: process.env.NODE_ENV === 'development' ? err : {} // Opcional: ver error en desarrollo
+  });
+};
+
 export function viewFlash(req, res, next) {
   res.locals.successMessage = req.flash('success');
   res.locals.errorMessage = req.flash('error');
