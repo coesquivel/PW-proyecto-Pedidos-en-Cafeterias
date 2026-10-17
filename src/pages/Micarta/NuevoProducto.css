@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap");
+
+/* ---------- Pantalla completa ----------
+   Quita límites de ancho/centrado que traen las plantillas de Vite o CRA. */
+html,
+body,
+#root {
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  max-width: none;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+  display: block;
+  text-align: left;
+  background: #fffaf7;
+}
+
+/* Solo lo que Bootstrap no trae. Todo dentro de .np-app para no afectar el resto del proyecto. */
+.np-app {
+  /* Variables de Bootstrap sobrescritas solo dentro de este componente */
+  --bs-body-font-family: "Inter", system-ui, sans-serif;
+  --bs-body-font-size: 0.75rem;
+  --bs-body-bg: #fffaf7;
+  --bs-body-color: #1f1715;
+  --bs-danger: #d9432e;
+  --bs-danger-rgb: 217, 67, 46;
+  --bs-border-color: #ece4e0;
+  --np-rayas-1: #f6e6e1;
+  --np-rayas-2: #f9eeea;
+  --np-suave: #7a6a64;
+
+  width: 100%;
+  height: 100vh;      /* alto fijo = alto de la ventana */
+  overflow-y: auto;   /* scroll vertical dentro del componente */
+  overflow-x: hidden;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  font-family: var(--bs-body-font-family);
+  font-size: var(--bs-body-font-size);
+}
+
+.np-xs { font-size: 0.6rem; }
+.np-app .breadcrumb { --bs-breadcrumb-divider: "›"; }
+.np-titulo { font-family: "Poppins", sans-serif; font-weight: 600; }
+
+/* Tarjeta principal (se estira al ancho disponible) */
+.np-card { width: 100%; border-radius: 10px; }
+
+/* Etiquetas en mayúsculas y textos de ayuda */
+.np-label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  color: var(--np-suave);
+}
+.np-ayuda {
+  margin-top: 0.3rem;
+  font-size: 0.55rem;
+  color: var(--np-suave);
+}
+
+/* Campos de formulario compactos, como en el diseño */
+.np-app .form-control,
+.np-app .form-select {
+  font-size: 0.65rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 6px;
+  border-color: var(--bs-border-color);
+}
+.np-app .form-control:focus,
+.np-app .form-select:focus {
+  border-color: var(--bs-danger);
+  box-shadow: 0 0 0 0.2rem rgba(217, 67, 46, 0.15);
+}
+.np-textarea { min-height: 88px; resize: vertical; }
+
+/* Precio: prefijo "S/" integrado al campo */
+.np-prefijo {
+  font-size: 0.65rem;
+  background: #fff;
+  border-color: var(--bs-border-color);
+  border-right: 0;
+  padding-right: 0;
+}
+.np-precio { border-left: 0; padding-left: 0.35rem !important; }
+
+/* Fondo rayado reutilizable para foto 1:1 y miniatura */
+.np-placeholder {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(135deg, var(--np-rayas-1) 0 6px, var(--np-rayas-2) 6px 12px);
+  font-family: ui-monospace, monospace;
+  font-size: 0.45rem;
+  color: var(--np-suave);
+}
+.np-placeholder img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.np-miniatura { width: 72px; height: 72px; border-radius: 8px; }
+
+/* Botón "Cambiar fotografía" (largo, borde rojo) */
+.np-btn-foto {
+  width: 100%;
+  max-width: 214px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  background: #fff;
+  --bs-btn-color: #d9432e;
+  --bs-btn-border-color: #d9432e;
+  --bs-btn-hover-bg: #d9432e;
+  --bs-btn-hover-border-color: #d9432e;
+  --bs-btn-active-bg: #d9432e;
+  --bs-btn-active-border-color: #d9432e;
+}
+
+/* Botones Cancelar / Guardar */
+.np-btn { font-size: 0.62rem; font-weight: 600; padding: 0.55rem 1.1rem; border-radius: 6px; }
+.np-app .btn-danger {
+  --bs-btn-bg: #d9432e;
+  --bs-btn-border-color: #d9432e;
+  --bs-btn-hover-bg: #bf3825;
+  --bs-btn-hover-border-color: #bf3825;
+  --bs-btn-active-bg: #bf3825;
+  --bs-btn-active-border-color: #bf3825;
+}
+
+/* Vista previa del comensal */
+.np-preview { border-radius: 10px; overflow: hidden; }
+.np-preview__foto { aspect-ratio: 1 / 1; width: 100%; }
+.np-preview__nombre { font-size: 0.72rem; font-weight: 600; }
+.np-preview__desc { font-size: 0.58rem; color: var(--np-suave); line-height: 1.4; }
+.np-preview__precio { font-family: "Poppins", sans-serif; font-size: 0.8rem; }

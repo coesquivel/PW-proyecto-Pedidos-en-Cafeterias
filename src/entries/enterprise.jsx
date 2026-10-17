@@ -17,6 +17,7 @@ import Perfil from '../pages/Perfil/Perfil';
 import PerfilVistaPrevia from '../pages/Perfil/PerfilVistaPrevia';
 import Horario from '../pages/Horario/Horario';
 import Micarta from '../pages/Micarta/Micarta';
+import NuevoProducto from '../pages/Micarta/NuevoProducto';
 import Resenas from '../pages/Resenas/Resenas';
 // import Agotados from '../pages/Agotados';
 
@@ -49,6 +50,7 @@ function EnterpriseApp() {
             <Route path="/enterprises/PerfilVistaPrevia" element={<PerfilVistaPrevia />} />
             <Route path="/enterprises/horario" element={<Horario />} />
             <Route path="/enterprises/Micarta" element={<Micarta />} />
+            <Route path="/enterprises/NuevoProducto" element={<NuevoProducto />} />
             <Route path="/enterprises/Resenas" element={<Resenas />} />
             {/* <Route path="/enterprises/agotados" element={<Agotados />} /> */}
           </Routes>

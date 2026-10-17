@@ -19,6 +19,7 @@ router.get('/enterprises/resumenDia', requireRole('enterprises'), enterprises.re
 router.get('/enterprises/entrega', requireRole('enterprises'), enterprises.entrega);
 router.get('/enterprises/opcionesAgregados', requireRole('enterprises'), enterprises.opcionesAgregados);
 router.get('/enterprises/Micarta', requireRole('enterprises'), enterprises.Micarta);
+router.get('/enterprises/NuevoProducto', requireRole('enterprises'), enterprises.NuevoProducto);
 router.get('/enterprises/agotados', requireRole('enterprises'), enterprises.agotados);
 router.get('/enterprises/perfil', requireRole('enterprises'), enterprises.perfil);
 router.get('/enterprises/PerfilVistaPrevia', requireRole('enterprises'), enterprises.PerfilVistaPrevia);

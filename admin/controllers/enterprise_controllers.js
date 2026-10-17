@@ -65,7 +65,12 @@ export function Micarta(req, res) {
     currentPage: 'Micarta',
   });
 } 
-
+export function NuevoProducto(req, res) {
+  return res.render('enterprises/NuevoProducto', {
+    title: 'Bienvenido Empresa',
+    currentPage: 'NuevoProducto',
+  });
+} 
 export function resenas(req, res) {
   return res.render('enterprises/resenas', {
     title: 'Bienvenido Empresa',

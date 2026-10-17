@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // CAMBIO 1: import del hook de navegación
 import './Micarta.css';
 
 const Micarta = () => {
+  // CAMBIO 2: hook que permite cambiar de ruta desde el código
+  const navigate = useNavigate();
+
   // Lista de Categorías
   const categoriesList = [
     { id: 'desayunos', name: 'Desayunos' },
@@ -190,14 +194,19 @@ const Micarta = () => {
 
   // Manejadores de eventos
   const handleNuevaCategoria = () => alert('Acción: Nueva categoría');
-  const handleNuevoProducto = () => alert('Acción: Nuevo producto');
+
+  // CAMBIO 3: ahora redirige a la vista "Nuevo producto" (antes era un alert)
+  const handleNuevoProducto = () => navigate('/nuevo-producto');
+
   const handleEditarProducto = (id) => alert(`Editar producto con ID: ${id}`);
+
+  // Quita el producto de la categoría activa
   const handleQuitarProducto = (id) => {
-  setProductsData((prev) => ({
-    ...prev,
-    [activeCategory]: prev[activeCategory].filter((p) => p.id !== id),
-  }));
-};
+    setProductsData((prev) => ({
+      ...prev,
+      [activeCategory]: prev[activeCategory].filter((p) => p.id !== id),
+    }));
+  };
 
   return (
     <div className="micarta-container container-fluid p-4">
@@ -230,7 +239,7 @@ const Micarta = () => {
           </button>
           <button
             className="btn custom-btn-product shadow-sm fw-semibold text-white"
-            onClick={handleNuevoProducto}
+            onClick={() => navigate('/enterprises/NuevoProducto')}
           >
             Nuevo producto
           </button>
