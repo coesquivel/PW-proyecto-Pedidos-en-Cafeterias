@@ -112,3 +112,19 @@ function esta_logeado(req) {
 export const RecuperarContrasena = (req, res) => {
   res.render('website/RecuperarContrasena');
 };
+
+export function Home_Cerrar_ses(req, res) {
+  const isAuthenticated = req.session && req.session.correo && req.session.role;
+  if (isAuthenticated){
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error al cerrar sesión:', err);
+        return res.status(500).send('No se pudo cerrar la sesión');
+      }
+      res.clearCookie('connect.sid'); // nombre por defecto de la cookie
+      res.redirect('/');
+    });
+  }else{
+    res.redirect('/login');
+  }
+}

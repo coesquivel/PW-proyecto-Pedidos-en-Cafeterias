@@ -21,6 +21,7 @@ router.get('/locales/:id', controller.detalleLocal);
 router.post('/sign-in', redirectIfAuthenticated, controller.login);
 router.get('/sign-out', requireAuth, controller.logout);
 router.get('/RecuperarContrasena', redirectIfAuthenticated, controller.RecuperarContrasena);
+router.post('/logout', controller.Home_Cerrar_ses)
 
 router.get('/api/v1/sessions', api.sessionInfo);
 

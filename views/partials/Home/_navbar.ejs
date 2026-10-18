@@ -41,10 +41,14 @@
 
                 <div class="d-flex align-items-center">
 
-                    <a href="login" class="btn-login">
-                        <!-- Iniciar sesión -->
-                        <%- log_in_out || 'Iniciar sesión'%>
-                    </a>
+                    <form action="/logout" method="POST" id="xEnviar">
+
+                        <a href="#" onclick="document.getElementById('xEnviar').submit(); return false;" class="btn-login">
+                            <!-- Iniciar sesión -->
+                            <%- log_in_out || 'Iniciar sesión'%>
+                        </a>
+
+                    </form>
 
                     <a href="register" class="btn btn-register">
                         Crear cuenta
