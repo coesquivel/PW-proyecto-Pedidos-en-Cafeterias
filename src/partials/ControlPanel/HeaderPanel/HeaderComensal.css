@@ -1,0 +1,196 @@
+/* src/partials/ControlPanel/HeaderPanel/HeaderComensal.css */
+
+:root {
+  --comensal-primary: #d93829;
+  --comensal-primary-hover: #b82d20;
+  --comensal-bg: #ffffff;
+  --comensal-border: #e2e8f0;
+  --comensal-ink: #2d3748;
+  --comensal-muted: #718096;
+}
+ 
+.comensal-header {
+  width: 100%;
+  background: var(--comensal-bg);
+  border-bottom: 1px solid #edf2f7;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.comensal-navbar {
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  height: 64px;
+  padding: 0 32px;
+  display: flex;
+  flex-direction: row; /* Forzar disposición horizontal */
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+/* --- SECCIÓN IZQUIERDA --- */
+.comensal-navbar__left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.comensal-navbar__brand {
+  color: var(--comensal-primary);
+  font-size: 20px;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+.comensal-navbar__select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.comensal-navbar__select {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 38px;
+  padding: 0 28px 0 14px;
+  border: 1px solid var(--comensal-border);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--comensal-ink);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+.comensal-navbar__select-chevron {
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+  color: var(--comensal-muted);
+  font-size: 11px;
+}
+
+/* --- SECCIÓN CENTRO (BUSCADOR) --- */
+.comensal-navbar__center {
+  flex: 1;
+  max-width: 480px;
+  display: flex;
+  justify-content: center;
+}
+
+.comensal-navbar__search-box {
+  width: 100%;
+}
+
+.comensal-navbar__search-input {
+  width: 100%;
+  height: 38px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  border: 1px solid var(--comensal-border);
+  border-radius: 8px;
+  background: #fafafa;
+  color: var(--comensal-ink);
+  font-size: 13.5px;
+  outline: none;
+}
+
+.comensal-navbar__search-input:focus {
+  border-color: var(--comensal-primary);
+  background: #ffffff;
+}
+
+/* --- SECCIÓN DERECHA --- */
+.comensal-navbar__right {
+  display: flex;
+  flex-direction: row; /* Asegura distribución lado a lado */
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px; /* Separación fija entre el botón Carrito y la Cuenta */
+  flex-shrink: 0;
+}
+
+/* Botón del Carrito en Forma Pill */
+.comensal-navbar__cart-btn {
+  height: 38px;
+  padding: 0 16px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 20px;
+  background: var(--comensal-primary);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+.comensal-navbar__cart-btn:hover {
+  background: var(--comensal-primary-hover);
+}
+
+.comensal-navbar__cart-badge {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--comensal-primary);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* Menú de Usuario estilo Pill */
+.comensal-navbar__user-btn {
+  height: 38px;
+  padding: 0 12px 0 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid var(--comensal-border);
+  border-radius: 20px;
+  background: #ffffff;
+  color: var(--comensal-ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.comensal-navbar__avatar {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f1e7e4;
+  color: var(--comensal-primary);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.comensal-navbar__user-name {
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--comensal-ink);
+}
+
+.comensal-navbar__user-chevron {
+  margin-left: 6px;
+  color: var(--comensal-muted);
+  font-size: 10px;
+}

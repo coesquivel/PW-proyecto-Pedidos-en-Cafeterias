@@ -71,6 +71,7 @@ export async function ingresar(req, res){
   const usuarios = [
     {correo : 'admin@admin', password: '123', role: principal},
     {correo : 'x@x', password: '123', role: 'owner'},
+    { correo: 'comensal@comensal', password: '123', role: 'comensal' } 
   ]
 
   let userEncontrado = null;
@@ -81,14 +82,20 @@ export async function ingresar(req, res){
     }
   }
 
-  if (userEncontrado != null) {
+  if (userEncontrado) {
     req.session.correo = userEncontrado.correo;
     req.session.role = userEncontrado.role;
+
     return req.session.save(() => {
-      if (req.session.role == principal) {
-        res.redirect(`/${principal}`);
+      // Mapeo explícito de ruta según el rol del usuario
+      if (req.session.role === 'enterprises') {
+        return res.redirect('/enterprises');
+      } else if (req.session.role === 'owner') {
+        return res.redirect('/owner');
+      } else if (req.session.role === 'comensal' || req.session.role === 'comensales') {
+        return res.redirect('/comensales');
       } else {
-        res.redirect('/owner');
+        return res.redirect('/');
       }
     });
   }

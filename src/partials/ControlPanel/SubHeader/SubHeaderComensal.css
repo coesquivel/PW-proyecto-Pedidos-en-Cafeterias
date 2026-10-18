@@ -1,0 +1,88 @@
+/* Variables compartidas */
+:root {
+  --subheader-primary: #e94136;
+  --subheader-bg: #ffffff;
+  --subheader-border: #eadfda;
+  --subheader-text: #606875;
+  --subheader-text-active: #172439;
+}
+
+.sub-header {
+  width: 100%;
+  background-color: var(--subheader-bg);
+  border-bottom: 1px solid var(--subheader-border);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Contenedor alineado con el header principal */
+.sub-header__container {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+/* Estilo base para cada pestaña */
+.sub-header__tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 0;
+  color: var(--subheader-text);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.sub-header__tab:hover {
+  color: var(--subheader-text-active);
+}
+
+/* Pestaña Seleccionada / Activa */
+.sub-header__tab--active {
+  color: var(--subheader-primary);
+  font-weight: 700;
+  border-bottom-color: var(--subheader-primary);
+}
+
+/* Badge contador (p. ej. para Mis Pedidos) */
+.sub-header__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background-color: #fff0eb;
+  color: var(--subheader-primary);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Adaptabilidad a dispositivos móviles */
+@media (max-width: 600px) {
+  .sub-header__container {
+    padding: 0 16px;
+    gap: 20px;
+    overflow-x: auto; /* Permite scroll horizontal si no alcanza el espacio */
+    scrollbar-width: none; /* Oculta scrollbar en Firefox */
+  }
+
+  .sub-header__container::-webkit-scrollbar {
+    display: none; /* Oculta scrollbar en Chrome/Safari */
+  }
+
+  .sub-header__tab {
+    padding: 12px 0;
+    font-size: 13px;
+  }
+}
