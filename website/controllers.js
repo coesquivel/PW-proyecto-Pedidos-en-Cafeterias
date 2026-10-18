@@ -19,19 +19,20 @@ export function login(req, res) {
 export function registrarLocal(req, res) { 
   return res.render('website/registrarLocal', {
     title: 'registrarLocal',
-    
+    log_in_out: esta_logeado(req),
   });
 }
 
 export function comoFunciona(req, res) { 
   return res.render('website/comoFunciona', {
     title: 'comoFunciona',
-    
+    log_in_out: esta_logeado(req),
   });
 }
 export function locales(req, res) { 
   res.render('website/locales', {
     title: 'locales',
+    log_in_out: esta_logeado(req),
   });
 }
 
