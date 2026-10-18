@@ -12,6 +12,7 @@ export function home(req, res) {
 export function login(req, res) { 
   res.render('website/login', {
     title: 'Login',
+    log_in_out: esta_logeado(req),
   });
 }
 
