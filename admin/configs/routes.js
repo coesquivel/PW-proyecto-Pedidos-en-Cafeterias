@@ -26,4 +26,5 @@ router.get('/enterprises/PerfilVistaPrevia', requireRole('enterprises'), enterpr
 router.get('/enterprises/horario', requireRole('enterprises'), enterprises.horario);
 router.get('/enterprises/resenas', requireRole('enterprises'), enterprises.resenas);
 
+router.post('/enterprises/logout', enterprises.salir);
 export default router;
