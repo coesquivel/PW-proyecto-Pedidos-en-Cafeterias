@@ -7,15 +7,15 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 // 1. Estructura (Partials)
 import Cabecera from '../partials/ControlPanel/HeaderPanel/HeaderComensal';
 import SubHeader from '../partials/ControlPanel/SubHeader/SubHeaderComensal';
-import Footer from '../partials/ControlPanel/FooterPanel/FooterPanel';
+import Footer from '../partials/ControlPanel/FooterPanel/FooterPanelComensal';
 
 // 2. Vistas (Pages)
 import LocalesComensal from '../pages/LocalesComensal/LocalesComensal';
 import PedidosComensal from '../pages/PedidosComensal/PedidosComensal'; // <-- Corregido
-import Calificaciones from '../pages/Calificaciones/Calificaciones';
-import MiCuenta from '../pages/MiCuenta/MiCuenta';
+//import Calificaciones from '../pages/CalificacionesComensal/CalificacionesComensal';
+//import MiCuenta from '../pages/MiCuenta/MiCuenta';
 import CarritoComensal from '../pages/CarritoComensal/CarritoComensal';
-import ConfirmacionPedido from '../pages/CarritoComensal/ConfirmacionPedido';
+//import ConfirmacionPedido from '../pages/CarritoComensal/ConfirmacionPedido';
 
 // 3. CSS base
 import './comensal.css';
@@ -70,28 +70,28 @@ function ComensalApp() {
           </aside>
 
           <Routes>
-            <Route path="/comensales" element={<Navigate to="/comensales/localescomensal" replace />} />
+            <Route path="/comensales" element={<Navigate to="/comensales/LocalesComensal" replace />} />
             
             <Route 
-              path="/comensales/localescomensal" 
+              path="/comensales/LocalesComensal" 
               element={<LocalesComensal itemsCarrito={itemsCarrito} setItemsCarrito={setItemsCarrito} />} 
             />
             
             {/* VISTA MIS PEDIDOS ACTUALIZADA */}
             <Route 
-              path="/comensales/pedidos" 
+              path="/comensales/PedidosComensal" 
               element={<PedidosComensal pedidos={pedidosHistorial} />} 
             />
             
-            <Route path="/comensales/calificaciones" element={<Calificaciones />} />
-            <Route path="/comensales/micuenta" element={<MiCuenta />} />
+            {/* <Route path="/comensales/CalificacionesComensal" element={<Calificaciones />} /> */}
+            {/* <Route path="/comensales/MiCuentaComensal" element={<MiCuenta />} /> */}
             
             <Route 
-              path="/comensales/carrito" 
+              path="/comensales/CarritoComensal" 
               element={<CarritoComensal items={itemsCarrito} setItems={setItemsCarrito} />} 
             />
 
-            <Route 
+            {/* <Route 
               path="/comensales/confirmacion" 
               element={
                 <ConfirmacionPedido 
@@ -100,9 +100,9 @@ function ComensalApp() {
                   onConfirmarPedido={handleConfirmarNuevoPedido} 
                 />
               } 
-            />
+            /> */}
             
-            <Route path="*" element={<Navigate to="/comensales/localescomensal" replace />} />
+            {/* <Route path="*" element={<Navigate to="/comensales/LocalesComensal" replace />} /> */}
           </Routes>
         </div>
 
