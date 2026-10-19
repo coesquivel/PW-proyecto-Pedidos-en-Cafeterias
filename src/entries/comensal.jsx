@@ -11,17 +11,16 @@ import Footer from '../partials/ControlPanel/FooterPanel/FooterPanel';
 
 // 2. Vistas (Pages)
 import LocalesComensal from '../pages/LocalesComensal/LocalesComensal';
-import Pedidos from '../pages/Pedidos/Pedidos';
+import PedidosComensal from '../pages/PedidosComensal/PedidosComensal'; // <-- Corregido
 import Calificaciones from '../pages/Calificaciones/Calificaciones';
 import MiCuenta from '../pages/MiCuenta/MiCuenta';
 import CarritoComensal from '../pages/CarritoComensal/CarritoComensal';
-import ConfirmacionPedido from '../pages/CarritoComensal/ConfirmacionPedido'; // <-- Import de la vista de Confirmación
+import ConfirmacionPedido from '../pages/CarritoComensal/ConfirmacionPedido';
 
 // 3. CSS base
 import './comensal.css';
 
 function ComensalApp() {
-  // Estado global para compartir los ítems entre el Header (contador) y el Carrito
   const [itemsCarrito, setItemsCarrito] = useState([
     {
       id: 1,
@@ -52,10 +51,8 @@ function ComensalApp() {
     }
   ]);
 
-  // Historial de pedidos confirmados para la vista Mis Pedidos
   const [pedidosHistorial, setPedidosHistorial] = useState([]);
 
-  // Handler para agregar un pedido confirmado al historial
   const handleConfirmarNuevoPedido = (nuevoPedido) => {
     setPedidosHistorial((prev) => [nuevoPedido, ...prev]);
   };
@@ -64,7 +61,6 @@ function ComensalApp() {
     <BrowserRouter>
       <div className="app">
         <header className="app-header">
-          {/* Le pasamos el número total de ítems al Header */}
           <Cabecera cantidadItems={itemsCarrito.length} />
         </header>
 
@@ -76,28 +72,25 @@ function ComensalApp() {
           <Routes>
             <Route path="/comensales" element={<Navigate to="/comensales/localescomensal" replace />} />
             
-            {/* VISTA LOCALES: Le pasamos el carrito para poder agregar productos */}
             <Route 
               path="/comensales/localescomensal" 
               element={<LocalesComensal itemsCarrito={itemsCarrito} setItemsCarrito={setItemsCarrito} />} 
             />
             
-            {/* VISTA MIS PEDIDOS: Le pasamos el historial de pedidos generados */}
+            {/* VISTA MIS PEDIDOS ACTUALIZADA */}
             <Route 
               path="/comensales/pedidos" 
-              element={<Pedidos pedidos={pedidosHistorial} />} 
+              element={<PedidosComensal pedidos={pedidosHistorial} />} 
             />
             
             <Route path="/comensales/calificaciones" element={<Calificaciones />} />
             <Route path="/comensales/micuenta" element={<MiCuenta />} />
             
-            {/* RUTA CARRITO: Revisa ítems y permite avanzar a confirmación */}
             <Route 
               path="/comensales/carrito" 
               element={<CarritoComensal items={itemsCarrito} setItems={setItemsCarrito} />} 
             />
 
-            {/* RUTA CONFIRMACIÓN Y ELECCIÓN DE HORARIO (Historia 4 - 4.1 y 4.2) */}
             <Route 
               path="/comensales/confirmacion" 
               element={
