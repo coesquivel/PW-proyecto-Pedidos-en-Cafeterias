@@ -6,20 +6,21 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Cabecera from '../partials/ControlPanel/HeaderPanel/HeaderPanel';
 import Footer from '../partials/ControlPanel/FooterPanel/FooterPanel';
 import SideBar from '../partials/ControlPanel/SideBarPanel/SideBarPanel';
+//Partials no fue ordenado en su carpeta propia de ControlPanel/Enterprise/* por el momento
 
 // 2. Vistas (Pages)
-import Bandeja from '../pages/Bandeja/Bandeja';
-import ResumenDia from '../pages/ResumenDia/ResumenDia';
-import Entrega from '../pages/Entrega/Entrega';
-import OpcionesAgregados from '../pages/OpcionesAgregados/OpcionesAgregados';
-import Agotados from '../pages/Agotados/Agotados';
-import Perfil from '../pages/Perfil/Perfil';
-import PerfilVistaPrevia from '../pages/Perfil/PerfilVistaPrevia';
-import Horario from '../pages/Horario/Horario';
-import Micarta from '../pages/Micarta/Micarta';
-import NuevoProducto from '../pages/Micarta/NuevoProducto';
-import Resenas from '../pages/Resenas/Resenas';
-// import Agotados from '../pages/Agotados';
+import Bandeja from '../pages/PagesEnterprise/Bandeja/Bandeja';
+import ResumenDia from '../pages/PagesEnterprise/ResumenDia/ResumenDia';
+import Entrega from '../pages/PagesEnterprise/Entrega/Entrega';
+import OpcionesAgregados from '../pages/PagesEnterprise/OpcionesAgregados/OpcionesAgregados';
+import Agotados from '../pages/PagesEnterprise/Agotados/Agotados';
+import Perfil from '../pages/PagesEnterprise/Perfil/Perfil';
+import PerfilVistaPrevia from '../pages/PagesEnterprise/Perfil/PerfilVistaPrevia';
+import Horario from '../pages/PagesEnterprise/Horario/Horario';
+import Micarta from '../pages/PagesEnterprise/Micarta/Micarta';
+import NuevoProducto from '../pages/PagesEnterprise/Micarta/NuevoProducto';
+import Resenas from '../pages/PagesEnterprise/Resenas/Resenas';
+// import Agotados from '../pages/PagesEnterprise/Agotados';
 
 // 3. CSS base
 import './enterprise.css';
