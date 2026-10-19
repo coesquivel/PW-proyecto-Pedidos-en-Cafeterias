@@ -24,6 +24,7 @@ export default defineConfig(({ mode }) => {
           'admin': resolve(__dirname, 'src/entries/admin.jsx'),
           'owner': resolve(__dirname, 'src/entries/owner.jsx'),
           'enterprise': resolve(__dirname, 'src/entries/enterprise.jsx'),
+          'comensal': resolve(__dirname, 'src/entries/comensal.jsx'),
         },
         output: {
           entryFileNames: `js/[name]${minSuffix}.js`,
