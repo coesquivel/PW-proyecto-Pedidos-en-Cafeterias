@@ -5,17 +5,17 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 // 1. Estructura (Partials)
-import Cabecera from '../partials/ControlPanel/HeaderPanel/HeaderComensal';
-import SubHeader from '../partials/ControlPanel/SubHeader/SubHeaderComensal';
-import Footer from '../partials/ControlPanel/FooterPanel/FooterPanelComensal';
+import Cabecera from '../partials/ControlPanel/Comensal/HeaderComensal/HeaderComensal';
+import SubHeader from '../partials/ControlPanel/Comensal/SubHeaderComensal/SubHeaderComensal';
+import Footer from '../partials/ControlPanel/Comensal/FooterComensal/FooterPanelComensal';
 
 // 2. Vistas (Pages)
-import LocalesComensal from '../pages/LocalesComensal/LocalesComensal';
-import PedidosComensal from '../pages/PedidosComensal/PedidosComensal'; // <-- Corregido
-//import Calificaciones from '../pages/CalificacionesComensal/CalificacionesComensal';
-//import MiCuenta from '../pages/MiCuenta/MiCuenta';
-import CarritoComensal from '../pages/CarritoComensal/CarritoComensal';
-//import ConfirmacionPedido from '../pages/CarritoComensal/ConfirmacionPedido';
+import LocalesComensal from '../pages/PagesComensal/LocalesComensal/LocalesComensal';
+import PedidosComensal from '../pages/PagesComensal/PedidosComensal/PedidosComensal'; // <-- Corregido
+//import Calificaciones from '../pages/PagesComensal/CalificacionesComensal/CalificacionesComensal';
+//import MiCuenta from '../pages/PagesComensal/MiCuenta/MiCuenta';
+import CarritoComensal from '../pages/PagesComensal/CarritoComensal/CarritoComensal';
+//import ConfirmacionPedido from '../pages/PagesComensal/CarritoComensal/ConfirmacionPedido';
 
 // 3. CSS base
 import './comensal.css';
