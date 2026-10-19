@@ -1,190 +1,161 @@
-// src/pages/LocalesComensal/LocalesComensal.jsx
-
+// src\pages\PagesComensal\LocalesComensal\LocalesComensal.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LocalesComensal.css';
 
-// Base de datos simulada para el catálogo interactivo
-const LOCALES_DATA = [
-  {
-    id: 1,
-    nombre: 'Cafetería Central',
-    estado: 'Abierto',
-    ubicacion: 'Pabellón A, primer piso',
-    horario: '07:00 a 19:00',
-    tiempoPrep: '12 min de preparación',
+// 1. DATOS DE LOCALES DEL CAMPUS
+const DATA_LOCALES = [
+  { 
+    id: 1, 
+    nombre: "Cafetería Central", 
+    estado: "Abierto", 
+    ubicacion: "Pabellón A, primer piso · 07:00 a 19:00", 
+    tiempoPrep: "12 min de preparación · 4.6 ★", 
     calificacion: 4.6,
-    resenasCount: 128,
+    aperturaProx: "07:00"
   },
-  {
-    id: 2,
-    nombre: 'Sanguchería pabellón E',
-    estado: 'Abierto',
-    ubicacion: 'Pabellón E, primer piso',
-    horario: '08:00 a 18:00',
-    tiempoPrep: '10 min de preparación',
+  { 
+    id: 2, 
+    nombre: "Sanguchería pabellón E", 
+    estado: "Abierto", 
+    ubicacion: "Pabellón E, primer piso · 08:00 a 18:00", 
+    tiempoPrep: "10 min de preparación · 4.3 ★", 
     calificacion: 4.3,
+    aperturaProx: "08:00"
   },
-  {
-    id: 3,
-    nombre: 'Café de Biblioteca',
-    estado: 'Abierto',
-    ubicacion: 'Biblioteca, piso 1',
-    horario: '08:00 a 20:00',
-    tiempoPrep: '6 min de preparación',
+  { 
+    id: 3, 
+    nombre: "Café de Biblioteca", 
+    estado: "Abierto", 
+    ubicacion: "Biblioteca, piso 1 · 08:00 a 20:00", 
+    tiempoPrep: "6 min de preparación · 4.8 ★", 
     calificacion: 4.8,
+    aperturaProx: "08:00"
   },
-  {
-    id: 4,
-    nombre: 'Menú Universitario N',
-    estado: 'Abierto',
-    ubicacion: 'Pabellón N, patio norte',
-    horario: '11:30 a 15:00',
-    tiempoPrep: '15 min de preparación',
+  { 
+    id: 4, 
+    nombre: "Menú Universitario N", 
+    estado: "Abierto", 
+    ubicacion: "Pabellón N, patio norte · 11:30 a 15:00", 
+    tiempoPrep: "15 min de preparación · 4.5 ★", 
     calificacion: 4.5,
+    aperturaProx: "11:30"
   },
-  {
-    id: 5,
-    nombre: 'Juguería La Fuente',
-    estado: 'Cerrado',
-    ubicacion: 'Patio central',
-    horario: 'abre mañana 09:00',
-    tiempoPrep: '8 min de preparación',
+  { 
+    id: 5, 
+    nombre: "Juguería La Fuente", 
+    estado: "Cerrado", 
+    ubicacion: "Patio central · abre mañana 09:00", 
+    tiempoPrep: "8 min de preparación · 4.5 ★", 
     calificacion: 4.5,
-  },
-];
-
-const PRODUCTOS_CAFETERIA = [
-  {
-    id: 'p1',
-    nombre: 'Sándwich de pollo deshilachado',
-    descripcion: 'Pan francés, pollo deshilachado y salsa criolla.',
-    precio: 9.50,
-    categoria: 'Desayunos',
-    agotado: false,
-    opciones: {
-      tipoPan: [
-        { id: 'f', nombre: 'Pan francés', precio: 0 },
-        { id: 'c', nombre: 'Pan ciabatta', precio: 1.00 },
-        { id: 'i', nombre: 'Pan integral', precio: 1.50 },
-      ],
-      paraLlevar: [
-        { id: 'local', nombre: 'En el local', precio: 0 },
-        { id: 'llevar', nombre: 'Empaque para llevar', precio: 0.50 },
-      ],
-      agregados: [
-        { id: 'queso', nombre: 'Agregar queso', precio: 2.00 },
-        { id: 'palta', nombre: 'Palta extra', precio: 2.50 },
-        { id: 'doble', nombre: 'Doble porción de pollo', precio: 4.00 },
-      ]
-    }
-  },
-  {
-    id: 'p2',
-    nombre: 'Pan con palta',
-    descripcion: 'Pan ciabatta, palta fuerte y tomate.',
-    precio: 8.50,
-    categoria: 'Desayunos',
-    agotado: false,
-  },
-  {
-    id: 'p3',
-    nombre: 'Tostadas con mermelada',
-    descripcion: 'Pan de molde, mermelada de fresa y mantequilla.',
-    precio: 5.50,
-    categoria: 'Desayunos',
-    agotado: false,
-  },
-  {
-    id: 'p4',
-    nombre: 'Café pasado',
-    descripcion: 'Café de Chanchamayo, taza de 8 oz.',
-    precio: 3.50,
-    categoria: 'Desayunos',
-    agotado: false,
-  },
-  {
-    id: 'p5',
-    nombre: 'Ensalada de frutas',
-    descripcion: 'Frutas de estación picadas.',
-    precio: 7.00,
-    categoria: 'Desayunos',
-    agotado: true,
-  },
-  {
-    id: 'p6',
-    nombre: 'Jugo surtido',
-    descripcion: 'Papaya, plátano y naranja licuados al momento.',
-    precio: 6.50,
-    categoria: 'Desayunos',
-    agotado: false,
-  },
-  {
-    id: 'p7',
-    nombre: 'Chicha morada',
-    descripcion: 'Vaso de 16 oz, endulzada al momento.',
-    precio: 4.50,
-    categoria: 'Desayunos',
-    agotado: false,
-  },
-  {
-    id: 'p8',
-    nombre: 'Empanada de carne',
-    descripcion: 'Masa casera con carne y aceituna. Se agotó por hoy en Cafetería Central.',
-    precio: 5.00,
-    categoria: 'Desayunos',
-    agotado: true,
+    aperturaProx: "09:00"
   }
 ];
 
-export default function LocalesComensal() {
+// 2. PRODUCTOS DE LA CAFETERÍA
+const PRODUCTOS_CAFETERIA = [
+  {
+    id: "p1",
+    nombre: "Sándwich de pollo deshilachado",
+    descripcion: "Pan francés, pollo deshilachado y salsa criolla.",
+    precio: 9.50,
+    categoria: "Desayunos",
+    agotado: false,
+    opciones: {
+      tipoPan: [
+        { id: "f", nombre: "Pan francés", precio: 0 },
+        { id: "c", nombre: "Pan ciabatta", precio: 1.00 },
+        { id: "i", nombre: "Pan integral", precio: 1.50 }
+      ],
+      paraLlevar: [
+        { id: "local", nombre: "En el local", precio: 0 },
+        { id: "llevar", nombre: "Empaque para llevar", precio: 0.50 }
+      ],
+      agregados: [
+        { id: "queso", nombre: "Agregar queso", precio: 2.00 },
+        { id: "palta", nombre: "Palta extra", precio: 2.50 },
+        { id: "doble", nombre: "Doble porción de pollo", precio: 4.00 }
+      ]
+    }
+  },
+  { id: "p2", nombre: "Pan con palta", descripcion: "Pan ciabatta, palta fuerte y tomate.", precio: 8.50, categoria: "Desayunos", agotado: false },
+  { id: "p3", nombre: "Tostadas con mermelada", descripcion: "Pan de molde, mermelada de fresa y mantequilla.", precio: 5.50, categoria: "Desayunos", agotado: false },
+  { id: "p4", nombre: "Café pasado", descripcion: "Café de Chanchamayo, taza de 8 oz.", precio: 3.50, categoria: "Desayunos", agotado: false },
+  { id: "p5", nombre: "Ensalada de frutas", descripcion: "Frutas de estación picadas.", precio: 7.00, categoria: "Desayunos", agotado: true },
+  { id: "p6", nombre: "Jugo surtido", descripcion: "Papaya, plátano y naranja licuados al momento.", precio: 6.50, categoria: "Desayunos", agotado: false },
+  { id: "p7", nombre: "Chicha morada", descripcion: "Vaso de 16 oz, endulzada al momento.", precio: 4.50, categoria: "Desayunos", agotado: false },
+  { id: "p8", nombre: "Empanada de carne", descripcion: "Masa casera con carne y aceituna.", precio: 5.00, categoria: "Desayunos", agotado: true }
+];
+
+export default function LocalesComensal({ itemsCarrito = [], setItemsCarrito }) {
   const navigate = useNavigate();
 
-  // Estados de vista
+  // Estados de Filtros y Navegación
   const [esTodosCerrados, setEsTodosCerrados] = useState(false);
-  const [localSeleccionado, setLocalSeleccionado] = useState(null); // null = Lista de locales
-  const [busquedaCarta, setBusquedaCarta] = useState('');
-  const [categoriaActiva, setCategoriaActiva] = useState('Desayunos');
-  
-  // Estado para modal / detalle del producto
+  const [localSeleccionado, setLocalSeleccionado] = useState(null);
+  const [busquedaCarta, setBusquedaCarta] = useState("");
+  const [categoriaActiva, setCategoriaActiva] = useState("Desayunos");
+  const [soloAbiertos, setSoloAbiertos] = useState(false);
+
+  // Estados Modal Detalle de Producto
   const [productoDetalle, setProductoDetalle] = useState(null);
-  const [panElegido, setPanElegido] = useState('');
-  const [paraLlevarElegido, setParaLlevarElegido] = useState('local');
+  const [panElegido, setPanElegido] = useState("");
+  const [paraLlevarElegido, setParaLlevarElegido] = useState("local");
   const [agregadosElegidos, setAgregadosElegidos] = useState([]);
   const [cantidad, setCantidad] = useState(1);
-  const [nota, setNota] = useState('');
+  const [nota, setNota] = useState("");
   const [errorObligatorio, setErrorObligatorio] = useState(false);
 
-  // --- FILTROS DE CARTA ---
-  const productosFiltrados = PRODUCTOS_CAFETERIA.filter((p) => {
-    const coincideBusqueda = p.nombre.toLowerCase().includes(busquedaCarta.toLowerCase()) ||
-                              p.descripcion.toLowerCase().includes(busquedaCarta.toLowerCase());
-    return coincideBusqueda;
-  });
+  // Filtrado de Locales
+  const localesVisibles = soloAbiertos ? DATA_LOCALES.filter((l) => l.estado === "Abierto") : DATA_LOCALES;
 
-  // --- HANDLERS ---
+  // Filtrado de Productos por Búsqueda
+  const productosFiltrados = PRODUCTOS_CAFETERIA.filter((p) =>
+    p.nombre.toLowerCase().includes(busquedaCarta.toLowerCase()) ||
+    p.descripcion.toLowerCase().includes(busquedaCarta.toLowerCase())
+  );
+
   const handleVerCarta = (local) => {
     setLocalSeleccionado(local);
-    setBusquedaCarta('');
-    setCategoriaActiva('Desayunos');
+    setBusquedaCarta("");
+    setCategoriaActiva("Desayunos");
   };
 
   const handleAbrirDetalle = (prod) => {
     setProductoDetalle(prod);
-    setPanElegido('');
-    setParaLlevarElegido('local');
+    setPanElegido("");
+    setParaLlevarElegido("local");
     setAgregadosElegidos([]);
     setCantidad(1);
-    setNota('');
+    setNota("");
     setErrorObligatorio(false);
   };
 
   const handleToggleAgregado = (id) => {
     if (agregadosElegidos.includes(id)) {
-      setAgregadosElegidos(agregadosElegidos.filter(item => item !== id));
+      setAgregadosElegidos(agregadosElegidos.filter((item) => item !== id));
     } else {
       setAgregadosElegidos([...agregadosElegidos, id]);
     }
+  };
+
+  const calcularTotalProducto = () => {
+    if (!productoDetalle) return "0.00";
+    let base = productoDetalle.precio;
+
+    if (productoDetalle.opciones) {
+      const panObj = productoDetalle.opciones.tipoPan?.find((p) => p.id === panElegido);
+      if (panObj) base += panObj.precio;
+
+      const llevarObj = productoDetalle.opciones.paraLlevar?.find((p) => p.id === paraLlevarElegido);
+      if (llevarObj) base += llevarObj.precio;
+
+      agregadosElegidos.forEach((agrId) => {
+        const agrObj = productoDetalle.opciones.agregados?.find((a) => a.id === agrId);
+        if (agrObj) base += agrObj.precio;
+      });
+    }
+    return (base * cantidad).toFixed(2);
   };
 
   const handleAgregarAlCarrito = () => {
@@ -192,55 +163,53 @@ export default function LocalesComensal() {
       setErrorObligatorio(true);
       return;
     }
-    // Redirigir al Carrito
-    navigate('/comensales/carrito');
-  };
 
-  // Calcular precio total del producto configurado
-  const calcularTotalProducto = () => {
-    if (!productoDetalle) return 0;
-    let base = productoDetalle.precio;
-    
-    if (productoDetalle.opciones) {
-      const panObj = productoDetalle.opciones.tipoPan?.find(p => p.id === panElegido);
-      if (panObj) base += panObj.precio;
-
-      const llevarObj = productoDetalle.opciones.paraLlevar?.find(p => p.id === paraLlevarElegido);
-      if (llevarObj) base += llevarObj.precio;
-
-      agregadosElegidos.forEach(agrId => {
-        const agrObj = productoDetalle.opciones.agregados?.find(a => a.id === agrId);
-        if (agrObj) base += agrObj.precio;
-      });
+    if (setItemsCarrito) {
+      const precioBase = parseFloat(calcularTotalProducto());
+      const nuevoItem = {
+        id: Date.now(),
+        nombre: productoDetalle.nombre,
+        detalles: `${panElegido ? "Pan " + panElegido + " · " : ""}${paraLlevarElegido === "llevar" ? "Para llevar" : "En el local"}`,
+        nota: nota,
+        cantidad: cantidad,
+        precioUnitario: precioBase / cantidad,
+        subtotal: precioBase
+      };
+      setItemsCarrito([...itemsCarrito, nuevoItem]);
     }
-    return (base * cantidad).toFixed(2);
+
+    setProductoDetalle(null);
+    navigate("/comensales/carrito");
   };
 
   return (
     <main className="comensal-main-layout">
-      {/* Botón de prueba en desarrollo para conmutar estado global de horario */}
+      {/* SIMULADOR DE MODO DE PRUEBA */}
       <div className="simulador-bar">
         <span>Modo simulador:</span>
-        <button 
-          className="btn-simulador" 
-          onClick={() => { setEsTodosCerrados(!esTodosCerrados); setLocalSeleccionado(null); }}
+        <button
+          className="btn-simulador"
+          onClick={() => {
+            setEsTodosCerrados(!esTodosCerrados);
+            setLocalSeleccionado(null);
+          }}
         >
           {esTodosCerrados ? "Cambiar a Horario Abierto (Día)" : "Cambiar a Fuera de Horario (22:40)"}
         </button>
       </div>
 
-      {/* =========================================================================
-          VISTA 3.1: TODOS CERRADOS (FUERA DE HORARIO)
-         ========================================================================= */}
+      {/* CASO: NINGÚN LOCAL ABIERTO */}
       {esTodosCerrados ? (
-        <div className="locales-cerrados-container">
+        <div>
           <h1 className="locales-title">Locales del campus</h1>
           <p className="locales-subtitle">Ningún local recibe pedidos en este momento · 22:40</p>
 
           <div className="empty-state-box">
             <div className="clock-icon-circle">⏰</div>
-            <h2>Ningún local está abierto ahora</h2>
-            <p>Los locales del campus reciben pedidos desde las 07:00. Puedes revisar las cartas mientras tanto y pedir en cuanto abran.</p>
+            <h2 className="section-title" style={{ margin: "0 0 8px 0" }}>Ningún local está abierto ahora</h2>
+            <p style={{ color: "var(--text-muted)", fontSize: "14px", margin: 0 }}>
+              Los locales del campus reciben pedidos desde las 07:00. Puedes revisar las cartas mientras tanto y pedir en cuanto abran.
+            </p>
             <div className="empty-actions">
               <button className="btn-primary-action" onClick={() => setEsTodosCerrados(false)}>
                 Ver cartas de todos los locales
@@ -252,291 +221,317 @@ export default function LocalesComensal() {
           </div>
 
           <div className="proximas-aperturas">
-            <h3>PRÓXIMAS APERTURAS</h3>
+            <h3 className="section-title">Próximas aperturas (mañana)</h3>
             <div className="proximas-grid">
-              <div className="proxima-card">
-                <div className="proxima-thumb"></div>
-                <div>
-                  <strong>Cafetería Central</strong>
-                  <p>Abre mañana a las 07:00</p>
+              {DATA_LOCALES.map((loc) => (
+                <div key={loc.id} className="proxima-card">
+                  <div className="proxima-thumb"></div>
+                  <div>
+                    <h4 className="product-title" style={{ margin: 0 }}>{loc.nombre}</h4>
+                    <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>Abre a las {loc.aperturaProx}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="proxima-card">
-                <div className="proxima-thumb"></div>
-                <div>
-                  <strong>Café de Biblioteca</strong>
-                  <p>Abre mañana a las 08:00</p>
-                </div>
-              </div>
-              <div className="proxima-card">
-                <div className="proxima-thumb"></div>
-                <div>
-                  <strong>Menú Universitario N</strong>
-                  <p>Abre mañana a las 11:30</p>
-                </div>
-              </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : !localSeleccionado ? (
+        /* CASO DEFAULT: LOCALES DEL CAMPUS */
+        <div>
+          <div className="locales-header-bar">
+            <div>
+              <h1 className="locales-title">Locales del campus</h1>
+              <p className="locales-subtitle">
+                {DATA_LOCALES.filter((l) => l.estado === "Abierto").length} locales abiertos ahora · 1 cerrado · sede Monterrico
+              </p>
+            </div>
+            <div className="locales-filter-controls">
+              <select className="filter-dropdown" defaultValue="Monterrico">
+                <option value="Monterrico">Sede: Monterrico</option>
+                <option value="SanIsidro">Sede: San Isidro</option>
+              </select>
+              <button
+                className={`filter-btn-toggle ${soloAbiertos ? "active" : ""}`}
+                onClick={() => setSoloAbiertos(!soloAbiertos)}
+              >
+                {soloAbiertos ? "Solo abiertos ✕" : "Solo abiertos"}
+              </button>
+              <select className="filter-dropdown" defaultValue="espera">
+                <option value="espera">Ordenar: menor espera</option>
+                <option value="calificacion">Ordenar: mejor calificados</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="locales-grid">
+            {localesVisibles.map((local) => {
+              const esCerrado = local.estado === "Cerrado";
+              return (
+                <article key={local.id} className={`local-card ${esCerrado ? "local-card--cerrado" : ""}`}>
+                  <div className="local-card-image-placeholder">foto local</div>
+                  <div className="local-card-body">
+                    <div className="local-title-row">
+                      <h3>{local.nombre}</h3>
+                      <span className={esCerrado ? "status-pill pill-closed" : "status-pill pill-open"}>
+                        {local.estado}
+                      </span>
+                    </div>
+                    <p className="local-location-info">{local.ubicacion}</p>
+                    <p className="local-time-rating">{local.tiempoPrep}</p>
+                    <button
+                      className={esCerrado ? "btn-ver-carta btn-ver-carta--disabled" : "btn-ver-carta"}
+                      disabled={esCerrado}
+                      onClick={() => handleVerCarta(local)}
+                    >
+                      Ver carta
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
+
+            <div className="local-card-info-box">
+              Los locales cerrados se muestran atenuados al final de la lista, nunca ocultos.
             </div>
           </div>
         </div>
       ) : (
-        <>
-          {/* =========================================================================
-              VISTA 3.1: LISTA DE LOCALES (DEFAULT)
-             ========================================================================= */}
-          {!localSeleccionado ? (
-            <div className="locales-view-container">
-              <div className="locales-header-bar">
-                <div>
-                  <h1 className="locales-title">Locales del campus</h1>
-                  <p className="locales-subtitle">
-                    4 locales abiertos ahora · 1 cerrado · sede Monterrico
-                  </p>
-                </div>
+        /* CASO CARTA DEL LOCAL SELECCIONADO */
+        <div>
+          <div style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "16px" }}>
+            <span style={{ cursor: "pointer", textDecoration: "underline" }} onClick={() => setLocalSeleccionado(null)}>
+              Locales
+            </span>
+            {" > "}
+            <strong style={{ color: "var(--text)" }}>{localSeleccionado.nombre}</strong>
+          </div>
 
-                <div className="locales-filter-controls">
-                  <select className="filter-dropdown" defaultValue="Monterrico">
-                    <option value="Monterrico">Sede: Monterrico</option>
-                  </select>
-                  <button className="filter-btn-toggle">Solo abiertos ✕</button>
-                  <select className="filter-dropdown" defaultValue="menor_espera">
-                    <option value="menor_espera">Ordenar: menor espera</option>
-                  </select>
-                </div>
+          <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-card)", padding: "20px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", boxShadow: "var(--shadow-warm)" }}>
+            <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+              <div style={{ width: "56px", height: "56px", background: "repeating-linear-gradient(-45deg, #FCEAE7, #FCEAE7 5px, #EFE2DC 5px, #EFE2DC 10px)", borderRadius: "var(--radius-container)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)", fontSize: "12px" }}>
+                foto
               </div>
+              <div>
+                <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                  <h2 className="section-title" style={{ margin: 0 }}>{localSeleccionado.nombre}</h2>
+                  <span className="status-pill pill-open">Abierto</span>
+                </div>
+                <p style={{ color: "var(--text-muted)", fontSize: "13px", margin: "4px 0 0" }}>
+                  Pabellón A, primer piso · cierra 19:00 · 12 min de preparación · 4.6 ★ (128)
+                </p>
+              </div>
+            </div>
+          </div>
 
-              <div className="locales-cards-grid">
-                {LOCALES_DATA.map((local) => {
-                  const esCerrado = local.estado === 'Cerrado';
-                  return (
-                    <article key={local.id} className={`local-card ${esCerrado ? 'local-card--closed' : ''}`}>
-                      <div className="local-card-image-placeholder">
-                        <span>foto local</span>
-                      </div>
-                      <div className="local-card-body">
-                        <div className="local-title-row">
-                          <h3>{local.nombre}</h3>
-                          <span className={`status-pill ${esCerrado ? 'pill-closed' : 'pill-open'}`}>
-                            {local.estado}
-                          </span>
-                        </div>
-                        <p className="local-location-info">{local.ubicacion} · {local.horario}</p>
-                        <p className="local-time-rating">{local.tiempoPrep} · {local.calificacion} ★</p>
+          {/* Categorías */}
+          <div style={{ display: "flex", gap: "8px", overflowX: "auto", paddingBottom: "8px", marginBottom: "16px" }}>
+            {["Desayunos", "Sándwiches", "Menú del día", "Jugos y bebidas", "Snacks", "Postres", "Café"].map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setCategoriaActiva(cat)}
+                style={{
+                  background: categoriaActiva === cat ? "var(--primary)" : "var(--surface)",
+                  color: categoriaActiva === cat ? "var(--surface)" : "var(--text)",
+                  border: `1px solid ${categoriaActiva === cat ? "var(--primary)" : "var(--border)"}`,
+                  padding: "6px 16px",
+                  borderRadius: "var(--radius-chip)",
+                  fontSize: "13px",
+                  fontWeight: "500",
+                  cursor: "pointer",
+                  whiteSpace: "nowrap"
+                }}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
 
-                        <button
-                          type="button"
-                          className={`btn-ver-carta ${esCerrado ? 'btn-ver-carta--disabled' : ''}`}
-                          disabled={esCerrado}
-                          onClick={() => handleVerCarta(local)}
-                        >
-                          Ver carta
-                        </button>
-                      </div>
-                    </article>
-                  );
-                })}
+          {/* Buscador */}
+          <div style={{ display: "flex", gap: "12px", marginBottom: "24px" }}>
+            <input
+              type="text"
+              style={{ flex: 1, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-container)", padding: "10px 16px", fontSize: "14px", outline: "none", fontFamily: "var(--font-body)" }}
+              placeholder="Buscar producto o plato..."
+              value={busquedaCarta}
+              onChange={(e) => setBusquedaCarta(e.target.value)}
+            />
+          </div>
 
-                <article className="local-card-info-box">
-                  <p>Los locales cerrados se muestran atenuados al final de la lista, nunca ocultos.</p>
-                </article>
+          {/* CASO: BUSCADOR SIN RESULTADOS */}
+          {productosFiltrados.length === 0 ? (
+            <div className="sin-resultados-card">
+              <div className="question-circle">?</div>
+              <h3 className="section-title" style={{ margin: "0 0 8px 0" }}>
+                Sin resultados para "{busquedaCarta}"
+              </h3>
+              <p style={{ color: "var(--text-muted)", fontSize: "13px", margin: "0 0 16px 0" }}>
+                No encontramos productos que coincidan con tu búsqueda en {localSeleccionado.nombre}.
+              </p>
+              <div className="filter-active-tags">
+                <span className="tag-pill">Búsqueda: {busquedaCarta}</span>
+                <button
+                  style={{ background: "transparent", border: "none", color: "var(--primary)", fontWeight: "bold", cursor: "pointer", fontSize: "13px" }}
+                  onClick={() => setBusquedaCarta("")}
+                >
+                  Limpiar búsqueda
+                </button>
               </div>
             </div>
           ) : (
-            /* =========================================================================
-                VISTA 3.2: CARTA DEL LOCAL (CAFETERÍA CENTRAL)
-               ========================================================================= */
-            <div className="carta-local-container">
-              <div className="breadcrumb">
-                <span onClick={() => setLocalSeleccionado(null)} className="link-back">Locales</span> &gt; <strong>{localSeleccionado.nombre}</strong>
-              </div>
-
-              <div className="local-header-info">
-                <div className="local-header-main">
-                  <div className="local-avatar-placeholder"></div>
-                  <div>
-                    <div className="local-title-badge">
-                      <h2>{localSeleccionado.nombre}</h2>
-                      <span className="status-pill pill-open">{localSeleccionado.estado}</span>
+            /* GRILLA DE PRODUCTOS CARTA */
+            <div className="productos-grid">
+              {productosFiltrados.map((prod) => (
+                <div key={prod.id} style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-card)", overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "var(--shadow-warm)", opacity: prod.agotado ? 0.5 : 1 }}>
+                  <div style={{ height: "140px", background: "repeating-linear-gradient(-45deg, #FCEAE7, #FCEAE7 5px, #EFE2DC 5px, #EFE2DC 10px)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)", fontSize: "12px" }}>
+                    foto 1:1
+                  </div>
+                  <div style={{ padding: "16px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                    <div>
+                      <h4 className="product-title" style={{ margin: 0 }}>{prod.nombre}</h4>
+                      <p style={{ color: "var(--text-muted)", fontSize: "13px", lineHeight: "18px", margin: "6px 0 12px" }}>{prod.descripcion}</p>
                     </div>
-                    <p className="local-subtitle-text">
-                      {localSeleccionado.ubicacion} · cierra 19:00 · {localSeleccionado.tiempoPrep} · {localSeleccionado.calificacion} ★ ({localSeleccionado.resenasCount || 128})
-                    </p>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <span className="price-text">S/ {prod.precio.toFixed(2)}</span>
+                      
+                      <button
+                        style={{
+                          background: prod.agotado ? "var(--bg)" : "var(--primary)",
+                          color: prod.agotado ? "var(--text-muted)" : "var(--surface)",
+                          border: prod.agotado ? "1px solid var(--border)" : "none",
+                          padding: "8px 16px",
+                          borderRadius: "var(--radius-container)",
+                          fontWeight: "600",
+                          fontSize: "13px",
+                          cursor: "pointer"
+                        }}
+                        onClick={() => handleAbrirDetalle(prod)}
+                      >
+                        {prod.agotado ? "Agotado" : "Agregar"}
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <button className="btn-secondary-action">Ver reseñas</button>
-              </div>
-
-              {/* Categorías y Buscador de Carta */}
-              <div className="categories-pills">
-                {['Desayunos', 'Sándwiches', 'Menú del día', 'Jugos y bebidas', 'Snacks', 'Postres', 'Café'].map((cat) => (
-                  <button
-                    key={cat}
-                    className={`cat-pill ${categoriaActiva === cat ? 'active' : ''}`}
-                    onClick={() => setCategoriaActiva(cat)}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
-
-              <div className="carta-filters-row">
-                <input
-                  type="text"
-                  className="search-carta-input"
-                  placeholder="Buscar en esta carta..."
-                  value={busquedaCarta}
-                  onChange={(e) => setBusquedaCarta(e.target.value)}
-                />
-                <select className="filter-dropdown"><option>Hasta S/ 10</option></select>
-                <button className="filter-btn-toggle">Solo disponibles ✕</button>
-              </div>
-
-              {/* =========================================================================
-                  VISTA 3.2 - SIN RESULTADOS DE BÚSQUEDA
-                 ========================================================================= */}
-              {productosFiltrados.length === 0 ? (
-                <div className="sin-resultados-card">
-                  <div className="filter-active-tags">
-                    <span className="tag-pill">«{busquedaCarta}» ✕</span>
-                    <span className="tag-pill">Hasta S/ 10 ✕</span>
-                    <button className="link-limpiar" onClick={() => setBusquedaCarta('')}>Limpiar todo</button>
-                  </div>
-                  <div className="question-circle">?</div>
-                  <h3>Ningún producto coincide con tu búsqueda</h3>
-                  <p>Prueba con otro término, sube el límite de precio o revisa la carta completa del local.</p>
-                  <button className="btn-primary-action" onClick={() => setBusquedaCarta('')}>Ver toda la carta</button>
-                </div>
-              ) : (
-                /* RETÍCULA DE PRODUCTOS DE LA CARTA */
-                <div className="productos-grid">
-                  {productosFiltrados.map((prod) => (
-                    <div key={prod.id} className={`producto-card ${prod.agotado ? 'prod-agotado' : ''}`}>
-                      <div className="prod-img-placeholder">foto 1:1</div>
-                      <div className="prod-info">
-                        <h4>{prod.nombre}</h4>
-                        <p>{prod.descripcion}</p>
-                        <div className="prod-price-row">
-                          <span className="prod-price">S/ {prod.precio.toFixed(2)}</span>
-                          {prod.agotado ? (
-                            <button className="btn-agregar-prod disabled" onClick={() => handleAbrirDetalle(prod)}>
-                              Agotado
-                            </button>
-                          ) : (
-                            <button className="btn-agregar-prod" onClick={() => handleAbrirDetalle(prod)}>
-                              Agregar
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+              ))}
             </div>
           )}
-        </>
+        </div>
       )}
 
-      {/* =========================================================================
-          VISTA 3.3 Y PIEZAS SUELTAS: MODAL / DETALLE DEL PRODUCTO
-         ========================================================================= */}
+      {/* MODAL DETALLE DE PRODUCTO */}
       {productoDetalle && (
         <div className="modal-overlay">
           <div className="modal-detalle-card">
             <button className="btn-close-modal" onClick={() => setProductoDetalle(null)}>✕</button>
 
-            {/* VISTA PRODUCTO AGOTADO */}
+            {/* PRODUCTO AGOTADO */}
             {productoDetalle.agotado ? (
-              <div className="detalle-agotado-box">
-                <div className="prod-img-placeholder modal-img">foto 1:1</div>
-                <div className="detalle-head">
-                  <h2>{productoDetalle.nombre} <span className="pill-closed">Agotado</span></h2>
-                  <p>{productoDetalle.descripcion}</p>
-                  <span className="prod-price">S/ {productoDetalle.precio.toFixed(2)}</span>
+              <div style={{ textAlign: "center", padding: "12px 0" }}>
+                <div style={{ height: "160px", width: "160px", background: "repeating-linear-gradient(-45deg, #FCEAE7, #FCEAE7 5px, #EFE2DC 5px, #EFE2DC 10px)", borderRadius: "var(--radius-card)", margin: "0 auto 16px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)" }}>
+                  foto 1:1
                 </div>
-                <div className="modal-actions-stack">
-                  <button className="btn-disabled-wide">Agotado por hoy</button>
-                  <button className="btn-outline-wide" onClick={() => setProductoDetalle(null)}>
-                    Ver productos similares
-                  </button>
-                </div>
+                <h2 className="section-title" style={{ margin: 0 }}>
+                  {productoDetalle.nombre} <span className="status-pill pill-closed" style={{ marginLeft: "8px" }}>Agotado</span>
+                </h2>
+                <p style={{ color: "var(--text-muted)", margin: "8px 0 16px", fontSize: "14px" }}>{productoDetalle.descripcion}</p>
+                <span className="price-text" style={{ fontSize: "20px", display: "block", marginBottom: "20px" }}>S/ {productoDetalle.precio.toFixed(2)}</span>
+                
+                <button className="btn-disabled-wide" disabled>Agotado por hoy</button>
+                <button className="btn-outline-wide" onClick={() => setProductoDetalle(null)}>Volver a la carta</button>
               </div>
             ) : (
-              /* VISTA PRODUCTO DISPONIBLE CON OPCIONES */
+              /* PRODUCTO DISPONIBLE / OPCIONES */
               <div className="detalle-layout">
-                <div className="detalle-img-side">
-                  <div className="prod-img-placeholder modal-img">foto del producto 1:1</div>
-                  <p className="subtext-local">{localSeleccionado?.nombre || 'Cafetería Central'} · 8 min de preparación · 4.9 ★ (62)</p>
+                <div>
+                  <div style={{ height: "200px", background: "repeating-linear-gradient(-45deg, #FCEAE7, #FCEAE7 5px, #EFE2DC 5px, #EFE2DC 10px)", borderRadius: "var(--radius-card)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)", fontSize: "12px" }}>
+                    foto 1:1
+                  </div>
+                  <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "12px" }}>Cafetería Central · 8 min de preparación · 4.9 ★ (62)</p>
                 </div>
 
-                <div className="detalle-info-side">
-                  <h2>{productoDetalle.nombre}</h2>
-                  <p className="prod-desc-full">{productoDetalle.descripcion} Preparado al momento del recojo.</p>
+                <div>
+                  <h2 className="section-title" style={{ margin: 0 }}>{productoDetalle.nombre}</h2>
+                  <p style={{ color: "var(--text-muted)", fontSize: "13px", margin: "6px 0 16px" }}>{productoDetalle.descripcion}</p>
 
-                  {/* ALERTA DE OPCIÓN OBLIGATORIA SIN ELEGIR */}
+                  {/* ALERTA OPCIÓN OBLIGATORIA */}
                   {errorObligatorio && (
                     <div className="alert-obligatorio">
                       Elige un tipo de pan para continuar.
                     </div>
                   )}
 
-                  {/* Opciones Configurables */}
                   {productoDetalle.opciones && (
-                    <div className="options-groups">
-                      {/* TIPO DE PAN (OBLIGATORIO) */}
-                      <div className={`group-box ${errorObligatorio ? 'group-box-error' : ''}`}>
-                        <label className="group-title">TIPO DE PAN · OBLIGATORIO</label>
+                    <div>
+                      {/* OBLIGATORIO */}
+                      <div className={`group-box ${errorObligatorio ? "group-box-error" : ""}`}>
+                        <label className="field-label" style={{ color: errorObligatorio ? "var(--primary)" : "var(--text-muted)", display: "block", marginBottom: "8px" }}>
+                          TIPO DE PAN · OBLIGATORIO
+                        </label>
                         {productoDetalle.opciones.tipoPan.map((pan) => (
                           <label key={pan.id} className="radio-option">
-                            <input
-                              type="radio"
-                              name="tipoPan"
-                              value={pan.id}
-                              checked={panElegido === pan.id}
-                              onChange={() => { setPanElegido(pan.id); setErrorObligatorio(false); }}
-                            />
-                            <span>{pan.nombre}</span>
-                            <span className="price-tag">{pan.precio === 0 ? 'Sin costo' : `+ S/ ${pan.precio.toFixed(2)}`}</span>
+                            <span>
+                              <input
+                                type="radio"
+                                name="pan"
+                                checked={panElegido === pan.id}
+                                onChange={() => {
+                                  setPanElegido(pan.id);
+                                  setErrorObligatorio(false);
+                                }}
+                                style={{ marginRight: "8px" }}
+                              />
+                              {pan.nombre}
+                            </span>
+                            <span style={{ color: "var(--text-muted)" }}>
+                              {pan.precio === 0 ? "Sin costo" : `+ S/ ${pan.precio.toFixed(2)}`}
+                            </span>
                           </label>
                         ))}
                       </div>
 
-                      {/* PARA LLEVAR (OPCIONAL) */}
+                      {/* OPCIONAL: LLEVAR */}
                       <div className="group-box">
-                        <label className="group-title">PARA LLEVAR · OPCIONAL</label>
+                        <label className="field-label" style={{ display: "block", marginBottom: "8px" }}>PARA LLEVAR · OPCIONAL</label>
                         {productoDetalle.opciones.paraLlevar.map((op) => (
                           <label key={op.id} className="radio-option">
-                            <input
-                              type="radio"
-                              name="paraLlevar"
-                              value={op.id}
-                              checked={paraLlevarElegido === op.id}
-                              onChange={() => setParaLlevarElegido(op.id)}
-                            />
-                            <span>{op.nombre}</span>
-                            <span className="price-tag">{op.precio === 0 ? 'Sin costo' : `+ S/ ${op.precio.toFixed(2)}`}</span>
+                            <span>
+                              <input
+                                type="radio"
+                                name="llevar"
+                                checked={paraLlevarElegido === op.id}
+                                onChange={() => setParaLlevarElegido(op.id)}
+                                style={{ marginRight: "8px" }}
+                              />
+                              {op.nombre}
+                            </span>
+                            <span style={{ color: "var(--text-muted)" }}>
+                              {op.precio === 0 ? "Sin costo" : `+ S/ ${op.precio.toFixed(2)}`}
+                            </span>
                           </label>
                         ))}
                       </div>
 
-                      {/* AGREGADOS (OPCIONAL) */}
+                      {/* OPCIONAL: AGREGADOS */}
                       <div className="group-box">
-                        <label className="group-title">AGREGADOS · OPCIONAL</label>
+                        <label className="field-label" style={{ display: "block", marginBottom: "8px" }}>AGREGADOS · OPCIONAL</label>
                         {productoDetalle.opciones.agregados.map((agr) => (
                           <label key={agr.id} className="checkbox-option">
-                            <input
-                              type="checkbox"
-                              checked={agregadosElegidos.includes(agr.id)}
-                              onChange={() => handleToggleAgregado(agr.id)}
-                            />
-                            <span>{agr.nombre}</span>
-                            <span className="price-tag">+ S/ {agr.precio.toFixed(2)}</span>
+                            <span>
+                              <input
+                                type="checkbox"
+                                checked={agregadosElegidos.includes(agr.id)}
+                                onChange={() => handleToggleAgregado(agr.id)}
+                                style={{ marginRight: "8px" }}
+                              />
+                              {agr.nombre}
+                            </span>
+                            <span style={{ color: "var(--text-muted)" }}>+ S/ {agr.precio.toFixed(2)}</span>
                           </label>
                         ))}
                       </div>
 
                       {/* NOTA PARA EL LOCAL */}
                       <div className="group-box">
-                        <label className="group-title">NOTA PARA EL LOCAL</label>
+                        <label className="field-label" style={{ display: "block", marginBottom: "8px" }}>NOTA PARA EL LOCAL</label>
                         <textarea
                           className="nota-textarea"
                           placeholder="Sin cebolla, por favor."
@@ -544,12 +539,11 @@ export default function LocalesComensal() {
                           value={nota}
                           onChange={(e) => setNota(e.target.value)}
                         />
-                        <span className="char-count">Máximo 120 caracteres.</span>
                       </div>
                     </div>
                   )}
 
-                  {/* Barra de Acciones y Cantidad */}
+                  {/* BOTTOM BAR DE ACCIÓN */}
                   <div className="modal-bottom-bar">
                     <div className="counter-box">
                       <button onClick={() => setCantidad(Math.max(1, cantidad - 1))}>-</button>
@@ -557,12 +551,12 @@ export default function LocalesComensal() {
                       <button onClick={() => setCantidad(cantidad + 1)}>+</button>
                     </div>
 
-                    <button className="btn-primary-action flex-grow" onClick={handleAgregarAlCarrito}>
+                    <button className="btn-primary-action" style={{ flex: 1 }} onClick={handleAgregarAlCarrito}>
                       Agregar al carrito · S/ {calcularTotalProducto()}
                     </button>
 
                     <button className="btn-secondary-action" onClick={() => setProductoDetalle(null)}>
-                      Volver a la carta
+                      Volver
                     </button>
                   </div>
                 </div>

@@ -7,15 +7,15 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 // 1. Estructura (Partials)
 import Cabecera from '../partials/ControlPanel/Comensal/HeaderComensal/HeaderComensal';
 import SubHeader from '../partials/ControlPanel/Comensal/SubHeaderComensal/SubHeaderComensal';
-import Footer from '../partials/ControlPanel/Comensal/FooterComensal/FooterPanelComensal';
+import FooterComensal from '../partials/ControlPanel/Comensal/FooterComensal/FooterComensal';
 
 // 2. Vistas (Pages)
 import LocalesComensal from '../pages/PagesComensal/LocalesComensal/LocalesComensal';
-import PedidosComensal from '../pages/PagesComensal/PedidosComensal/PedidosComensal'; // <-- Corregido
-//import Calificaciones from '../pages/PagesComensal/CalificacionesComensal/CalificacionesComensal';
-//import MiCuenta from '../pages/PagesComensal/MiCuenta/MiCuenta';
+import PedidosComensal from '../pages/PagesComensal/PedidosComensal/PedidosComensal';
+import CalificacionesComensal from '../pages/PagesComensal/CalificacionesComensal/CalificacionesComensal';
+import MiCuentaComensal from '../pages/PagesComensal/MiCuentaComensal/MiCuentaComensal';
 import CarritoComensal from '../pages/PagesComensal/CarritoComensal/CarritoComensal';
-//import ConfirmacionPedido from '../pages/PagesComensal/CarritoComensal/ConfirmacionPedido';
+import ConfirmacionPedido from '../pages/PagesComensal/CarritoComensal/ConfirmacionPedido';
 
 // 3. CSS base
 import './comensal.css';
@@ -70,28 +70,29 @@ function ComensalApp() {
           </aside>
 
           <Routes>
-            <Route path="/comensales" element={<Navigate to="/comensales/LocalesComensal" replace />} />
+            {/* Redirección automática al ingresar a / o a /comensales */}
+            <Route path="/" element={<Navigate to="/comensales/localescomensal" replace />} />
+            <Route path="/comensales" element={<Navigate to="/comensales/localescomensal" replace />} />
             
             <Route 
-              path="/comensales/LocalesComensal" 
+              path="/comensales/localescomensal" 
               element={<LocalesComensal itemsCarrito={itemsCarrito} setItemsCarrito={setItemsCarrito} />} 
             />
             
-            {/* VISTA MIS PEDIDOS ACTUALIZADA */}
             <Route 
-              path="/comensales/PedidosComensal" 
+              path="/comensales/pedidos" 
               element={<PedidosComensal pedidos={pedidosHistorial} />} 
             />
             
-            {/* <Route path="/comensales/CalificacionesComensal" element={<Calificaciones />} /> */}
-            {/* <Route path="/comensales/MiCuentaComensal" element={<MiCuenta />} /> */}
+            <Route path="/comensales/calificaciones" element={<CalificacionesComensal />} />
+            <Route path="/comensales/micuenta" element={<MiCuentaComensal />} />
             
             <Route 
-              path="/comensales/CarritoComensal" 
+              path="/comensales/carrito" 
               element={<CarritoComensal items={itemsCarrito} setItems={setItemsCarrito} />} 
             />
 
-            {/* <Route 
+            <Route 
               path="/comensales/confirmacion" 
               element={
                 <ConfirmacionPedido 
@@ -100,14 +101,14 @@ function ComensalApp() {
                   onConfirmarPedido={handleConfirmarNuevoPedido} 
                 />
               } 
-            /> */}
+            />
             
-            {/* <Route path="*" element={<Navigate to="/comensales/LocalesComensal" replace />} /> */}
+            <Route path="*" element={<Navigate to="/comensales/localescomensal" replace />} />
           </Routes>
         </div>
 
         <footer className="app-footer">
-          <Footer />
+          <FooterComensal />
         </footer>
       </div>
     </BrowserRouter>

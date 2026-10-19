@@ -1,298 +1,219 @@
 // src/pages/CarritoComensal/CarritoComensal.jsx
-
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './CarritoComensal.css'; // <-- Importamos los estilos CSS
+import { useNavigate } from 'react-router-dom';
+import './CarritoComensal.css';
 
 export default function CarritoComensal({ items = [], setItems }) {
   const navigate = useNavigate();
-  const [mostrarModalAgotado, setMostrarModalAgotado] = useState(false);
-  const [reemplazoSeleccionado, setReemplazoSeleccionado] = useState("Empanada de pollo");
+  const [productoAgotadoModal, setProductoAgotadoModal] = useState(false);
 
-  const actualizarCantidad = (id, delta) => {
-    if (!setItems) return;
-    setItems(items.map(item => {
-      if (item.id === id) {
-        const nuevaCant = Math.max(1, item.cantidad + delta);
-        return { ...item, cantidad: nuevaCant, subtotal: nuevaCant * item.precioUnitario };
-      }
-      return item;
-    }));
+  const subtotal = items.reduce((acc, curr) => acc + curr.subtotal, 0);
+  const costoAgregados = items.length > 0 ? 2.00 : 0;
+  const costoEmpaque = items.length > 0 ? 0.50 : 0;
+  const totalGeneral = subtotal + costoAgregados + costoEmpaque;
+
+  const handleCambiarCantidad = (id, cambio) => {
+    setItems((prev) =>
+      prev.map((item) => {
+        if (item.id === id) {
+          const nuevaCant = item.cantidad + cambio;
+          if (nuevaCant <= 0) return null;
+          return { ...item, cantidad: nuevaCant, subtotal: nuevaCant * item.precioUnitario };
+        }
+        return item;
+      }).filter(Boolean)
+    );
   };
 
-  const eliminarItem = (id) => {
-    if (!setItems) return;
-    setItems(items.filter(item => item.id !== id));
-  };
-
-  const vaciarCarrito = () => {
-    if (!setItems) return;
+  const handleVaciarCarrito = () => {
     setItems([]);
   };
 
-  const agregarFrecuente = (prod) => {
-    if (!setItems) return;
-    const nuevoId = Date.now();
-    setItems([...items, {
-      id: nuevoId,
-      nombre: prod.nombre,
-      detalles: prod.detalles,
-      nota: "",
-      cantidad: 1,
-      precioUnitario: prod.precio,
-      subtotal: prod.precio
-    }]);
-  };
+  // VISTA CARRITO VACÍO
+  if (items.length === 0) {
+    return (
+      <main className="carrito-layout">
+        <div className="cart-card-container" style={{ textAlign: "center", padding: "48px 20px", maxWidth: "800px", margin: "0 auto" }}>
+          <div style={{ width: "48px", height: "48px", background: "var(--primary-soft)", border: "1px solid var(--primary-soft)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", color: "var(--primary)", fontSize: "20px" }}>
+            🛒
+          </div>
+          <h2 className="locales-title" style={{ fontSize: "22px" }}>Tu carrito está vacío</h2>
+          <p style={{ color: "var(--text-muted)", fontSize: "14px", marginBottom: "24px" }}>
+            Elige un local abierto y agrega tu primer producto para pedir con anticipación y recogerlo sin hacer cola.
+          </p>
+          <button className="btn-primary-action" onClick={() => navigate('/comensales/localescomensal')}>
+            Ver locales abiertos
+          </button>
+        </div>
 
-  const handleElegirHoraRecojo = () => {
-    const hayAgotados = items.some(item => item.nombre.toLowerCase().includes("empanada"));
-    if (hayAgotados) {
-      setMostrarModalAgotado(true);
-    } else {
-      navigate('/comensales/confirmacion');
-    }
-  };
+        {/* VUELVE A PEDIR LO DE SIEMPRE */}
+        <div style={{ marginTop: "40px" }}>
+          <label className="field-label" style={{ display: "block", marginBottom: "12px" }}>VUELVE A PEDIR LO DE SIEMPRE</label>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px" }}>
+            {[
+              { id: 101, nombre: "Sándwich de pollo", local: "Cafetería Central · S/ 9.50" },
+              { id: 102, nombre: "Menú ejecutivo", local: "Menú Universitario N · S/ 14.00" },
+              { id: 103, nombre: "Café pasado", local: "Café de Biblioteca · S/ 3.50" }
+            ].map((p) => (
+              <div key={p.id} style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-card)", padding: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                  <div style={{ width: "44px", height: "44px", background: "repeating-linear-gradient(-45deg, #FCEAE7, #FCEAE7 5px, #EFE2DC 5px, #EFE2DC 10px)", borderRadius: "8px" }}></div>
+                  <div>
+                    <h5 className="product-title" style={{ fontSize: "14px", margin: 0 }}>{p.nombre}</h5>
+                    <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>{p.local}</span>
+                  </div>
+                </div>
+                <button className="btn-primary-action" style={{ minHeight: "36px", padding: "0 12px", fontSize: "12px" }}>Agregar</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </main>
+    );
+  }
 
-  const handleReemplazarYContinuar = () => {
-    if (setItems) {
-      setItems(items.map(item => {
-        if (item.nombre.toLowerCase().includes("empanada")) {
-          return {
-            ...item,
-            nombre: reemplazoSeleccionado,
-            detalles: "1 unidad",
-            precioUnitario: 5.00,
-            subtotal: 5.00
-          };
-        }
-        return item;
-      }));
-    }
-    setMostrarModalAgotado(false);
-    navigate('/comensales/confirmacion');
-  };
-
-  const handleQuitarYContinuar = () => {
-    if (setItems) {
-      setItems(items.filter(item => !item.nombre.toLowerCase().includes("empanada")));
-    }
-    setMostrarModalAgotado(false);
-    navigate('/comensales/confirmacion');
-  };
-
-  const calcularSubtotalGeneral = () => {
-    return items.reduce((acc, curr) => acc + curr.subtotal, 0).toFixed(2);
-  };
-
-  const calcularTotalItems = () => {
-    return items.reduce((acc, curr) => acc + curr.cantidad, 0);
-  };
-
+  // VISTA CARRITO CON ÍTEMS (3.4)
   return (
-    <main className="comensal-main-layout carrito-container">
-      {/* BREADCRUMB */}
-      <div className="carrito-breadcrumb">
-        <Link to="/comensales/localescomensal" className="carrito-breadcrumb-link">Cafetería Central</Link>
-        {" > "}
-        <strong className="carrito-breadcrumb-current">Tu carrito</strong>
+    <main className="carrito-layout">
+      <div className="breadcrumbs">
+        Cafetería Central &gt; <span>Tu carrito</span>
       </div>
 
-      {items.length > 0 ? (
-        <div className="carrito-grid">
-          {/* COLUMNA IZQUIERDA */}
-          <div className="carrito-card-left">
-            <h1 className="carrito-title">Tu carrito</h1>
-            <p className="carrito-subtitle">{items.length} ítems de Cafetería Central</p>
-            
-            <div className="carrito-alert-info">
-              Todos los ítems deben ser del mismo local. Para pedir en otro local, confirma o vacía este carrito.
-            </div>
+      <h1 className="locales-title">Tu carrito</h1>
+      <p className="locales-subtitle" style={{ marginBottom: "16px" }}>
+        {items.length} items de Cafetería Central
+      </p>
 
-            <div className="carrito-items-list">
-              {items.map((item) => (
-                <div key={item.id} className="carrito-item-card">
-                  <div className="carrito-item-thumb" />
-                  <div>
-                    <h4 className="carrito-item-title">{item.nombre}</h4>
-                    <p className="carrito-item-details">{item.detalles}</p>
-                    {item.nota && <p className="carrito-item-note">Nota: {item.nota}</p>}
-                  </div>
-
-                  <div className="carrito-quantity-control">
-                    <button className="carrito-btn-qty" onClick={() => actualizarCantidad(item.id, -1)}>-</button>
-                    <span className="carrito-qty-num">{item.cantidad}</span>
-                    <button className="carrito-btn-qty" onClick={() => actualizarCantidad(item.id, 1)}>+</button>
-                  </div>
-
-                  <div className="carrito-item-price-col">
-                    <span className="carrito-item-price">S/ {item.subtotal.toFixed(2)}</span>
-                    <button className="carrito-btn-remove" onClick={() => eliminarItem(item.id)}>Quitar</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="carrito-left-footer">
-              <button className="carrito-btn-secondary" onClick={() => navigate("/comensales/localescomensal")}>Seguir agregando</button>
-              <button className="carrito-btn-empty" onClick={vaciarCarrito}>Vaciar carrito</button>
-            </div>
-          </div>
-
-          {/* COLUMNA DERECHA */}
-          <div className="carrito-card-right">
-            <h3 className="carrito-summary-title">Resumen</h3>
-            <div className="carrito-summary-list">
-              <div className="carrito-summary-row">
-                <span>Productos ({calcularTotalItems()})</span>
-                <strong>S/ {Math.max(0, parseFloat(calcularSubtotalGeneral()) - 2.50).toFixed(2)}</strong>
-              </div>
-              <div className="carrito-summary-row">
-                <span>Agregados</span>
-                <strong>S/ 2.00</strong>
-              </div>
-              <div className="carrito-summary-row">
-                <span>Empaque para llevar</span>
-                <strong>S/ 0.50</strong>
-              </div>
-            </div>
-
-            <div className="carrito-summary-subtotal">
-              <span className="carrito-summary-subtotal-label">Subtotal</span>
-              <strong className="carrito-summary-subtotal-value">S/ {calcularSubtotalGeneral()}</strong>
-            </div>
-
-            <p className="carrito-summary-disclaimer">El pago se realiza en el punto de recojo. En el siguiente paso eliges la hora.</p>
-
-            <button className="carrito-btn-primary" onClick={handleElegirHoraRecojo}>
-              Elegir hora de recojo
-            </button>
-          </div>
-        </div>
-      ) : (
-        /* CARRITO VACÍO */
+      <div className="carrito-grid-main">
         <div>
-          <div className="carrito-empty-box">
-            <div className="carrito-empty-icon-circle">🛒</div>
-            <h2 className="carrito-empty-title">Tu carrito está vacío</h2>
-            <p className="carrito-empty-desc">Elige un local abierto y agrega tu primer producto para pedir con anticipación y recogerlo sin hacer cola.</p>
-            <button className="carrito-btn-primary" onClick={() => navigate("/comensales/localescomensal")}>
-              Ver locales abiertos
-            </button>
+          <div className="info-banner-local">
+            <i>i</i> Todos los ítems deben ser del mismo local. Para pedir en otro local, confirma o vacía este carrito.
           </div>
 
-          <div>
-            <h3 className="carrito-section-label">VUELVE A PEDIR LO DE SIEMPRE</h3>
-            <div className="carrito-frecuentes-grid">
-              <div className="carrito-frecuente-card">
-                <div className="carrito-frecuente-info">
-                  <div className="carrito-frecuente-thumb" />
-                  <div>
-                    <strong className="carrito-frecuente-name">Sándwich de pollo</strong>
-                    <span className="carrito-frecuente-meta">Cafetería Central · S/ 9.50</span>
+          <div className="cart-card-container">
+            {items.map((item) => (
+              <div key={item.id} className="cart-item-row">
+                <div className="cart-item-left">
+                  <div className="cart-item-thumb"></div>
+                  <div className="cart-item-info">
+                    <h4>{item.nombre}</h4>
+                    <p>{item.detalles}</p>
+                    {item.nota && <p className="nota-text">Nota: {item.nota}</p>}
                   </div>
                 </div>
-                <button
-                  className="carrito-btn-add-sm"
-                  onClick={() => agregarFrecuente({ nombre: "Sándwich de pollo", detalles: "Pan francés", precio: 9.50 })}
-                >
-                  Agregar
-                </button>
-              </div>
 
-              <div className="carrito-frecuente-card">
-                <div className="carrito-frecuente-info">
-                  <div className="carrito-frecuente-thumb" />
-                  <div>
-                    <strong className="carrito-frecuente-name">Jugo surtido</strong>
-                    <span className="carrito-frecuente-meta">Cafetería Central · S/ 9.00</span>
+                <div className="cart-item-right">
+                  <div className="counter-box">
+                    <button onClick={() => handleCambiarCantidad(item.id, -1)}>-</button>
+                    <span>{item.cantidad}</span>
+                    <button onClick={() => handleCambiarCantidad(item.id, 1)}>+</button>
                   </div>
+                  <span className="price-text" style={{ minWidth: "70px", textAlign: "right" }}>
+                    S/ {item.subtotal.toFixed(2)}
+                  </span>
+                  <button className="btn-link-danger" onClick={() => handleCambiarCantidad(item.id, -item.cantidad)}>
+                    Quitar
+                  </button>
                 </div>
-                <button
-                  className="carrito-btn-add-sm"
-                  onClick={() => agregarFrecuente({ nombre: "Jugo surtido", detalles: "Grande sin azúcar", precio: 9.00 })}
-                >
-                  Agregar
-                </button>
               </div>
+            ))}
 
-              <div className="carrito-frecuente-card">
-                <div className="carrito-frecuente-info">
-                  <div className="carrito-frecuente-thumb" />
-                  <div>
-                    <strong className="carrito-frecuente-name">Café pasado</strong>
-                    <span className="carrito-frecuente-meta">Café de Biblioteca · S/ 4.00</span>
-                  </div>
-                </div>
-                <button
-                  className="carrito-btn-add-sm"
-                  onClick={() => agregarFrecuente({ nombre: "Café pasado", detalles: "Empaque para llevar", precio: 4.00 })}
-                >
-                  Agregar
-                </button>
-              </div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "20px" }}>
+              <button className="btn-secondary-action" onClick={() => navigate('/comensales/localescomensal')}>
+                Seguir agregando
+              </button>
+              <button className="btn-link-danger" onClick={handleVaciarCarrito}>
+                Vaciar carrito
+              </button>
             </div>
           </div>
         </div>
-      )}
 
-      {/* MODAL AGOTADO */}
-      {mostrarModalAgotado && (
-        <div className="carrito-modal-overlay">
-          <div className="carrito-modal-content">
-            <div className="carrito-modal-header">
-              <div className="carrito-modal-alert-icon">!</div>
+        {/* RESUMEN LATERAL */}
+        <div className="resumen-card-side">
+          <h3>Resumen</h3>
+          <div className="resumen-line">
+            <span>Productos ({items.reduce((a, b) => a + b.cantidad, 0)})</span>
+            <span>S/ {subtotal.toFixed(2)}</span>
+          </div>
+          <div className="resumen-line">
+            <span>Agregados</span>
+            <span>S/ {costoAgregados.toFixed(2)}</span>
+          </div>
+          <div className="resumen-line">
+            <span>Empaque para llevar</span>
+            <span>S/ {costoEmpaque.toFixed(2)}</span>
+          </div>
+
+          <div className="resumen-line resumen-line--total">
+            <span>Subtotal</span>
+            <span>S/ {totalGeneral.toFixed(2)}</span>
+          </div>
+
+          <p style={{ fontSize: "12px", color: "var(--text-muted)", margin: "16px 0", lineHeight: "1.4" }}>
+            El pago se realiza en el punto de recojo. En el siguiente paso eliges la hora.
+          </p>
+
+          <button
+            className="btn-primary-action"
+            style={{ width: "100%" }}
+            onClick={() => {
+              if (items.some(i => i.nombre.includes("Empanada"))) {
+                setProductoAgotadoModal(true);
+              } else {
+                navigate('/comensales/confirmacion');
+              }
+            }}
+          >
+            Elegir hora de recojo
+          </button>
+        </div>
+      </div>
+
+      {/* MODAL AVISO PRODUCTO AGOTADO */}
+      {productoAgotadoModal && (
+        <div className="modal-overlay">
+          <div className="modal-detalle-card" style={{ maxWidth: "600px" }}>
+            <div style={{ display: "flex", gap: "16px", alignItems: "flex-start", marginBottom: "16px" }}>
+              <div style={{ width: "40px", height: "40px", background: "#FDF6E2", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#B7791F", fontWeight: "bold", fontSize: "20px" }}>!</div>
               <div>
-                <h2 className="carrito-modal-title">Un producto de tu carrito se agotó</h2>
-                <p className="carrito-modal-desc">Cafetería Central marcó «Empanada de carne» como agotada. Quítala o reemplázala para continuar con tu pedido.</p>
+                <h3 className="section-title" style={{ margin: 0 }}>Un producto de tu carrito se agotó</h3>
+                <p style={{ color: "var(--text-muted)", fontSize: "13px", margin: "4px 0 0" }}>
+                  Cafetería Central marcó «Empanada de carne» como agotada. Quítala o reemplázala para continuar con tu pedido.
+                </p>
               </div>
             </div>
 
-            <div className="carrito-modal-item-info">
-              <div className="carrito-frecuente-info">
-                <div className="carrito-frecuente-thumb" />
+            <div style={{ background: "var(--bg)", border: "1px solid var(--border)", borderRadius: "var(--radius-container)", padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+              <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                <div style={{ width: "40px", height: "40px", background: "repeating-linear-gradient(-45deg, #FCEAE7, #FCEAE7 5px, #EFE2DC 5px, #EFE2DC 10px)", borderRadius: "6px" }}></div>
                 <div>
-                  <strong style={{ fontSize: "14px", display: "block" }}>Empanada de carne</strong>
-                  <span style={{ fontSize: "12px", color: "#718096" }}>1 unidad · S/ 5.00</span>
+                  <h5 className="product-title" style={{ fontSize: "14px", margin: 0 }}>Empanada de carne</h5>
+                  <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>1 unidad · S/ 5.00</span>
                 </div>
               </div>
-              <span className="carrito-badge-agotado">Agotado</span>
+              <span className="status-pill pill-closed">Agotado</span>
             </div>
 
-            <h4 className="carrito-section-label">REEMPLAZAR POR</h4>
-
-            <div className="carrito-modal-replacements">
-              <div
-                className={`carrito-replacement-card ${reemplazoSeleccionado === "Empanada de pollo" ? "selected" : ""}`}
-                onClick={() => setReemplazoSeleccionado("Empanada de pollo")}
-              >
-                <strong style={{ fontSize: "12px", display: "block" }}>Empanada de pollo</strong>
-                <span style={{ fontSize: "12px", color: "#d9381e", fontWeight: "bold" }}>S/ 5.00</span>
+            <label className="field-label" style={{ display: "block", marginBottom: "8px" }}>REEMPLAZAR POR</label>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", marginBottom: "24px" }}>
+              <div style={{ background: "var(--primary-soft)", border: "1px solid var(--primary)", borderRadius: "var(--radius-container)", padding: "10px", cursor: "pointer" }}>
+                <strong style={{ fontSize: "13px", display: "block" }}>Empanada de pollo</strong>
+                <span style={{ fontSize: "12px", color: "var(--primary)", fontWeight: "bold" }}>S/ 5.00</span>
               </div>
-
-              <div
-                className={`carrito-replacement-card ${reemplazoSeleccionado === "Pan con palta" ? "selected" : ""}`}
-                onClick={() => setReemplazoSeleccionado("Pan con palta")}
-              >
-                <strong style={{ fontSize: "12px", display: "block" }}>Pan con palta</strong>
-                <span style={{ fontSize: "12px", color: "#718096" }}>S/ 8.50</span>
+              <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-container)", padding: "10px", cursor: "pointer" }}>
+                <strong style={{ fontSize: "13px", display: "block" }}>Pan con palta</strong>
+                <span style={{ fontSize: "12px", color: "var(--text)" }}>S/ 8.50</span>
               </div>
-
-              <div
-                className={`carrito-replacement-card ${reemplazoSeleccionado === "Tostadas" ? "selected" : ""}`}
-                onClick={() => setReemplazoSeleccionado("Tostadas")}
-              >
-                <strong style={{ fontSize: "12px", display: "block" }}>Tostadas</strong>
-                <span style={{ fontSize: "12px", color: "#718096" }}>S/ 5.50</span>
+              <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-container)", padding: "10px", cursor: "pointer" }}>
+                <strong style={{ fontSize: "13px", display: "block" }}>Tostadas</strong>
+                <span style={{ fontSize: "12px", color: "var(--text)" }}>S/ 5.50</span>
               </div>
             </div>
 
-            <div className="carrito-modal-actions">
-              <button className="carrito-btn-secondary" onClick={handleQuitarYContinuar}>
-                Quitar del carrito
-              </button>
-              <button className="carrito-btn-primary" style={{ width: "auto" }} onClick={handleReemplazarYContinuar}>
-                Reemplazar y continuar
-              </button>
+            <div style={{ display: "flex", gap: "12px", justifyContent: "flex-end" }}>
+              <button className="btn-secondary-action" onClick={() => setProductoAgotadoModal(false)}>Quitar del carrito</button>
+              <button className="btn-primary-action" onClick={() => { setProductoAgotadoModal(false); navigate('/comensales/confirmacion'); }}>Reemplazar y continuar</button>
             </div>
           </div>
         </div>

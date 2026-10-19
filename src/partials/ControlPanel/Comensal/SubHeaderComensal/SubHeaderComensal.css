@@ -1,88 +1,59 @@
-/* Variables compartidas */
-:root {
-  --subheader-primary: #e94136;
-  --subheader-bg: #ffffff;
-  --subheader-border: #eadfda;
-  --subheader-text: #606875;
-  --subheader-text-active: #172439;
+/* ==========================================================================
+   SUBHEADER TABS - BASADO EN EL SISTEMA DE DISEÑO
+   ========================================================================== */
+
+.comensal-subheader-tabs {
+  background: #FFFFFF; /* surface */
+  border-bottom: 1px solid #EFE2DC; /* border */
+  padding: 0 40px;
 }
 
-.sub-header {
-  width: 100%;
-  background-color: var(--subheader-bg);
-  border-bottom: 1px solid var(--subheader-border);
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  box-sizing: border-box;
+.tabs-list {
+  display: flex !important;
+  flex-direction: row !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 28px;
+  align-items: center;
 }
 
-/* Contenedor alineado con el header principal */
-.sub-header__container {
-  max-width: 1380px;
-  margin: 0 auto;
-  padding: 0 24px;
+.tabs-list li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.tab-link {
   display: flex;
   align-items: center;
-  gap: 32px;
-}
-
-/* Estilo base para cada pestaña */
-.sub-header__tab {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 14px 0;
-  color: var(--subheader-text);
+  padding: 14px 4px;
+  text-decoration: none !important;
+  color: #7C6960; /* text-muted */
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 14px;
   font-weight: 500;
-  text-decoration: none;
   border-bottom: 2px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  white-space: nowrap;
+  transition: all 0.2s ease;
 }
 
-.sub-header__tab:hover {
-  color: var(--subheader-text-active);
+.tab-link:hover {
+  color: #261915; /* text */
 }
 
-/* Pestaña Seleccionada / Activa */
-.sub-header__tab--active {
-  color: var(--subheader-primary);
-  font-weight: 700;
-  border-bottom-color: var(--subheader-primary);
+.tab-link--active {
+  color: #D6402F !important; /* primary */
+  border-bottom-color: #D6402F !important; /* primary */
+  font-weight: 600;
 }
 
-/* Badge contador (p. ej. para Mis Pedidos) */
-.sub-header__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
-  border-radius: 10px;
-  background-color: #fff0eb;
-  color: var(--subheader-primary);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-/* Adaptabilidad a dispositivos móviles */
-@media (max-width: 600px) {
-  .sub-header__container {
-    padding: 0 16px;
-    gap: 20px;
-    overflow-x: auto; /* Permite scroll horizontal si no alcanza el espacio */
-    scrollbar-width: none; /* Oculta scrollbar en Firefox */
-  }
-
-  .sub-header__container::-webkit-scrollbar {
-    display: none; /* Oculta scrollbar en Chrome/Safari */
-  }
-
-  .sub-header__tab {
-    padding: 12px 0;
-    font-size: 13px;
-  }
+.tab-badge {
+  background: #FCEAE7; /* primary-soft */
+  color: #D6402F; /* primary */
+  border-radius: 999px; /* chip 999px de la guía */
+  padding: 2px 8px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 6px;
 }
