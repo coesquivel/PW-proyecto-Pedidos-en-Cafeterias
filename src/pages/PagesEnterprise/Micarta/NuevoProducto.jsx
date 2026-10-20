@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "./NuevoProducto.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 // Bootstrap 5 debe estar cargado una sola vez en tu app (ej. en main.jsx / index.js):
 //   import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -20,16 +20,27 @@ const PRECIO_MAX = 18.0;
 const MAX_DESCRIPCION = 160;
 
 export default function NuevoProducto({ onCancelar, onGuardar }) {
-    const navigate = useNavigate();
-  /* Estado del formulario (los valores iniciales son los del diseño) */
-  const [form, setForm] = useState({
-    nombre: "Jugo surtido",
-    descripcion: "Papaya, plátano y naranja licuados al momento. Vaso de 16 oz.",
-    categoria: "Jugos y bebidas",
-    precio: "6.50",
-    tiempo: "5 minutos",
-    disponibilidad: "Disponible",
-  });
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Si llegamos desde el botón "Editar" de Mi carta, aquí viene el producto
+  const productoEditar = location.state?.producto;
+  const esEdicion = Boolean(productoEditar);
+
+  /* Estado del formulario:
+     - en modo edición arranca con los datos del producto
+     - si viene de "Agregar producto a <categoría>", solo trae la categoría
+     - si no, usa los valores del diseño */
+  const [form, setForm] = useState(
+    productoEditar ?? {
+      nombre: "Jugo surtido",
+      descripcion: "Papaya, plátano y naranja licuados al momento. Vaso de 16 oz.",
+      categoria: location.state?.categoria ?? "Jugos y bebidas",
+      precio: "6.50",
+      tiempo: "5 minutos",
+      disponibilidad: "Disponible",
+    }
+  );
   const [foto, setFoto] = useState(null); // URL temporal de la foto elegida
   const inputFotoRef = useRef(null);
 
@@ -53,21 +64,29 @@ export default function NuevoProducto({ onCancelar, onGuardar }) {
     e.preventDefault();
     if (precioInvalido) return;
     onGuardar?.({ ...form, precio: precioNumero, foto });
+    navigate("/enterprises/Micarta"); // redirige a Mi carta
   };
+
+  const cancelar = () => {
+    onCancelar?.();
+    navigate("/enterprises/Micarta");
+  };
+
+  const titulo = esEdicion ? "Editar producto" : "Nuevo producto";
 
   return (
     <div className="np-app p-4">
-      {/* 1. RUTA DE NAVEGACIÓN (breadcrumb): "Carta › Mi carta › Nuevo producto" */}
+      {/* 1. RUTA DE NAVEGACIÓN (breadcrumb): "Carta › Mi carta › Nuevo/Editar producto" */}
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb np-xs mb-1">
           <li className="breadcrumb-item">Carta</li>
           <li className="breadcrumb-item">Mi carta</li>
-          <li className="breadcrumb-item active">Nuevo producto</li>
+          <li className="breadcrumb-item active">{titulo}</li>
         </ol>
       </nav>
 
       {/* 2. TÍTULO DE LA PÁGINA */}
-      <h1 className="np-titulo h4 mb-3">Nuevo producto</h1>
+      <h1 className="np-titulo h4 mb-3">{titulo}</h1>
 
       {/* 3. TARJETA BLANCA CON EL FORMULARIO Y LA VISTA PREVIA */}
       <form className="card np-card" onSubmit={guardar}>
@@ -195,13 +214,13 @@ export default function NuevoProducto({ onCancelar, onGuardar }) {
                 </div>
               </div>
 
-              {/* Botones de acción: Cancelar + Guardar producto */}
+              {/* Botones de acción: Cancelar + Guardar */}
               <div className="d-flex justify-content-end gap-2">
-                <button type="button" className="btn btn-light border np-btn" onClick={onCancelar}>
+                <button type="button" className="btn btn-light border np-btn" onClick={cancelar}>
                   Cancelar
                 </button>
                 <button type="submit" className="btn btn-danger np-btn">
-                  Guardar producto
+                  {esEdicion ? "Guardar cambios" : "Guardar producto"}
                 </button>
               </div>
             </div>

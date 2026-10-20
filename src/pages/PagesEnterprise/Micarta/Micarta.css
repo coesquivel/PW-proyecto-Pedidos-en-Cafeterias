@@ -181,3 +181,37 @@ html, body, #root {
   overflow-y: auto;
   padding-bottom: 120px !important; /* Otorga margen abajo para que ninguna barra fija tape el contenido */
 }
+
+.micarta-empty {
+  background: #fff;
+  border-radius: 16px;
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.micarta-empty__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fce4e0;
+  color: #d9412b;
+  font-size: 1.5rem;
+  line-height: 48px;
+  margin-bottom: 1rem;
+}
+
+.micarta-empty__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1f1a17;
+  margin-bottom: 0.4rem;
+}
+
+.micarta-empty__text {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 1.25rem;
+}

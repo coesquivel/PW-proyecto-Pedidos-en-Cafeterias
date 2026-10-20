@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // CAMBIO 1: import del hook de navegación
+import { useNavigate } from 'react-router-dom';
 import './Micarta.css';
 
 const Micarta = () => {
-  // CAMBIO 2: hook que permite cambiar de ruta desde el código
   const navigate = useNavigate();
 
   // Lista de Categorías
@@ -192,13 +191,32 @@ const Micarta = () => {
     .flat()
     .filter((p) => p.status === 'Agotado').length;
 
+  // ¿La categoría activa no tiene ningún producto? (distinto a "los filtros no encontraron nada")
+  const isCategoryEmpty = (productsData[activeCategory] || []).length === 0;
+
   // Manejadores de eventos
   const handleNuevaCategoria = () => alert('Acción: Nueva categoría');
 
-  // CAMBIO 3: ahora redirige a la vista "Nuevo producto" (antes era un alert)
-  const handleNuevoProducto = () => navigate('/nuevo-producto');
+  // Lleva al formulario en modo edición, con los datos del producto ya cargados
+  const handleEditarProducto = (product) => {
+    // La descripción de la carta viene como "ingredientes · 8 min · 3 grupos de opciones"
+    const partes = product.desc.split(' · ');
+    const tiempoParte = partes.find((p) => /^\d+\s*min$/.test(p));
 
-  const handleEditarProducto = (id) => alert(`Editar producto con ID: ${id}`);
+    navigate('/enterprises/NuevoProducto', {
+      state: {
+        producto: {
+          id: product.id,
+          nombre: product.name,
+          descripcion: partes[0],
+          categoria: currentCategoryName,
+          precio: product.price,
+          tiempo: tiempoParte ? tiempoParte.replace('min', 'minutos') : '',
+          disponibilidad: product.status,
+        },
+      },
+    });
+  };
 
   // Quita el producto de la categoría activa
   const handleQuitarProducto = (id) => {
@@ -282,112 +300,138 @@ const Micarta = () => {
 
         {/* Lista de Productos (Derecha) */}
         <div className="col-12 col-md-8 col-lg-9">
-          {/* Búsqueda y Filtro de Disponibilidad */}
-          <div className="row g-3 mb-3">
-            <div className="col-12 col-sm-8 col-md-8">
-              <input
-                type="text"
-                className="form-control bg-white border-0 shadow-sm py-2 px-3 search-input"
-                placeholder="Buscar producto en mi carta..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-            <div className="col-12 col-sm-4 col-md-4">
-              <select
-                className="form-select bg-white border-0 shadow-sm py-2 filter-select"
-                value={availabilityFilter}
-                onChange={(e) => setAvailabilityFilter(e.target.value)}
+          {isCategoryEmpty ? (
+            /* ESTADO VACÍO */
+            <div className="card border-0 shadow-sm micarta-empty">
+              <div className="micarta-empty__icon">+</div>
+              <h2 className="micarta-empty__title">
+                La categoría «{currentCategoryName}» aún no tiene productos
+              </h2>
+              <p className="micarta-empty__text">
+                Agrega el primero para que aparezca en la carta que ve el comensal.
+              </p>
+              <button
+                type="button"
+                className="btn custom-btn-product text-white fw-semibold px-4"
+                onClick={() =>
+                  navigate('/enterprises/NuevoProducto', {
+                    state: { categoria: currentCategoryName },
+                  })
+                }
               >
-                <option value="todas">Disponibilidad: todas</option>
-                <option value="Disponible">Disponible</option>
-                <option value="Agotado">Agotado</option>
-              </select>
+                Agregar producto a {currentCategoryName}
+              </button>
             </div>
-          </div>
-
-          {/* Tarjetas de Producto */}
-          <div className="d-flex flex-column gap-3 mb-4">
-            {currentProducts.length > 0 ? (
-              currentProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="card border-0 shadow-sm rounded-3 p-3 product-card"
-                >
-                  <div className="d-flex align-items-center flex-wrap flex-md-nowrap gap-3">
-                    <div className="product-img-placeholder flex-shrink-0"></div>
-
-                    <div className="flex-grow-1 min-w-0">
-                      <h5 className="fw-bold mb-1 text-dark product-title">
-                        {product.name}
-                      </h5>
-                      <p className="text-muted small mb-0 product-desc">
-                        {product.desc}
-                      </p>
-                    </div>
-
-                    <div className="d-flex align-items-center gap-3 ms-auto flex-wrap justify-content-end">
-                      <span
-                        className={`badge px-3 py-2 fw-semibold ${
-                          product.status === 'Disponible'
-                            ? 'badge-status-available'
-                            : 'badge-status-out'
-                        }`}
-                      >
-                        {product.status}
-                      </span>
-
-                      <div className="fw-bold fs-5 text-dark text-nowrap">
-                        S/ {product.price}
-                      </div>
-
-                      <div className="d-flex gap-2 align-items-center">
-                        <button
-                          className="btn btn-link p-0 action-link text-decoration-none"
-                          onClick={() => handleEditarProducto(product.id)}
-                        >
-                          Editar
-                        </button>
-                        <button
-                          className="btn btn-link p-0 action-link text-decoration-none ms-1"
-                          onClick={() => handleQuitarProducto(product.id)}
-                        >
-                          Quitar
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+          ) : (
+            <>
+              {/* Búsqueda y Filtro de Disponibilidad */}
+              <div className="row g-3 mb-3">
+                <div className="col-12 col-sm-8 col-md-8">
+                  <input
+                    type="text"
+                    className="form-control bg-white border-0 shadow-sm py-2 px-3 search-input"
+                    placeholder="Buscar producto en mi carta..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
                 </div>
-              ))
-            ) : (
-              <div className="text-center py-5 bg-white rounded-3 shadow-sm text-muted">
-                No se encontraron productos con los filtros seleccionados.
+                <div className="col-12 col-sm-4 col-md-4">
+                  <select
+                    className="form-select bg-white border-0 shadow-sm py-2 filter-select"
+                    value={availabilityFilter}
+                    onChange={(e) => setAvailabilityFilter(e.target.value)}
+                  >
+                    <option value="todas">Disponibilidad: todas</option>
+                    <option value="Disponible">Disponible</option>
+                    <option value="Agotado">Agotado</option>
+                  </select>
+                </div>
               </div>
-            )}
-          </div>
 
-          {/* Pie de tabla / Paginación */}
-          <div className="d-flex flex-wrap justify-content-between align-items-center text-muted small pt-2">
-            <span>
-              Mostrando los {currentProducts.length} productos de «{currentCategoryName}»
-            </span>
+              {/* Tarjetas de Producto */}
+              <div className="d-flex flex-column gap-3 mb-4">
+                {currentProducts.length > 0 ? (
+                  currentProducts.map((product) => (
+                    <div
+                      key={product.id}
+                      className="card border-0 shadow-sm rounded-3 p-3 product-card"
+                    >
+                      <div className="d-flex align-items-center flex-wrap flex-md-nowrap gap-3">
+                        <div className="product-img-placeholder flex-shrink-0"></div>
 
-            <ul className="pagination pagination-sm mb-0">
-              <li className="page-item disabled">
-                <span className="page-link border-0 text-muted">&lt;</span>
-              </li>
-              <li className="page-item active">
-                <span className="page-link custom-page-active rounded-circle">1</span>
-              </li>
-              <li className="page-item disabled">
-                <span className="page-link border-0 text-muted">&gt;</span>
-              </li>
-            </ul>
-          </div>
+                        <div className="flex-grow-1 min-w-0">
+                          <h5 className="fw-bold mb-1 text-dark product-title">
+                            {product.name}
+                          </h5>
+                          <p className="text-muted small mb-0 product-desc">
+                            {product.desc}
+                          </p>
+                        </div>
+
+                        <div className="d-flex align-items-center gap-3 ms-auto flex-wrap justify-content-end">
+                          <span
+                            className={`badge px-3 py-2 fw-semibold ${
+                              product.status === 'Disponible'
+                                ? 'badge-status-available'
+                                : 'badge-status-out'
+                            }`}
+                          >
+                            {product.status}
+                          </span>
+
+                          <div className="fw-bold fs-5 text-dark text-nowrap">
+                            S/ {product.price}
+                          </div>
+
+                          <div className="d-flex gap-2 align-items-center">
+                            <button
+                              className="btn btn-link p-0 action-link text-decoration-none"
+                              onClick={() => handleEditarProducto(product)}
+                            >
+                              Editar
+                            </button>
+                            <button
+                              className="btn btn-link p-0 action-link text-decoration-none ms-1"
+                              onClick={() => handleQuitarProducto(product.id)}
+                            >
+                              Quitar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-5 bg-white rounded-3 shadow-sm text-muted">
+                    No se encontraron productos con los filtros seleccionados.
+                  </div>
+                )}
+              </div>
+
+              {/* Pie de tabla / Paginación */}
+              <div className="d-flex flex-wrap justify-content-between align-items-center text-muted small pt-2">
+                <span>
+                  Mostrando los {currentProducts.length} productos de «{currentCategoryName}»
+                </span>
+
+                <ul className="pagination pagination-sm mb-0">
+                  <li className="page-item disabled">
+                    <span className="page-link border-0 text-muted">&lt;</span>
+                  </li>
+                  <li className="page-item active">
+                    <span className="page-link custom-page-active rounded-circle">1</span>
+                  </li>
+                  <li className="page-item disabled">
+                    <span className="page-link border-0 text-muted">&gt;</span>
+                  </li>
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default Micarta;
+export default Micarta; 
