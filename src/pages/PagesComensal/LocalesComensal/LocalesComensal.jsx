@@ -1,6 +1,7 @@
 // src\pages\PagesComensal\LocalesComensal\LocalesComensal.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ResenasLocal from './ResenasLocal';
 import './LocalesComensal.css';
 
 // 1. DATOS DE LOCALES DEL CAMPUS
@@ -96,6 +97,7 @@ export default function LocalesComensal({ itemsCarrito = [], setItemsCarrito }) 
   const [busquedaCarta, setBusquedaCarta] = useState("");
   const [categoriaActiva, setCategoriaActiva] = useState("Desayunos");
   const [soloAbiertos, setSoloAbiertos] = useState(false);
+  const [localResenas, setLocalResenas] = useState(null);
 
   // Estados Modal Detalle de Producto
   const [productoDetalle, setProductoDetalle] = useState(null);
@@ -181,6 +183,25 @@ export default function LocalesComensal({ itemsCarrito = [], setItemsCarrito }) 
     setProductoDetalle(null);
     navigate("/comensales/carrito");
   };
+
+  // VISTA RESEÑAS DEL LOCAL
+  if (localResenas) {
+    return (
+      <main className="comensal-main-layout">
+        <ResenasLocal
+          local={localResenas}
+          onVolverLocales={() => {
+            setLocalResenas(null);
+            setLocalSeleccionado(null);
+          }}
+          onVerCarta={() => {
+            handleVerCarta(localResenas);
+            setLocalResenas(null);
+          }}
+        />
+      </main>
+    );
+  }
 
   return (
     <main className="comensal-main-layout">
@@ -277,7 +298,12 @@ export default function LocalesComensal({ itemsCarrito = [], setItemsCarrito }) 
                       </span>
                     </div>
                     <p className="local-location-info">{local.ubicacion}</p>
-                    <p className="local-time-rating">{local.tiempoPrep}</p>
+                    <p className="local-time-rating">
+                      {local.tiempoPrep} ·{" "}
+                      <button className="btn-link-resenas" onClick={() => setLocalResenas(local)}>
+                        Ver reseñas
+                      </button>
+                    </p>
                     <button
                       className={esCerrado ? "btn-ver-carta btn-ver-carta--disabled" : "btn-ver-carta"}
                       disabled={esCerrado}
@@ -321,6 +347,9 @@ export default function LocalesComensal({ itemsCarrito = [], setItemsCarrito }) 
                 </p>
               </div>
             </div>
+            <button className="btn-secondary-action" onClick={() => setLocalResenas(localSeleccionado)}>
+              Ver reseñas
+            </button>
           </div>
 
           {/* Categorías */}

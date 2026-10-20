@@ -607,3 +607,19 @@
   font-family: var(--font-body);
   font-weight: 600;
 }
+
+/* Enlace "Ver reseñas" en la tarjeta del local */
+.btn-link-resenas {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.btn-link-resenas:hover {
+  text-decoration: underline;
+}
