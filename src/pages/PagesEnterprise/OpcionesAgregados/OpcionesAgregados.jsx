@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import SelectorProductos from './SelectorProductos';
+import ListaGrupos from './ListaGrupos';
+import FormularioGrupo from './FormularioGrupo';
 import './OpcionesAgregados.css';
 
-// Catálogo inicial de productos con sus imágenes y sus propios grupos de opciones
 const PRODUCTOS_INICIALES = [
     {
         id: 1,
@@ -120,12 +122,8 @@ const FORM_VACIO = {
     ],
 };
 
-const soles = (n) => `S/ ${Number(n).toFixed(2)}`;
-const precioTexto = (n) => (n > 0 ? `+ ${soles(n)}` : 'Sin costo');
-
 export default function OpcionesAgregados() {
     const [productos, setProductos] = useState(PRODUCTOS_INICIALES);
-    // null = mostramos la galería de productos; número = mostramos las opciones de ese producto
     const [productoIdActivo, setProductoIdActivo] = useState(null);
     const [busqueda, setBusqueda] = useState('');
     const [categoriaFiltro, setCategoriaFiltro] = useState('Todas');
@@ -134,23 +132,12 @@ export default function OpcionesAgregados() {
     const [error, setError] = useState('');
     const [aviso, setAviso] = useState('');
 
-    // Producto actualmente seleccionado
     const productoActual = productos.find((p) => p.id === productoIdActivo) || null;
     const grupos = productoActual ? productoActual.grupos : [];
     const totalAlternativas = grupos.reduce((s, g) => s + g.alternativas.length, 0);
     const editando = form.id !== null;
-
-    // Categorías únicas para el filtro
     const categorias = ['Todas', ...new Set(productos.map((p) => p.categoria))];
 
-    // Productos filtrados por búsqueda y categoría
-    const productosFiltrados = productos.filter((p) => {
-        const coincideTexto = p.nombre.toLowerCase().includes(busqueda.toLowerCase());
-        const coincideCat = categoriaFiltro === 'Todas' || p.categoria === categoriaFiltro;
-        return coincideTexto && coincideCat;
-    });
-
-    /* ---------- Navegación entre vistas ---------- */
     const seleccionarProducto = (id) => {
         setProductoIdActivo(id);
         setForm({ ...FORM_VACIO, alternativas: FORM_VACIO.alternativas.map((a) => ({ ...a })) });
@@ -164,14 +151,12 @@ export default function OpcionesAgregados() {
         setAviso('');
     };
 
-    /* ---------- Actualizar grupos del producto activo ---------- */
     const actualizarGruposProducto = (nuevosGrupos) => {
         setProductos((prev) =>
             prev.map((p) => (p.id === productoIdActivo ? { ...p, grupos: nuevosGrupos } : p))
         );
     };
 
-    /* ---------- Formulario de grupos ---------- */
     const nuevoGrupo = () => {
         setForm({ ...FORM_VACIO, alternativas: FORM_VACIO.alternativas.map((a) => ({ ...a })) });
         setError('');
@@ -246,109 +231,32 @@ export default function OpcionesAgregados() {
         nuevoGrupo();
     };
 
-    /* =====================================================================
-       VISTA 1: CATÁLOGO DE PRODUCTOS CON IMÁGENES (CUANDO NO HAY SELECCIÓN)
-       ===================================================================== */
+    // VISTA 1: Selector de productos
     if (!productoActual) {
         return (
             <main className="app-content">
-                <div className="opciones-container">
-                    <div className="opciones-topbar">
-                        <div>
-                            <span className="text-muted-custom small">
-                                Carta &gt; Opciones y agregados
-                            </span>
-                            <h1 className="opciones-title">Selecciona un producto</h1>
-                            <p className="text-muted-custom small">
-                                Elige un producto de tu carta para configurar sus grupos de opciones y agregados.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Barra de búsqueda y filtro por categoría */}
-                    <div className="productos-filtros">
-                        <input
-                            type="text"
-                            className="form-input productos-buscador"
-                            placeholder="Buscar producto por nombre..."
-                            value={busqueda}
-                            onChange={(e) => setBusqueda(e.target.value)}
-                        />
-                        <div className="productos-categorias">
-                            {categorias.map((cat) => (
-                                <button
-                                    key={cat}
-                                    type="button"
-                                    className={`cat-chip ${categoriaFiltro === cat ? 'activo' : ''}`}
-                                    onClick={() => setCategoriaFiltro(cat)}
-                                >
-                                    {cat}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Cuadrícula de productos con imagen */}
-                    <div className="productos-grid">
-                        {productosFiltrados.map((prod) => {
-                            const cantGrupos = prod.grupos.length;
-                            const cantAlt = prod.grupos.reduce((s, g) => s + g.alternativas.length, 0);
-
-                            return (
-                                <article
-                                    key={prod.id}
-                                    className="producto-card-select"
-                                    onClick={() => seleccionarProducto(prod.id)}
-                                >
-                                    <div className="producto-card-img">
-                                        <img src={prod.imagen} alt={prod.nombre} />
-                                        <span className="producto-cat-badge">{prod.categoria}</span>
-                                    </div>
-
-                                    <div className="producto-card-body">
-                                        <div className="producto-card-header">
-                                            <h3>{prod.nombre}</h3>
-                                            <span className="producto-precio">{soles(prod.precio)}</span>
-                                        </div>
-
-                                        <div className="producto-card-meta">
-                                            <span className={`tag ${cantGrupos > 0 ? 'tag-rojo' : 'tag-gris'}`}>
-                                                {cantGrupos} {cantGrupos === 1 ? 'grupo' : 'grupos'}
-                                            </span>
-                                            <span className="text-muted-custom small">
-                                                {cantAlt} {cantAlt === 1 ? 'alternativa' : 'alternativas'}
-                                            </span>
-                                        </div>
-
-                                        <button type="button" className="btn-configurar-opciones">
-                                            Configurar opciones &rarr;
-                                        </button>
-                                    </div>
-                                </article>
-                            );
-                        })}
-                    </div>
-                </div>
+                <SelectorProductos
+                    productos={productos}
+                    busqueda={busqueda}
+                    setBusqueda={setBusqueda}
+                    categoriaFiltro={categoriaFiltro}
+                    setCategoriaFiltro={setCategoriaFiltro}
+                    categorias={categorias}
+                    onSeleccionarProducto={seleccionarProducto}
+                />
             </main>
         );
     }
 
-    /* =====================================================================
-       VISTA 2: OPCIONES Y AGREGADOS DEL PRODUCTO SELECCIONADO
-       ===================================================================== */
+    // VISTA 2: Editor de grupos del producto seleccionado
     return (
         <main className="app-content">
             <div className="opciones-container">
-
                 <div className="opciones-topbar">
                     <div>
                         <span className="text-muted-custom small">
                             Carta &gt;{' '}
-                            <button
-                                type="button"
-                                className="breadcrumb-link"
-                                onClick={volverAListaProductos}
-                            >
+                            <button type="button" className="breadcrumb-link" onClick={volverAListaProductos}>
                                 Opciones y agregados
                             </button>{' '}
                             &gt; {productoActual.nombre}
@@ -360,11 +268,7 @@ export default function OpcionesAgregados() {
                     </div>
 
                     <div className="opciones-topbar-actions">
-                        <button
-                            type="button"
-                            className="btn-volver-productos"
-                            onClick={volverAListaProductos}
-                        >
+                        <button type="button" className="btn-volver-productos" onClick={volverAListaProductos}>
                             &larr; Cambiar producto
                         </button>
                         <button className="btn btn-danger-custom opciones-nuevo" onClick={nuevoGrupo}>
@@ -376,153 +280,24 @@ export default function OpcionesAgregados() {
                 {aviso && <p className="opciones-aviso" role="status">{aviso}</p>}
 
                 <div className="opciones-layout">
+                    <ListaGrupos
+                        grupos={grupos}
+                        formIdEditando={form.id}
+                        onEditarGrupo={editarGrupo}
+                    />
 
-                    {/* ===== Lista de grupos ===== */}
-                    <div className="opciones-lista">
-                        {grupos.length === 0 && (
-                            <p className="opciones-vacio">
-                                Este producto no tiene opciones. Crea el primer grupo con el formulario.
-                            </p>
-                        )}
-
-                        {grupos.map((g) => (
-                            <section
-                                key={g.id}
-                                className={`grupo-card ${form.id === g.id ? 'grupo-editando' : ''}`}
-                            >
-                                <header className="grupo-head">
-                                    <h2>{g.nombre}</h2>
-                                    <div className="grupo-tags">
-                                        <span className="tag tag-rojo">
-                                            {g.seleccion === 'unica' ? 'Selección única' : 'Selección múltiple'}
-                                        </span>
-                                        <span className={`tag ${g.obligatorio ? 'tag-rojo' : 'tag-gris'}`}>
-                                            {g.obligatorio ? 'Obligatorio' : 'Opcional'}
-                                        </span>
-                                        <button className="link-editar" onClick={() => editarGrupo(g)}>
-                                            Editar
-                                        </button>
-                                    </div>
-                                </header>
-
-                                <ul className="grupo-items">
-                                    {g.alternativas.map((a) => (
-                                        <li key={a.id}>
-                                            <span>{a.nombre}</span>
-                                            <strong className={a.precio > 0 ? '' : 'sin-costo'}>
-                                                {precioTexto(a.precio)}
-                                            </strong>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </section>
-                        ))}
-                    </div>
-
-                    {/* ===== Formulario ===== */}
-                    <form className="grupo-form" onSubmit={guardar}>
-                        <h3 className="form-title">
-                            {editando ? 'EDITAR GRUPO DE OPCIONES' : 'NUEVO GRUPO DE OPCIONES'}
-                        </h3>
-
-                        <label className="form-label" htmlFor="g-nombre">NOMBRE DEL GRUPO</label>
-                        <input
-                            id="g-nombre"
-                            className="form-input"
-                            type="text"
-                            placeholder="Tamaño"
-                            value={form.nombre}
-                            onChange={(e) => cambiarCampo('nombre', e.target.value)}
-                        />
-
-                        <span className="form-label">TIPO DE SELECCIÓN</span>
-                        <div className="form-radios">
-                            <label className={form.seleccion === 'unica' ? 'radio activo' : 'radio'}>
-                                <input
-                                    type="radio"
-                                    name="seleccion"
-                                    checked={form.seleccion === 'unica'}
-                                    onChange={() => cambiarCampo('seleccion', 'unica')}
-                                />
-                                <span>Única</span>
-                            </label>
-                            <label className={form.seleccion === 'multiple' ? 'radio activo' : 'radio'}>
-                                <input
-                                    type="radio"
-                                    name="seleccion"
-                                    checked={form.seleccion === 'multiple'}
-                                    onChange={() => cambiarCampo('seleccion', 'multiple')}
-                                />
-                                <span>Múltiple</span>
-                            </label>
-                        </div>
-
-                        <label className="switch-row">
-                            <input
-                                type="checkbox"
-                                className="switch"
-                                checked={form.obligatorio}
-                                onChange={(e) => cambiarCampo('obligatorio', e.target.checked)}
-                            />
-                            <span>Obligatorio para el comensal</span>
-                        </label>
-
-                        <span className="form-label">ALTERNATIVAS</span>
-                        <div className="alt-lista">
-                            {form.alternativas.map((a) => (
-                                <div className="alt-fila" key={a.id}>
-                                    <input
-                                        className="form-input"
-                                        type="text"
-                                        placeholder="Nombre"
-                                        value={a.nombre}
-                                        onChange={(e) => cambiarAlternativa(a.id, 'nombre', e.target.value)}
-                                    />
-                                    <input
-                                        className="form-input"
-                                        type="number"
-                                        min="0"
-                                        step="0.1"
-                                        inputMode="decimal"
-                                        placeholder="S/ 0.00"
-                                        value={a.precio}
-                                        onChange={(e) => cambiarAlternativa(a.id, 'precio', e.target.value)}
-                                    />
-                                    {form.alternativas.length > 1 && (
-                                        <button
-                                            type="button"
-                                            className="alt-quitar"
-                                            aria-label="Quitar alternativa"
-                                            onClick={() => quitarAlternativa(a.id)}
-                                        >
-                                            ×
-                                        </button>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-
-                        <button type="button" className="link-editar link-agregar" onClick={agregarAlternativa}>
-                            + Agregar alternativa
-                        </button>
-
-                        {error && <p className="form-error" role="alert">{error}</p>}
-
-                        <button type="submit" className="btn btn-danger-custom form-guardar">
-                            {editando ? 'Guardar cambios' : 'Guardar grupo'}
-                        </button>
-
-                        {editando && (
-                            <div className="form-secundarios">
-                                <button type="button" className="link-secundario" onClick={nuevoGrupo}>
-                                    Cancelar
-                                </button>
-                                <button type="button" className="link-secundario link-peligro" onClick={eliminarGrupo}>
-                                    Eliminar grupo
-                                </button>
-                            </div>
-                        )}
-                    </form>
+                    <FormularioGrupo
+                        form={form}
+                        editando={editando}
+                        error={error}
+                        onChangeCampo={cambiarCampo}
+                        onChangeAlternativa={cambiarAlternativa}
+                        onAgregarAlternativa={agregarAlternativa}
+                        onQuitarAlternativa={quitarAlternativa}
+                        onGuardar={guardar}
+                        onCancelar={nuevoGrupo}
+                        onEliminar={eliminarGrupo}
+                    />
                 </div>
             </div>
         </main>
