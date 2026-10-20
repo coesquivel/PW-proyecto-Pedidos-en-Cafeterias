@@ -16,116 +16,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- CSS -->
-    <!-- Navbar compartido: el mismo de home -->
     <link rel="stylesheet" href="/assets/css/Home/_navbarH.css">
     <link rel="stylesheet" href="/assets/css/Login/_footerL.css">
     <link rel="stylesheet" href="/assets/css/Login/_home.css">
-
-    <style>
-        /* Tokens compartidos con home / comoFunciona (el navbar los usa) */
-        :root {
-            --primary: #DF402F;
-            --primary-dark: #AB3024;
-            --primary-soft: #FCEAE7;
-            --accent: #5B9B2E;
-            --accent-soft: #EEF5E7;
-            --bg: #FFFBF8;
-            --rojo: #df3d2e;
-            --rojo-hover: #c83225;
-            --surface: #FFFFFF;
-            --border: #EFE2DC;
-            --text: #261915;
-            --text-muted: #7C6960;
-            --success: #5B9B2E;
-            --warning: #B7791F;
-            --danger: #B4322B;
-            --info: #3B6FA8;
-            --radius: 12px;
-            --shadow: 0 4px 16px rgba(38, 25, 21, 0.035);
-        }
-
-        /* Siempre reserva el espacio de la barra de scroll, igual que home,
-           para que el navbar quede alineado aunque esta página sea corta. */
-        html {
-            overflow-y: scroll;
-        }
-    </style>
+    <link rel="stylesheet" href="/assets/css/Login/_login.css">
 </head>
 
 <body>
-    <!-- NAVBAR COMPARTIDO (igual que home) -->
+    <!-- NAVBAR COMPARTIDO -->
     <%- include('partials/Home/_navbar') %>
+
     <!-- LOGIN -->
     <div class="login-wrapper">
 
         <!-- Columna izquierda -->
         <div class="login-left col-lg-6">
-
             <div class="login-left-content">
-
-                <h1>
-                    Tu pedido listo a la hora que elijas
-                </h1>
-
+                <h1>Tu pedido listo a la hora que elijas</h1>
                 <p>
                     Ingresa con tu correo institucional para pedir en los locales
                     del campus y seguir tus pedidos en curso.
                 </p>
-
                 <div class="login-img-container">
                     <img
-                        src="assets/img/cafeteria.png"
+                        src="/assets/img/cafeteria.png"
                         alt="Login"
                         class="img-fluid"
                     >
                 </div>
-
             </div>
         </div>
 
         <!-- Columna derecha -->
         <div class="login-right col-lg-6">
-
             <div class="login-card">
-                <h2>
-                    Inicia sesión
-                </h2>
-                <form action="/login" method="POST">
+                <h2>Inicia sesión</h2>
+
+                <!-- Detecta si viene error desde el servidor -->
+                <% const msgError = locals.error || locals.mensaje; %>
+
+                <% if (msgError) { %>
+                    <div class="login-alert-error">
+                        <%= msgError === 'No encontrado' ? 'Correo o contraseña incorrectos. Te quedan 4 intentos.' : msgError %>
+                    </div>
+                <% } %>
+
+                <form action="/login" method="POST" id="formLogin">
                     <div class="mb-3">
                         <label for="correo" class="form-label-custom">
                             Correo Institucional
                         </label>
-
                         <input
                             type="email"
                             id="correo"
                             name="correo"
                             class="form-control-custom"
                             placeholder="tucorreo@aloe.ulima.edu.pe"
+                            value="<%= locals.correoIngresado || '' %>"
                             required
                         >
                     </div>
 
                     <div class="mb-3">
-                        <label
-                            for="password"
-                            class="form-label-custom"
-                        >
+                        <label for="password" class="form-label-custom">
                             Contraseña
                         </label>
-
                         <input
                             type="password"
                             id="password"
                             name="password"
-                            class="form-control-custom"
+                            class="form-control-custom <%= msgError ? 'input-error' : '' %>"
                             placeholder="••••••••"
                             required
                         >
+                        <% if (msgError) { %>
+                            <span class="login-error-msg">Verifica tus datos e inténtalo otra vez.</span>
+                        <% } %>
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
-
                         <div class="form-check m-0">
                             <input
                                 class="form-check-input"
@@ -133,11 +102,7 @@
                                 id="remember"
                                 name="remember"
                             >
-
-                            <label
-                                class="form-check-label"
-                                for="remember"
-                            >
+                            <label class="form-check-label" for="remember">
                                 Recordarme
                             </label>
                         </div>
@@ -145,22 +110,22 @@
                         <a href="RecuperarContrasena" class="forgot-link">
                             ¿Olvidaste tu contraseña?
                         </a>
-
                     </div>
 
-                    <button type="submit" class="btn-submit" id="btnIngresarXLogin">
-                        Ingresar
+                    <button type="submit" class="btn-submit" id="btnSubmitLogin">
+                        <span class="btn-spinner" id="loginSpinner"></span>
+                        <span id="btnText">Ingresar</span>
                     </button>
+
+                    <p class="info-validando" id="infoValidando" style="display: none;">
+                        Campos y enlaces deshabilitados mientras se valida.
+                    </p>
 
                     <p class="register-text">
                         ¿No tienes cuenta?
-                        <a href="/register">
-                            Crear cuenta
-                        </a>
+                        <a href="/register">Crear cuenta</a>
                     </p>
-
                 </form>
-
             </div>
         </div>
 
@@ -169,8 +134,100 @@
     <!-- FOOTER -->
     <%- include('partials/Login/_footer') %>
 
-    <!-- Bootstrap JS -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+    <!-- Script de validación y estados visuales -->
+    <script>
+        const formLogin = document.getElementById('formLogin');
+        const btnSubmit = document.getElementById('btnSubmitLogin');
+        const spinner = document.getElementById('loginSpinner');
+        const btnText = document.getElementById('btnText');
+        const infoValidando = document.getElementById('infoValidando');
+        const inputCorreo = document.getElementById('correo');
+        const inputPassword = document.getElementById('password');
 
+        let intentosRestantes = 4;
+
+        formLogin.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            // 1. Limpiar mensajes de error previos
+            const alertaPrevia = document.querySelector('.login-alert-error');
+            const msgPrevio = document.querySelector('.login-error-msg');
+            if (alertaPrevia) alertaPrevia.remove();
+            if (msgPrevio) msgPrevio.remove();
+            inputPassword.classList.remove('input-error');
+
+            // 2. Mostrar estado "Ingresando..."
+            inputCorreo.readOnly = true;
+            inputPassword.readOnly = true;
+            inputCorreo.classList.add('input-loading');
+            inputPassword.classList.add('input-loading');
+
+            btnSubmit.classList.add('btn-loading');
+            spinner.style.display = 'inline-block';
+            btnText.textContent = 'Ingresando...';
+            infoValidando.style.display = 'block';
+
+            // Pausa de 700ms para que se vea la animación de carga
+            await new Promise(resolve => setTimeout(resolve, 700));
+
+            // 3. Enviar petición al controlador (POST /login)
+            try {
+                const bodyData = new URLSearchParams({
+                    correo: inputCorreo.value.trim(),
+                    password: inputPassword.value
+                });
+
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: bodyData.toString(),
+                    redirect: 'follow'
+                });
+
+                // Si las credenciales son válidas, el servidor redirige a la vista según el rol
+                if (response.redirected && !response.url.endsWith('/login')) {
+                    window.location.href = response.url;
+                    return;
+                }
+
+                // Si no redirigió, las credenciales son incorrectas
+                mostrarErrorCredenciales();
+            } catch (err) {
+                mostrarErrorCredenciales();
+            }
+        });
+
+        function mostrarErrorCredenciales() {
+            // Restaurar campos y botón
+            inputCorreo.readOnly = false;
+            inputPassword.readOnly = false;
+            inputCorreo.classList.remove('input-loading');
+            inputPassword.classList.remove('input-loading');
+
+            btnSubmit.classList.remove('btn-loading');
+            spinner.style.display = 'none';
+            btnText.textContent = 'Ingresar';
+            infoValidando.style.display = 'none';
+
+            // Marcar borde rojo en contraseña
+            inputPassword.classList.add('input-error');
+
+            // Insertar alerta roja superior
+            const alertBox = document.createElement('div');
+            alertBox.className = 'login-alert-error';
+            alertBox.textContent = `Correo o contraseña incorrectos. Te quedan ${intentosRestantes} intentos.`;
+            formLogin.parentNode.insertBefore(alertBox, formLogin);
+
+            // Insertar texto de error debajo del campo contraseña
+            const spanError = document.createElement('span');
+            spanError.className = 'login-error-msg';
+            spanError.textContent = 'Verifica tus datos e inténtalo otra vez.';
+            inputPassword.parentNode.appendChild(spanError);
+
+            if (intentosRestantes > 1) intentosRestantes--;
+        }
+    </script>
 </body>
+
 </html>

@@ -41,7 +41,8 @@ export function detalleLocal(req, res) {
   
   res.render('website/local', {
     title: 'Detalle del Local',
-    localId: localId
+    localId: localId,
+    log_in_out: esta_logeado(req)
   });
 }
 export function register(req, res) { 
@@ -65,48 +66,40 @@ export function logout(req, res) {
   });
 }
 
-export async function ingresar(req, res){
-  const { correo, password} = req.body;
+export async function ingresar(req, res) {
+  const { correo, password } = req.body;
   const principal = 'enterprises';
   const usuarios = [
-    {correo : 'admin@admin', password: '123', role: principal},
-    {correo : 'x@x', password: '123', role: 'owner'},
-    { correo: 'comensal@comensal', password: '123', role: 'comensal' } 
-  ]
+    { correo: 'admin@admin', password: '123', role: principal },
+    { correo: 'x@x', password: '123', role: 'owner' },
+    { correo: 'comensal@comensal', password: '123', role: 'comensal' }
+  ];
 
-  let userEncontrado = null;
-
-  for(let i=0; i<usuarios.length;i++){
-    if (usuarios[i].correo == correo && usuarios[i].password == password) {
-      userEncontrado = usuarios[i];
-    }
-  }
+  const userEncontrado = usuarios.find(u => u.correo === correo && u.password === password);
 
   if (userEncontrado) {
     req.session.correo = userEncontrado.correo;
     req.session.role = userEncontrado.role;
 
     return req.session.save(() => {
-      // Mapeo explícito de ruta según el rol del usuario
-      if (req.session.role === 'enterprises') {
-        return res.redirect('/enterprises');
-      } else if (req.session.role === 'owner') {
-        return res.redirect('/owner');
-      } else if (req.session.role === 'comensal' || req.session.role === 'comensales') {
+      if (req.session.role === 'enterprises') return res.redirect('/enterprises');
+      if (req.session.role === 'owner') return res.redirect('/owner');
+      if (req.session.role === 'comensal' || req.session.role === 'comensales') {
         return res.redirect('/comensales');
-      } else {
-        return res.redirect('/');
       }
+      return res.redirect('/');
     });
   }
 
-//return res.send(`usuario: ${correo} contraseña: ${password}`);
-return res.render('website/login', {
+  // Si fallan las credenciales
+  return res.render('website/login', {
     title: 'Login',
-    mensaje: 'No encontrado',
+    mensaje: 'Correo o contraseña incorrectos. Te quedan 4 intentos.',
+    error: 'Correo o contraseña incorrectos. Te quedan 4 intentos.',
+    correoIngresado: correo,
+    log_in_out: esta_logeado(req)
   });
 }
-
 function esta_logeado(req) {
   const isAuthenticated = req.session && req.session.correo && req.session.role;
   let b = 'Cerrar sesión';

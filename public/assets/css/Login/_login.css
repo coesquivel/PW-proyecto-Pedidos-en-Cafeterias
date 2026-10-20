@@ -1,0 +1,111 @@
+:root {
+    --primary: #DF402F;
+    --primary-dark: #AB3024;
+    --primary-soft: #FCEAE7;
+    --accent: #5B9B2E;
+    --accent-soft: #EEF5E7;
+    --bg: #FFFBF8;
+    --rojo: #df3d2e;
+    --rojo-hover: #c83225;
+    --surface: #FFFFFF;
+    --border: #EFE2DC;
+    --text: #261915;
+    --text-muted: #7C6960;
+    --success: #5B9B2E;
+    --warning: #B7791F;
+    --danger: #B4322B;
+    --info: #3B6FA8;
+    --radius: 12px;
+    --shadow: 0 4px 16px rgba(38, 25, 21, 0.035);
+}
+
+/* Siempre reserva el espacio de la barra de scroll, igual que home */
+html {
+    overflow-y: scroll;
+}
+
+/* =========================================
+   ESTILOS DEL ESTADO DE ERROR
+   ========================================= */
+.login-alert-error {
+    background-color: #FCE8E6;
+    color: #A53727;
+    border: 1px solid #F5C2BC;
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.form-control-custom.input-error,
+.input-error {
+    border: 1.5px solid var(--danger) !important;
+    background-color: #FFFFFF !important;
+}
+
+.login-error-msg {
+    color: var(--danger);
+    font-size: 13px;
+    margin-top: 6px;
+    display: block;
+}
+
+/* =========================================
+   ESTILOS DEL ESTADO DE CARGA ("Ingresando...")
+   ========================================= */
+/* Fondo beige suave cuando los inputs se bloquean al enviar */
+.form-control-custom.input-loading {
+    background-color: #F3ECE7 !important;
+    color: var(--text-muted) !important;
+    border-color: #E6DCD5 !important;
+    pointer-events: none;
+}
+
+/* Botón principal y estado cargando */
+.btn-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-submit:disabled,
+.btn-submit.btn-loading {
+    background-color: var(--primary-dark) !important;
+    opacity: 0.95;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Spinner circular blanco */
+.btn-spinner {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid #ffffff;
+    border-top: 2.5px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Texto inferior "Campos y enlaces deshabilitados mientras se valida." */
+.info-validando {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 12px;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+/* Desactivar enlaces mientras carga */
+.disabled-links {
+    pointer-events: none;
+    opacity: 0.5;
+}
