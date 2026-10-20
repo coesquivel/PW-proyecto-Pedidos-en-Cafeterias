@@ -39,6 +39,14 @@ export default function SubHeaderComensal() {
             Mi cuenta
           </NavLink>
         </li>
+                <li>
+          <NavLink
+            to="/comensales/carrito"
+            className={({ isActive }) => (isActive ? 'tab-link tab-link--active' : 'tab-link')}
+          >
+            Carrito
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );
