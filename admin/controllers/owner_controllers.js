@@ -6,3 +6,10 @@ export function home(req, res) {
     currentPage: 'home',
   });
 }
+
+export function ranking(req, res) {
+  return res.render('owner/home', {
+    title: 'Ranking de productos y locales',
+    currentPage: 'ranking',
+  });
+}
