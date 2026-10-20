@@ -136,6 +136,13 @@
 
     <!-- Script de validación y estados visuales -->
     <script>
+        // Si el usuario intenta volver atrás con la flecha del navegador, fuerza al servidor a redirigirlo
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+
         const formLogin = document.getElementById('formLogin');
         const btnSubmit = document.getElementById('btnSubmitLogin');
         const spinner = document.getElementById('loginSpinner');
@@ -185,9 +192,9 @@
                     redirect: 'follow'
                 });
 
-                // Si las credenciales son válidas, el servidor redirige a la vista según el rol
+                // Si las credenciales son válidas, replace() borra /login del historial
                 if (response.redirected && !response.url.endsWith('/login')) {
-                    window.location.href = response.url;
+                    window.location.replace(response.url);
                     return;
                 }
 
@@ -199,7 +206,6 @@
         });
 
         function mostrarErrorCredenciales() {
-            // Restaurar campos y botón
             inputCorreo.readOnly = false;
             inputPassword.readOnly = false;
             inputCorreo.classList.remove('input-loading');
@@ -210,16 +216,13 @@
             btnText.textContent = 'Ingresar';
             infoValidando.style.display = 'none';
 
-            // Marcar borde rojo en contraseña
             inputPassword.classList.add('input-error');
 
-            // Insertar alerta roja superior
             const alertBox = document.createElement('div');
             alertBox.className = 'login-alert-error';
             alertBox.textContent = `Correo o contraseña incorrectos. Te quedan ${intentosRestantes} intentos.`;
             formLogin.parentNode.insertBefore(alertBox, formLogin);
 
-            // Insertar texto de error debajo del campo contraseña
             const spanError = document.createElement('span');
             spanError.className = 'login-error-msg';
             spanError.textContent = 'Verifica tus datos e inténtalo otra vez.';
@@ -228,6 +231,7 @@
             if (intentosRestantes > 1) intentosRestantes--;
         }
     </script>
+
 </body>
 
 </html>

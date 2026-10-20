@@ -15,7 +15,7 @@ router.get('/comoFunciona', controller.comoFunciona);
 //router.get('/api/v1/sessions', api.sessionInfo);
 router.get('/login', redirecionarSiLogueado, controller.login);
 router.post('/login', controller.ingresar);
-router.get('/register', controller.register);
+router.get('/register', redirecionarSiLogueado, controller.register);
 router.get('/locales', controller.locales);
 router.get('/locales/:id', controller.detalleLocal);
 router.post('/sign-in', redirectIfAuthenticated, controller.login);

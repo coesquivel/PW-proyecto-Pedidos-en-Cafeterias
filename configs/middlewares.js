@@ -128,20 +128,28 @@ export function redirectIfAuthenticated(req, res, next) {
 }
 
 export function redirecionarSiLogueado(req, res, next) {
-  // Verificar si el usuario tiene sesión activa
+  // 1. Prohibir que el navegador guarde /login en caché (obliga a consultar al servidor al dar "Atrás")
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+
+  // 2. Verificar si el usuario tiene sesión activa
   const isAuthenticated = req.session && req.session.correo && req.session.role;
-  
-  // Si está autenticado Y está intentando acceder a rutas de autenticación
-  const isAuthRoute = [
-    '/login',
-  ].some(route => req.path === route);
-  
-  if (isAuthenticated && isAuthRoute) {
-    // Redirigir al home si ya está logueado y quiere acceder a rutas de auth
-    return res.redirect(`/${req.session.role}`);
+
+  // 3. Si ya está logueado, redirigirlo a su ruta correcta
+  if (isAuthenticated) {
+    if (req.session.role === 'enterprises') {
+      return res.redirect('/enterprises');
+    } else if (req.session.role === 'owner') {
+      return res.redirect('/owner');
+    } else if (req.session.role === 'comensal' || req.session.role === 'comensales') {
+      return res.redirect('/comensales');
+    } else {
+      return res.redirect('/');
+    }
   }
-  
-  // Si no está autenticado o no es una ruta de auth, continuar
+
+  // Si no está autenticado, dejarlo ver el login
   next();
 }
 
