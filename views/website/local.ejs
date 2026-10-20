@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Pide | Información del Local</title>
 
-    <title>Campus Pide | Carta del Local</title>
-
-    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Tus mismos CSS del Home -->
     <link rel="stylesheet" href="/assets/css/Home/_navbarH.css">
     <link rel="stylesheet" href="/assets/css/Home/_footerH.css">
     <link rel="stylesheet" href="/assets/css/Home/_home.css">
@@ -18,199 +13,175 @@
     <style>
         body {
             background-color: #fcfaf9;
-            color: #222;
+            color: #252525;
         }
 
-        /* Cabecera del restaurante */
         .hero.hero-detalle {
-            padding: 2rem 0;
-            background-color: #fdf0ed;
+            padding: 2.5rem 0;
+            background: linear-gradient(120deg, #fdf0ed 0%, #fff9f6 100%);
             border-bottom: 1px solid #f2dcd6;
         }
 
         .breadcrumb-custom {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+            font-size: .92rem;
+            margin-bottom: 1.6rem;
+            color: #69615e;
         }
 
         .breadcrumb-custom a {
             color: #d93829;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 650;
+        }
+
+        .breadcrumb-custom a:hover { text-decoration: underline; }
+
+        .local-kicker {
+            color: #d93829;
+            font-size: .78rem;
+            font-weight: 750;
+            text-transform: uppercase;
+            letter-spacing: .09em;
+            margin-bottom: .6rem;
+        }
+
+        .local-main-title {
+            font-weight: 800;
+            letter-spacing: -.03em;
+            line-height: 1.15;
+            font-size: clamp(2rem, 4vw, 3rem);
+        }
+
+        .local-intro {
+            color: #514b49;
+            font-size: 1.08rem;
+            line-height: 1.8;
+            max-width: 680px;
         }
 
         .local-banner-img {
+            display: block;
             width: 100%;
-            height: 180px;
+            height: 330px;
             object-fit: cover;
-            border-radius: 14px;
+            border-radius: 16px;
             border: 1px solid #ece7e5;
+            box-shadow: 0 10px 30px rgba(50, 25, 15, .08);
         }
 
-        .badge-open {
-            background-color: #4ea845;
-            color: #fff;
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 0.25rem 0.75rem;
+        .badge-open, .badge-closed {
+            display: inline-block;
+            padding: .4rem .85rem;
             border-radius: 50px;
+            font-size: .8rem;
+            font-weight: 700;
+            white-space: nowrap;
         }
 
-        .badge-closed {
-            background-color: #e9ecef;
-            color: #6c757d;
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-        }
+        .badge-open { background: #e4f4df; color: #34762c; }
+        .badge-closed { background: #ece9e8; color: #6c6260; }
 
-        /* Tarjetas de productos */
-        .product-card {
-            background: #ffffff;
-            border: 1px solid #ece7e5;
-            border-radius: 12px;
-            padding: 1.1rem;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
+        .local-info-section { padding: 2.25rem 0 3.5rem; }
 
-        .product-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-        }
-
-        .product-cat {
-            font-size: 0.75rem;
+        .section-heading { margin-bottom: 1.25rem; }
+        .section-heading .eyebrow {
+            color: #d93829;
+            font-weight: 750;
+            letter-spacing: .08em;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #d93829;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
+            font-size: .75rem;
+            margin-bottom: .4rem;
         }
-
-        .product-title {
-            font-weight: 700;
-            font-size: 1.05rem;
-            margin-bottom: 0.35rem;
-        }
-
-        .product-desc {
-            font-size: 0.85rem;
-            color: #6c757d;
-            margin-bottom: 1rem;
-        }
-
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 0.75rem;
-            border-top: 1px solid #f4f1ef;
-        }
-
-        .product-price {
+        .section-heading h2 {
+            font-size: clamp(1.4rem, 2vw, 1.8rem);
             font-weight: 800;
-            font-size: 1.1rem;
-            color: #222;
+            margin: 0;
+        }
+        .section-heading p {
+            color: #6a6462;
+            margin: .55rem 0 0;
+            line-height: 1.65;
         }
 
-        .btn-add {
-            background-color: #fdf0ed;
-            color: #d93829;
-            border: 1px solid #f3cfc8;
-            font-weight: 600;
-            font-size: 0.85rem;
-            padding: 0.4rem 0.9rem;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .btn-add:hover:not(:disabled) {
-            background-color: #d93829;
-            color: #ffffff;
-            border-color: #d93829;
-        }
-
-        /* Panel lateral de pedido (Carrito) */
-        .order-panel {
-            background: #ffffff;
+        .info-card, .description-card {
+            height: 100%;
+            padding: 1.35rem;
+            background: #fff;
             border: 1px solid #ece7e5;
             border-radius: 14px;
-            padding: 1.5rem;
-            position: sticky;
-            top: 1.5rem;
+            box-shadow: 0 3px 12px rgba(40, 20, 10, .025);
         }
 
-        .order-panel h4 {
+        .info-card .info-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: #fdf0ed;
             font-size: 1.2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #ece7e5;
+            margin-bottom: .9rem;
         }
 
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 0.65rem 0;
-            border-bottom: 1px dashed #ece7e5;
-            font-size: 0.9rem;
-        }
-
-        .cart-item-title {
-            font-weight: 600;
-            color: #222;
-        }
-
-        .cart-item-notes {
-            font-size: 0.78rem;
-            color: #6c757d;
-        }
-
-        .btn-remove {
-            color: #dc3545;
-            background: none;
-            border: none;
-            font-size: 0.8rem;
-            padding: 0;
-            margin-left: 0.5rem;
-        }
-
-        .btn-confirm {
-            background-color: #d93829;
-            color: #ffffff;
+        .info-card h3 {
+            color: #77706e;
+            font-size: .85rem;
             font-weight: 700;
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: 10px;
-            border: none;
-            transition: background 0.2s ease;
+            margin-bottom: .45rem;
         }
 
-        .btn-confirm:hover:not(:disabled) {
-            background-color: #b82b1e;
-            color: #ffffff;
+        .info-card p {
+            margin-bottom: 0;
+            font-size: 1rem;
+            font-weight: 650;
+            line-height: 1.55;
         }
 
-        .btn-confirm:disabled {
-            background-color: #e2dcd9;
-            color: #888;
+        .description-card h3 {
+            margin-bottom: .75rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .description-card p {
+            margin-bottom: 0;
+            color: #5c5654;
+            line-height: 1.8;
+        }
+
+
+        .status-note {
+            font-size: .86rem;
+            color: #77706e;
+            line-height: 1.6;
+            margin-top: .7rem;
+        }
+
+        .info-footer-note {
+            border-left: 3px solid #d93829;
+            padding: .9rem 1rem;
+            background: #fff;
+            color: #625b58;
+            border-radius: 0 10px 10px 0;
+            font-size: .9rem;
+            line-height: 1.65;
+        }
+
+        @media (max-width: 767.98px) {
+            .hero.hero-detalle { padding: 1.5rem 0 2rem; }
+            .local-banner-img { height: 240px; }
+            .local-intro { font-size: 1rem; }
+            .local-info-section { padding-top: 1.5rem; }
         }
     </style>
 </head>
-
 <body>
 
     <!-- NAVBAR -->
     <%- include('../partials/Home/_navbar') %>
 
     <%
-        // Catálogo unificado de los 5 locales y sus productos
+        // Información descriptiva de los locales. No incluye productos, precios ni pedidos.
         const catalogoLocales = {
             1: {
                 id: 1,
@@ -220,13 +191,11 @@
                 ubicacion: 'Pabellón A',
                 horario: '07:00 a 19:00',
                 tiempo: '12 min',
-                descripcion: 'Desayunos, menú universitario, platos a la carta y café pasado.',
-                productos: [
-                    { id: 101, categoria: 'Menú del día', nombre: 'Menú Universitario', desc: 'Entrada + Segundo del día + Refresco natural.', precio: 12.50, opciones: ['Entrada: Ensalada fresca', 'Entrada: Sopa criolla', 'Entrada: Tequeños'] },
-                    { id: 102, categoria: 'Platos a la carta', nombre: 'Lomo Saltado Clásico', desc: 'Con papas fritas crujientes y arroz blanco.', precio: 16.00, opciones: ['Término bien cocido', 'Término tres cuartos', 'Sin cebolla'] },
-                    { id: 103, categoria: 'Sánguches', nombre: 'Pan con Pollo Deshilachado', desc: 'Pollo, apio, mayonesa de la casa y papas al hilo.', precio: 7.50, opciones: ['Con mayonesa y ají', 'Solo mayonesa', 'Sin cremas'] },
-                    { id: 104, categoria: 'Bebidas', nombre: 'Café Pasado Grande', desc: 'Café orgánico recién pasado (12 oz).', precio: 4.50, opciones: ['Con azúcar', 'Con edulcorante', 'Sin endulzar'] }
-                ]
+                tipo: 'Cafetería universitaria',
+                descripcion: 'Un punto de encuentro dentro del campus que reúne alternativas para empezar la mañana, hacer una pausa entre clases o almorzar durante la jornada universitaria.',
+                descripcionLarga: 'La Cafetería Central ofrece una propuesta variada que combina desayunos, menú universitario, platos a la carta y café pasado. Por su variedad de opciones, es una alternativa para diferentes momentos del día, desde una parada breve por la mañana hasta una pausa más larga para almorzar.',
+                caracteristica: 'Variedad para distintos momentos del día',
+                ambiente: 'Un espacio práctico para hacer una pausa durante las actividades académicas.'
             },
             2: {
                 id: 2,
@@ -236,13 +205,11 @@
                 ubicacion: 'Pabellón E',
                 horario: '08:00 a 18:00',
                 tiempo: '10 min',
-                descripcion: 'Especialistas en sánguches calientes, triples y empanadas.',
-                productos: [
-                    { id: 201, categoria: 'Sánguches', nombre: 'Butifarra Criolla', desc: 'Jamón del país artesanal con zarza criolla en pan francés.', precio: 8.50, opciones: ['Con ají de la casa', 'Sin picante'] },
-                    { id: 202, categoria: 'Sánguches', nombre: 'Triple Clásico', desc: 'Palta, tomate, huevo y mayonesa en pan de molde.', precio: 7.00, opciones: ['Pan blanco', 'Pan integral'] },
-                    { id: 203, categoria: 'Horneados', nombre: 'Empanada de Carne', desc: 'Rellena de lomo picado, aceituna y huevo duro.', precio: 5.50, opciones: ['Caliente con limón', 'Temperatura ambiente'] },
-                    { id: 204, categoria: 'Bebidas', nombre: 'Chicha Morada 500ml', desc: 'Hecha con maíz morado natural, piña y canela.', precio: 4.00, opciones: ['Helada', 'Sin hielo'] }
-                ]
+                tipo: 'Sanguchería y cafetería rápida',
+                descripcion: 'Un local enfocado en alternativas prácticas para comer durante el día, con sánguches calientes, triples, empanadas y bebidas.',
+                descripcionLarga: 'La Sanguchería Pabellón E se caracteriza por una propuesta centrada en sánguches y opciones de preparación rápida. Su variedad incluye sánguches calientes, triples y empanadas, acompañados de bebidas; una opción para quienes desean hacer una pausa entre clases o durante la jornada en el campus.',
+                caracteristica: 'Opciones saladas y fáciles de disfrutar durante el día',
+                ambiente: 'Un espacio informal pensado para una parada breve entre actividades.'
             },
             3: {
                 id: 3,
@@ -252,12 +219,11 @@
                 ubicacion: 'Biblioteca, piso 1',
                 horario: '08:00 a 20:00',
                 tiempo: '6 min',
-                descripcion: 'Cafés de especialidad, postres y snacks rápidos para tus sesiones de estudio.',
-                productos: [
-                    { id: 301, categoria: 'Cafetería', nombre: 'Cappuccino Italiano', desc: 'Espresso doble con leche texturizada (10 oz).', precio: 6.50, opciones: ['Leche entera', 'Leche sin lactosa', 'Leche de almendras (+S/1)'] },
-                    { id: 302, categoria: 'Snacks', nombre: 'Croissant Mixto', desc: 'Croissant de mantequilla relleno de jamón inglés y queso edam.', precio: 7.50, opciones: ['Planchado caliente', 'Sin calentar'] },
-                    { id: 303, categoria: 'Postres', nombre: 'Muffin de Arándanos', desc: 'Queque esponjoso con arándanos frescos.', precio: 5.00, opciones: ['Para llevar', 'Para comer aquí'] }
-                ]
+                tipo: 'Café y snacks',
+                descripcion: 'Una alternativa cercana a la biblioteca para acompañar las jornadas de estudio con café, postres, croissants y snacks rápidos.',
+                descripcionLarga: 'El Café de Biblioteca reúne bebidas a base de café y acompañamientos dulces o salados en una ubicación conveniente para quienes pasan tiempo estudiando. Su propuesta incluye espresso, postres, croissants y snacks rápidos, adecuados para una pausa breve durante el día académico.',
+                caracteristica: 'Ubicación junto a la zona de estudio',
+                ambiente: 'Una opción cercana para interrumpir brevemente la rutina de estudio y continuar con las actividades.'
             },
             4: {
                 id: 4,
@@ -265,14 +231,13 @@
                 imagen: '/assets/img/jugueria.png',
                 abierto: false,
                 ubicacion: 'Patio central',
-                horario: 'abre 09:00',
+                horario: 'Abre a las 09:00',
                 tiempo: '8 min',
-                descripcion: 'Jugos naturales al instante, batidos y ensaladas de frutas.',
-                productos: [
-                    { id: 401, categoria: 'Jugos', nombre: 'Jugo Surtido Clásico', desc: 'Papaya, piña, plátano y beterraga (16 oz).', precio: 6.00, opciones: ['Bajo en azúcar', 'Sin azúcar', 'Con miel'] },
-                    { id: 402, categoria: 'Batidos', nombre: 'Batido de Fresa con Leche', desc: 'Fresas frescas seleccionadas con leche evaporada o fresca.', precio: 7.50, opciones: ['Leche entera', 'Leche deslactosada'] },
-                    { id: 403, categoria: 'Bowls', nombre: 'Ensalada de Frutas', desc: 'Frutas de estación con yogurt griego, miel y granola.', precio: 9.00, opciones: ['Yogurt natural', 'Yogurt de vainilla'] }
-                ]
+                tipo: 'Juguería',
+                descripcion: 'Un local dedicado a bebidas frutales y alternativas frescas, con jugos naturales, batidos y ensaladas de frutas.',
+                descripcionLarga: 'La Juguería La Fuente se enfoca en preparaciones a base de frutas. Su oferta descriptiva incluye jugos naturales, batidos proteicos y ensaladas de frutas, por lo que puede ser una alternativa para quienes prefieren una pausa fresca entre sus actividades en el campus.',
+                caracteristica: 'Propuesta centrada en frutas y bebidas',
+                ambiente: 'Una parada informal en el patio central para hacer una pausa y refrescarse.'
             },
             5: {
                 id: 5,
@@ -282,273 +247,127 @@
                 ubicacion: 'Pabellón C, piso 1',
                 horario: '07:30 a 18:30',
                 tiempo: '8 min',
-                descripcion: 'Wraps, ensaladas frescas, chapatas y bebidas frías.',
-                productos: [
-                    { id: 501, categoria: 'Wraps', nombre: 'Wrap César con Pollo', desc: 'Tortilla de trigo con pollo grillado, lechuga, parmesano y aliño césar.', precio: 10.50, opciones: ['Con aliño aparte', 'Aliño mezclado'] },
-                    { id: 502, categoria: 'Ensaladas', nombre: 'Bowl Proteico', desc: 'Quinua, pollo, palta, choclo, tomate cherry y huevo.', precio: 13.00, opciones: ['Vinagreta de la casa', 'Limón y aceite de oliva'] }
-                ]
+                tipo: 'Cafetería y snacks',
+                descripcion: 'Una cafetería con alternativas saladas y bebidas para quienes necesitan una pausa rápida durante la jornada universitaria.',
+                descripcionLarga: 'La Cafetería Pabellón C ofrece una selección de wraps, ensaladas frescas, chapatas y bebidas frías. Su propuesta combina opciones para quienes desean comer algo ligero con alternativas para acompañar una pausa entre clases o actividades dentro del campus.',
+                caracteristica: 'Variedad de opciones ligeras y bebidas frías',
+                ambiente: 'Una alternativa cómoda y cercana para hacer una pausa sin alejarse del pabellón.'
             }
         };
 
-        const idActual = (typeof localId !== 'undefined' && catalogoLocales[localId]) ? localId : 1;
-        const local = (typeof localData !== 'undefined') ? localData : catalogoLocales[idActual];
+        const idActual = (typeof localId !== 'undefined' && catalogoLocales[localId])
+            ? Number(localId)
+            : 1;
+        const localBase = catalogoLocales[idActual] || catalogoLocales[1];
+        const datosRecibidos = (typeof localData !== 'undefined' && localData)
+            ? localData
+            : {};
+        const local = { ...localBase, ...datosRecibidos };
+        const estaAbierto = local.abierto === true || local.abierto === 'true' ||
+            local.abierto === 1 || local.abierto === '1';
     %>
 
-    <!-- CABECERA DEL LOCAL -->
+    <!-- CABECERA DEL RESTAURANTE -->
     <section class="hero hero-detalle">
         <div class="container">
             <div class="breadcrumb-custom">
-                <a href="/locales">← Volver a todos los locales</a> <span>/ <%= local.nombre %></span>
+                <a href="/locales">← Volver a todos los locales</a>
+                <span> / <%= local.nombre %></span>
             </div>
 
             <div class="row align-items-center g-4">
-                <div class="col-md-8">
-                    <div class="d-flex align-items-center gap-3 mb-2">
-                        <h1 class="mb-0"><%= local.nombre %></h1>
-                        <% if (local.abierto) { %>
+                <div class="col-lg-7">
+                    <div class="local-kicker"><%= local.tipo || localBase.tipo %></div>
+                    <div class="d-flex align-items-center gap-3 flex-wrap mb-3">
+                        <h1 class="local-main-title mb-0"><%= local.nombre %></h1>
+                        <% if (estaAbierto) { %>
                             <span class="badge-open">Abierto</span>
                         <% } else { %>
                             <span class="badge-closed">Cerrado</span>
                         <% } %>
                     </div>
-                    <p class="mb-2"><%= local.descripcion %></p>
-                    <div class="hero-stats mt-2">
-                        <span>📍 <%= local.ubicacion %></span>
-                        <span>🕒 <%= local.horario %></span>
-                        <span>⏱ Prep. aprox: <%= local.tiempo %></span>
-                    </div>
+                    <p class="local-intro mb-3"><%= local.descripcion %></p>
+                    <p class="status-note mb-0">
+                        Estado mostrado según la información configurada para este local.
+                    </p>
                 </div>
 
-                <div class="col-md-4">
-                    <img src="<%= local.imagen %>" alt="<%= local.nombre %>" class="local-banner-img">
+                <div class="col-lg-5">
+                    <img
+                        src="<%= local.imagen %>"
+                        alt="Imagen de <%= local.nombre %>"
+                        class="local-banner-img"
+                    >
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CARTA Y PEDIDO -->
-    <main class="container my-4">
-        <div class="row g-4">
+    <main class="container local-info-section">
 
-            <!-- COLUMNA IZQUIERDA: CARTA DE PRODUCTOS -->
-            <div class="col-lg-8">
-                <h3 class="fw-bold mb-3" style="font-size: 1.35rem;">Carta disponible</h3>
-
-                <% if (!local.abierto) { %>
-                    <div class="alert alert-warning border-0 rounded-3">
-                        Este local se encuentra cerrado en este momento (<%= local.horario %>). Puedes revisar su carta, pero los pedidos están deshabilitados.
-                    </div>
-                <% } %>
-
-                <div class="row g-3">
-                    <% local.productos.forEach(prod => { %>
-                        <div class="col-12 col-md-6">
-                            <div class="product-card">
-                                <div>
-                                    <div class="product-cat"><%= prod.categoria %></div>
-                                    <div class="product-title"><%= prod.nombre %></div>
-                                    <div class="product-desc"><%= prod.desc %></div>
-                                </div>
-
-                                <div class="product-footer">
-                                    <span class="product-price">S/ <%= prod.precio.toFixed(2) %></span>
-                                    <button 
-                                        class="btn-add"
-                                        <%= !local.abierto ? 'disabled' : '' %>
-                                        onclick='abrirModalProducto(<%- JSON.stringify(prod) %>)'>
-                                        + Agregar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    <% }) %>
-                </div>
+        <!-- INFORMACIÓN PRINCIPAL -->
+        <section class="mb-5">
+            <div class="section-heading">
+                <div class="eyebrow">Información general</div>
+                <h2>Datos del establecimiento</h2>
+                <p>Conoce dónde se encuentra el local, cuál es su horario y qué tipo de propuesta ofrece.</p>
             </div>
 
-            <!-- COLUMNA DERECHA: TU PEDIDO Y HORA DE RECOJO -->
-            <div class="col-lg-4">
-                <div class="order-panel">
-                    <h4>Tu pedido en <%= local.nombre %></h4>
-
-                    <div id="listaCarrito" class="mb-3">
-                        <p class="text-muted small mb-0" id="carritoVacioMsg">
-                            Aún no has agregado productos a tu pedido.
-                        </p>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold small">Hora de recojo en mostrador</label>
-                        <select class="form-select form-select-sm" id="horaRecojo" <%= !local.abierto ? 'disabled' : '' %>>
-                            <option value="En 15 min">Lo antes posible (<%= local.tiempo %>)</option>
-                            <option value="10:30">10:30 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="12:30">12:30 PM</option>
-                            <option value="13:00">01:00 PM</option>
-                            <option value="13:30">01:30 PM</option>
-                        </select>
-                    </div>
-
-                    <div class="d-flex justify-content-between align-items-center fw-bold mb-3 pt-2 border-top">
-                        <span>Total a pagar en mostrador:</span>
-                        <span id="totalPedido" style="font-size: 1.2rem; color: #d93829;">S/ 0.00</span>
-                    </div>
-
-                    <button class="btn-confirm" id="btnConfirmarPedido" disabled onclick="generarCodigoPedido()">
-                        Confirmar y generar código
-                    </button>
+            <div class="row g-3">
+                <div class="col-sm-6 col-lg-3">
+                    <article class="info-card">
+                        <div class="info-icon">📍</div>
+                        <h3>Ubicación</h3>
+                        <p><%= local.ubicacion %></p>
+                    </article>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <article class="info-card">
+                        <div class="info-icon">🕒</div>
+                        <h3>Horario de atención</h3>
+                        <p><%= local.horario %></p>
+                    </article>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <article class="info-card">
+                        <div class="info-icon">☕</div>
+                        <h3>Tipo de establecimiento</h3>
+                        <p><%= local.tipo || localBase.tipo %></p>
+                    </article>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <article class="info-card">
+                        <div class="info-icon">⏱️</div>
+                        <h3>Tiempo aproximado</h3>
+                        <p><%= local.tiempo || localBase.tiempo %></p>
+                    </article>
                 </div>
             </div>
+        </section>
 
-        </div>
+        <!-- DESCRIPCIÓN AMPLIADA -->
+        <section class="row g-3 mb-5">
+            <div class="col-lg-7">
+                <article class="description-card">
+                    <h3>Acerca de este local</h3>
+                    <p><%= local.descripcionLarga || localBase.descripcionLarga %></p>
+                </article>
+            </div>
+            <div class="col-lg-5">
+                <article class="description-card">
+                    <h3>¿Qué lo caracteriza?</h3>
+                    <p><%= local.caracteristica || localBase.caracteristica %></p>
+                    <p class="mt-3"><%= local.ambiente || localBase.ambiente %></p>
+                </article>
+            </div>
+        </section>
+
+
     </main>
-
-    <!-- MODAL PARA OPCIONES Y NOTAS DEL PRODUCTO -->
-    <div class="modal fade" id="modalProducto" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-4 border-0">
-                <div class="modal-header border-bottom-0 pb-0">
-                    <h5 class="modal-title fw-bold" id="modalProdNombre">Producto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="text-muted small" id="modalProdDesc"></p>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold small">Elige una opción:</label>
-                        <select class="form-select" id="modalProdOpcion"></select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold small">Notas adicionales (opcional):</label>
-                        <input type="text" class="form-control" id="modalProdNota" placeholder="Ej. Sin picante, para llevar, etc.">
-                    </div>
-                </div>
-                <div class="modal-footer border-top-0 pt-0">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn cta-button" id="btnGuardarEnCarrito">Agregar al pedido</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL DE CÓDIGO GENERADO (PASO 3) -->
-    <div class="modal fade" id="modalCodigo" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered text-center">
-            <div class="modal-content rounded-4 border-0 p-3">
-                <div class="modal-body">
-                    <div class="mb-2" style="font-size: 2.5rem;">✅</div>
-                    <h4 class="fw-bold">¡Pedido enviado al local!</h4>
-                    <p class="text-muted small">Dicta este código en el mostrador de <strong><%= local.nombre %></strong> y paga al recoger:</p>
-                    <div class="py-3 px-4 my-3 rounded-3 fw-bold" style="background: #fdf0ed; color: #d93829; font-size: 1.8rem; letter-spacing: 2px;" id="codigoGenerado">
-                        CP-4821
-                    </div>
-                    <p class="small text-muted mb-3" id="resumenRecojo"></p>
-                    <button type="button" class="btn cta-button w-100" data-bs-dismiss="modal">Entendido</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- FOOTER -->
     <%- include('../partials/Home/_footer') %>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        let carrito = [];
-        let productoActual = null;
-        let modalInstancia = null;
-        let modalCodigoInstancia = null;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            modalInstancia = new bootstrap.Modal(document.getElementById('modalProducto'));
-            modalCodigoInstancia = new bootstrap.Modal(document.getElementById('modalCodigo'));
-
-            document.getElementById('btnGuardarEnCarrito').addEventListener('click', () => {
-                if (!productoActual) return;
-                const opcion = document.getElementById('modalProdOpcion').value;
-                const nota = document.getElementById('modalProdNota').value.trim();
-
-                carrito.push({
-                    ...productoActual,
-                    opcionElegida: opcion,
-                    nota: nota
-                });
-
-                renderizarCarrito();
-                modalInstancia.hide();
-            });
-        });
-
-        function abrirModalProducto(prod) {
-            productoActual = prod;
-            document.getElementById('modalProdNombre').textContent = `${prod.nombre} (S/ ${prod.precio.toFixed(2)})`;
-            document.getElementById('modalProdDesc').textContent = prod.desc;
-            document.getElementById('modalProdNota').value = '';
-
-            const selectOpcion = document.getElementById('modalProdOpcion');
-            selectOpcion.innerHTML = '';
-            prod.opciones.forEach(op => {
-                const optionEl = document.createElement('option');
-                optionEl.value = op;
-                optionEl.textContent = op;
-                selectOpcion.appendChild(optionEl);
-            });
-
-            modalInstancia.show();
-        }
-
-        function eliminarDelCarrito(index) {
-            carrito.splice(index, 1);
-            renderizarCarrito();
-        }
-
-        function renderizarCarrito() {
-            const contenedor = document.getElementById('listaCarrito');
-            const totalEl = document.getElementById('totalPedido');
-            const btnConfirmar = document.getElementById('btnConfirmarPedido');
-
-            if (carrito.length === 0) {
-                contenedor.innerHTML = '<p class="text-muted small mb-0">Aún no has agregado productos a tu pedido.</p>';
-                totalEl.textContent = 'S/ 0.00';
-                btnConfirmar.disabled = true;
-                return;
-            }
-
-            let html = '';
-            let total = 0;
-
-            carrito.forEach((item, idx) => {
-                total += item.precio;
-                html += `
-                    <div class="cart-item">
-                        <div>
-                            <div class="cart-item-title">${item.nombre}</div>
-                            <div class="cart-item-notes">${item.opcionElegida}${item.nota ? ' · ' + item.nota : ''}</div>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <span class="fw-semibold">S/ ${item.precio.toFixed(2)}</span>
-                            <button class="btn-remove" onclick="eliminarDelCarrito(${idx})">✕</button>
-                        </div>
-                    </div>
-                `;
-            });
-
-            contenedor.innerHTML = html;
-            totalEl.textContent = `S/ ${total.toFixed(2)}`;
-            btnConfirmar.disabled = false;
-        }
-
-        function generarCodigoPedido() {
-            const randomNum = Math.floor(1000 + Math.random() * 9000);
-            const hora = document.getElementById('horaRecojo').value;
-            document.getElementById('codigoGenerado').textContent = `CP-${randomNum}`;
-            document.getElementById('resumenRecojo').textContent = `Hora programada de recojo: ${hora}`;
-            carrito = [];
-            renderizarCarrito();
-            modalCodigoInstancia.show();
-        }
-    </script>
 </body>
 </html>
