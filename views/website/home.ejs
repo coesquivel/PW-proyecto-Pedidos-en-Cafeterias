@@ -34,10 +34,13 @@
                         y escoge la hora de recojo. Pagas en el mostrador al recibirlo.
                     </p>
 
-                    <form class="search-box">
+                    <!-- FORMULARIO DE BÚSQUEDA REDIRIGIBLE -->
+                    <form class="search-box" id="formBuscadorHome">
                         <input
                             type="text"
+                            id="inputBuscadorHome"
                             placeholder="Busca «sandwich» o «Cafetería Central»"
+                            required
                         >
                         <button type="submit">Buscar</button>
                     </form>
@@ -229,7 +232,7 @@
                 </div>
             </div>
 
-            <a href="#" class="btn cta-button">
+            <a href="/registrarLocal" class="btn cta-button">
                 Registrar mi local
             </a>
 
@@ -242,6 +245,42 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SCRIPT PARA REDIRIGIR A /locales/:id SEGÚN LA BÚSQUEDA -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('formBuscadorHome');
+            const input = document.getElementById('inputBuscadorHome');
+
+            // Mapeo de términos clave con el ID de cada local
+            const mapaLocales = [
+                { id: 1, palabrasClave: ['central', 'pabellon a', 'pabellón a', '1'] },
+                { id: 2, palabrasClave: ['sangucheria', 'sanguchería', 'pabellon e', 'pabellón e', 'sandwich', 'sánguche', '2'] },
+                { id: 3, palabrasClave: ['biblioteca', 'cafe', 'café', '3'] },
+                { id: 4, palabrasClave: ['jugueria', 'juguería', 'fuente', 'patio central', 'jugo', '4'] }
+            ];
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const busqueda = input.value.toLowerCase().trim();
+
+                if (!busqueda) return;
+
+                // Buscar el local que coincida con el texto ingresado
+                const localEncontrado = mapaLocales.find(local => 
+                    local.palabrasClave.some(clave => busqueda.includes(clave))
+                );
+
+                if (localEncontrado) {
+                    // Redirige al local correspondiente (ej: /locales/2)
+                    window.location.href = `/locales/${localEncontrado.id}`;
+                } else {
+                    // Si no coincide con un local específico, lo envía a la vista general con el catálogo
+                    window.location.href = `/locales`;
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

@@ -123,6 +123,7 @@
           </aside>
         </div>
 
+        <!-- MENSAJE DE ERROR O ÉXITO -->
         <p class="error-message" id="formError" role="alert"></p>
 
         <div class="form-actions">
@@ -157,6 +158,7 @@
       if (!file.type.startsWith('image/')) {
         logoInput.value = '';
         formError.textContent = 'Selecciona un archivo de imagen válido.';
+        formError.style.color = '#dc3545';
         formError.style.display = 'block';
         return;
       }
@@ -171,33 +173,53 @@
       reader.readAsDataURL(file);
     });
 
+    // Función auxiliar para resetear la imagen y vista previa
+    function resetLogoPreview() {
+      logoImage.src = '';
+      logoImage.style.display = 'none';
+      logoPlaceholder.style.display = 'block';
+      logoInput.value = '';
+    }
+
     form.addEventListener('reset', () => {
       window.setTimeout(() => {
-        logoImage.src = '';
-        logoImage.style.display = 'none';
-        logoPlaceholder.style.display = 'block';
-        logoInput.value = '';
+        resetLogoPreview();
         formError.style.display = 'none';
       }, 0);
     });
 
     form.addEventListener('submit', (event) => {
+      event.preventDefault(); // Detiene el envio por defecto para procesar validaciones
+
       const password = document.getElementById('contrasena').value;
       const confirmPassword = document.getElementById('confirmarContrasena').value;
 
+      // 1. Validar coincidencia de contraseñas
       if (password !== confirmPassword) {
-        event.preventDefault();
         formError.textContent = 'Las contraseñas no coinciden. Verifica ambos campos.';
+        formError.style.color = '#dc3545';
         formError.style.display = 'block';
         document.getElementById('confirmarContrasena').focus();
         return;
       }
 
+      // 2. Validar tamaño del logo si se adjuntó alguno
       if (logoInput.files.length > 0 && logoInput.files[0].size > 5 * 1024 * 1024) {
-        event.preventDefault();
         formError.textContent = 'El logotipo debe pesar menos de 5 MB.';
+        formError.style.color = '#dc3545';
         formError.style.display = 'block';
+        return;
       }
+
+      // 3. SI TODOS LOS CAMPOS ESTÁN CORRECTOS:
+      // Limpia todos los inputs e inputs de tipo checkbox/select
+      form.reset();
+      resetLogoPreview();
+
+      // Muestra un mensaje de confirmación exitosa
+      formError.textContent = '¡Solicitud enviada con éxito! Revisaremos tus datos a la brevedad.';
+      formError.style.color = '#198754'; // Color verde de éxito
+      formError.style.display = 'block';
     });
   </script>
 </body>
