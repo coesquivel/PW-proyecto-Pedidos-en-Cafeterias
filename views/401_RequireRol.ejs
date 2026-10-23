@@ -270,7 +270,7 @@
 
     <!-- Código y título -->
     <p class="error-label">
-      Error 404
+      Error 401
     </p>
 
     <h1 class="error-title">
@@ -289,9 +289,11 @@
         Volver al inicio
       </a>
 
-      <a href="/login" class="error-button error-button-secondary">
-        Cerrar sesión
-      </a>
+      <form action="/logout" method="POST" id="xEnviar">
+        <a href="#" onclick="document.getElementById('xEnviar').submit(); return false;" class="error-button error-button-secondary">
+          Cerrar sesión
+        </a>
+      </form>
 
     </div>
 
