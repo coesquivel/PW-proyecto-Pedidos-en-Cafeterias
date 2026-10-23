@@ -41,3 +41,14 @@ export function carrito(req, res) {
     currentPage: 'carrito',
   });
 }
+
+export function salir(req, res) {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error al cerrar sesión:', err);
+      return res.status(500).send('No se pudo cerrar la sesión');
+    }
+    res.clearCookie('connect.sid'); // nombre por defecto de la cookie
+    res.redirect('/login');
+  });
+}

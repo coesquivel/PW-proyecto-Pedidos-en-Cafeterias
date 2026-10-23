@@ -27,16 +27,26 @@ const PEDIDOS_INICIALES = [
 ];
 
 export default function Bandeja() {
+    // useState guarda los pedidos que se estan mostrando
+    //  pedidos contiene estado actual y set pedidos permite modificarlo
     const [pedidos, setPedidos] = useState(PEDIDOS_INICIALES);
 
+    // Busca el pedido por su ID y le cambia el estado, extra es informacion que le puedo agregar
     const cambiarEstado = (id, nuevoEstado, extra = {}) =>
         setPedidos((prev) =>
+            // prev.map recorre los pedidos uno por uno, p es como el valor que va tomando con cada iteracion
+            // si p es igual al que busco ... copia los demas datos del producto y el estado queda como nuevo estado
+            // si no queda igual
             prev.map((p) => (p.id === id ? { ...p, estado: nuevoEstado, ...extra } : p))
         );
 
+    // atajos para enviarle al cambiar estado a la hora que se hace click
     const preparar   = (id) => cambiarEstado(id, 'preparacion');
     const marcarListo = (id) => cambiarEstado(id, 'listo');
+    // aca lo mismo pero se pasa un comentario extra adicional
     const entregar   = (id) => cambiarEstado(id, 'entregado', { entregadoA: horaActualReal() });
+
+    // primero se muestra pregunta luego filtra, quedate con todo los pedidos menos el que selecciono
     const rechazar   = (id) => {
         if (window.confirm(`¿Rechazar el pedido ${id}?`)) {
             setPedidos((prev) => prev.filter((p) => p.id !== id));

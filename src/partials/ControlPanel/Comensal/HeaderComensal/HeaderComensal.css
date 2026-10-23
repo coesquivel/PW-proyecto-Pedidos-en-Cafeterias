@@ -194,3 +194,56 @@
   color: var(--comensal-muted);
   font-size: 10px;
 }
+.comensal-navbar__dropdown {
+  position: relative;
+}
+
+.comensal-navbar__menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 12rem;
+  background: #fff;
+  border: 1px solid #eee4df;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(50, 30, 20, 0.12);
+  padding: 0.375rem;
+  z-index: 100;
+}
+
+.comensal-navbar__menu-header {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #756b67;
+  border-bottom: 1px solid #f1e8e4;
+  margin-bottom: 0.25rem;
+}
+
+.comensal-navbar__menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: #281a16;
+}
+
+.comensal-navbar__menu-item:hover {
+  background: #fde9e5;
+}
+
+.comensal-navbar__menu-item--danger {
+  color: #df3d2e;
+  font-weight: 600;
+}
+
+/* Que el menú no quede tapado por el contenido de la página */
+.comensal-header {
+  position: relative;
+  z-index: 50;
+}

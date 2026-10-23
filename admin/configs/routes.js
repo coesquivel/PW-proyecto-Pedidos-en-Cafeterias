@@ -37,4 +37,5 @@ router.get('/comensales/micuenta', requireRole('comensal'), comensales.micuenta)
 router.get('/comensales/carrito', requireRole('comensal'), comensales.carrito);
 
 router.post('/enterprises/logout', enterprises.salir);
+router.post('/comensales/logout', comensales.salir);
 export default router;

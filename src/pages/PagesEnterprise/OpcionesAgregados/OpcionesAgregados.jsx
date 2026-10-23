@@ -10,7 +10,7 @@ const PRODUCTOS_INICIALES = [
         nombre: 'Sándwich de pollo deshilachado',
         categoria: 'Sándwiches',
         precio: 12.50,
-        imagen: '/assets/img/cafeteriaCentral.png',
+        imagen: '',
         grupos: [
             {
                 id: 1, nombre: 'Tipo de pan', seleccion: 'unica', obligatorio: true,
@@ -42,7 +42,7 @@ const PRODUCTOS_INICIALES = [
         nombre: 'Café Americano / Espresso',
         categoria: 'Bebidas calientes',
         precio: 6.50,
-        imagen: '/assets/img/cafeteria.png',
+        imagen: '',
         grupos: [
             {
                 id: 101, nombre: 'Tamaño del vaso', seleccion: 'unica', obligatorio: true,
@@ -66,7 +66,7 @@ const PRODUCTOS_INICIALES = [
         nombre: 'Bowl de Ensalada César con Pollo',
         categoria: 'Platos de fondo',
         precio: 16.00,
-        imagen: '/assets/img/cafeteriaCentral.png',
+        imagen: '',
         grupos: [
             {
                 id: 201, nombre: 'Tipo de aliño', seleccion: 'unica', obligatorio: true,
@@ -82,7 +82,7 @@ const PRODUCTOS_INICIALES = [
         nombre: 'Empanada artesanal horneada',
         categoria: 'Snacks y postres',
         precio: 7.00,
-        imagen: '/assets/img/cafeteria.png',
+        imagen: '',
         grupos: [],
     },
     {
@@ -90,7 +90,7 @@ const PRODUCTOS_INICIALES = [
         nombre: 'Jugo de frutas natural',
         categoria: 'Bebidas frías',
         precio: 8.50,
-        imagen: '/assets/img/cafeteriaCentral.png',
+        imagen: '',
         grupos: [
             {
                 id: 301, nombre: 'Temperatura', seleccion: 'unica', obligatorio: true,
@@ -106,7 +106,7 @@ const PRODUCTOS_INICIALES = [
         nombre: 'Croissant mixto de jamón y queso',
         categoria: 'Sándwiches',
         precio: 10.50,
-        imagen: '/assets/img/cafeteria.png',
+        imagen: '',
         grupos: [],
     },
 ];

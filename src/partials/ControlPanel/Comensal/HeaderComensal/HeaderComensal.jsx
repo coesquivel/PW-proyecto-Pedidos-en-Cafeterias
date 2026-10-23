@@ -1,15 +1,36 @@
 // src/partials/ControlPanel/HeaderPanel/HeaderComensal.jsx
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './HeaderComensal.css'
 
 export default function HeaderComensal() {
   const [localSeleccionado, setLocalSeleccionado] = useState('Cafetería Central')
   const [busqueda, setBusqueda] = useState('')
+  const [menuAbierto, setMenuAbierto] = useState(false)
+  const menuRef = useRef(null)
+
   const cantidadCarrito = 3
   const nombreUsuario = 'Mateo'
   const inicialesUsuario = 'MR'
+
+  // Cierra el menú al hacer clic fuera o al presionar Escape
+  useEffect(() => {
+    const clickFuera = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuAbierto(false)
+      }
+    }
+    const escape = (e) => {
+      if (e.key === 'Escape') setMenuAbierto(false)
+    }
+    document.addEventListener('mousedown', clickFuera)
+    document.addEventListener('keydown', escape)
+    return () => {
+      document.removeEventListener('mousedown', clickFuera)
+      document.removeEventListener('keydown', escape)
+    }
+  }, [])
 
   return (
     <header className="comensal-header">
@@ -58,15 +79,35 @@ export default function HeaderComensal() {
             )}
           </Link>
 
-          <button
-            type="button"
-            className="comensal-navbar__user-btn"
-            title="Cuenta de usuario"
-          >
-            <span className="comensal-navbar__avatar">{inicialesUsuario}</span>
-            <span className="comensal-navbar__user-name">{nombreUsuario}</span>
-            <span className="comensal-navbar__user-chevron">▾</span>
-          </button>
+          <div className="comensal-navbar__dropdown" ref={menuRef}>
+            <button
+              type="button"
+              className="comensal-navbar__user-btn"
+              title="Cuenta de usuario"
+              aria-haspopup="menu"
+              aria-expanded={menuAbierto}
+              onClick={() => setMenuAbierto((v) => !v)}
+            >
+              <span className="comensal-navbar__avatar">{inicialesUsuario}</span>
+              <span className="comensal-navbar__user-name">{nombreUsuario}</span>
+              <span className="comensal-navbar__user-chevron">▾</span>
+            </button>
+
+            {menuAbierto && (
+              <div className="comensal-navbar__menu" role="menu">
+                <div className="comensal-navbar__menu-header">{nombreUsuario}</div>
+                <form method="POST" action="/logout">
+                  <button
+                    type="submit"
+                    role="menuitem"
+                    className="comensal-navbar__menu-item comensal-navbar__menu-item--danger"
+                  >
+                    Cerrar sesión
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>
