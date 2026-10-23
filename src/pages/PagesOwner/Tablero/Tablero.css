@@ -1,0 +1,114 @@
+/* src/pages/PagesOwner/Tablero/Tablero.css */
+
+.tab-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tab-kpi__valor {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.01em;
+}
+
+.tab-kpi__valor--alerta {
+  color: #b7791f;
+}
+
+.tab-delta {
+  font-size: 0.75rem;
+}
+
+.tab-delta--sube   { color: #2f7a1d; }
+.tab-delta--baja   { color: #c0291b; }
+.tab-delta--neutro { color: #756b67; }
+
+.tab-row {
+  display: grid;
+  grid-template-columns: 1.9fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+/* Barras por día */
+.tab-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.45rem;
+  height: 11rem;
+  margin-top: 1rem;
+  padding-bottom: 1.5rem;
+}
+
+.tab-bars__col {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  min-width: 0;
+}
+
+.tab-bars__bar {
+  width: 100%;
+  background: #fbe5e1;
+  border-radius: 0.4rem 0.4rem 0 0;
+}
+
+.tab-bars__bar.is-pico { background: #d9402f; }
+.tab-bars__bar.is-bajo { background: #ece0db; }
+
+.tab-bars__label {
+  position: absolute;
+  left: 50%;
+  bottom: -1.5rem;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: #756b67;
+  white-space: nowrap;
+}
+
+/* Ventas por local */
+.tab-locales {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.tab-locales__fila {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  margin-bottom: 0.3rem;
+}
+
+.tab-locales__pista {
+  height: 0.5rem;
+  background: #efe3de;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.tab-locales__barra {
+  height: 100%;
+  background: #d9402f;
+  border-radius: 999px;
+}
+
+@media (max-width: 1000px) {
+  .tab-kpis { grid-template-columns: repeat(2, 1fr); }
+  .tab-row  { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  .tab-kpis { grid-template-columns: 1fr; }
+  .tab-kpi__valor { font-size: 1.7rem; }
+  .tab-bars { gap: 0.2rem; }
+}

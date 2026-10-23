@@ -12,6 +12,10 @@ const router = Router();
 // owner
 
 router.get('/owner', requireRole('owner'), owners.home);
+router.get('/owner/tablero', requireRole('owner'), owners.tablero);
+router.get('/owner/ventas', requireRole('owner'), owners.ventas);
+router.get('/owner/comensales', requireRole('owner'), owners.comensales);
+router.get('/owner/solicitudes', requireRole('owner'), owners.solicitudes);
 router.get('/owner/ranking', requireRole('owner'), owners.ranking);
 
 // enterprises

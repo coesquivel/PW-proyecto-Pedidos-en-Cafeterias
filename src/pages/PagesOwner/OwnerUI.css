@@ -1,0 +1,136 @@
+/* src/pages/PagesOwner/OwnerUI.css
+   Estilos compartidos por las páginas del owner (sin animaciones ni transiciones). */
+
+.owner-page {
+  max-width: 75rem;
+  padding: 0.25rem 0 2rem;
+  color: #281a16;
+}
+
+.owner-page__crumbs {
+  font-size: 0.78rem;
+  color: #756b67;
+  margin: 0 0 0.25rem;
+}
+
+.owner-page__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.owner-page__title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.owner-page__sub {
+  font-size: 0.8rem;
+  color: #756b67;
+  margin: 0.3rem 0 0;
+}
+
+.owner-page__actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+/* Select con aspecto de botón */
+.owner-select {
+  position: relative;
+  display: inline-flex;
+}
+
+.owner-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #eadcd6;
+  border-radius: 0.6rem;
+  padding: 0.65rem 2rem 0.65rem 0.95rem;
+  font: inherit;
+  font-size: 0.82rem;
+  color: #281a16;
+  cursor: pointer;
+}
+
+.owner-select::after {
+  content: '▾';
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  pointer-events: none;
+}
+
+/* Botones */
+.owner-btn {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 0.6rem;
+  padding: 0.65rem 1.1rem;
+  cursor: pointer;
+  border: 1px solid #eadcd6;
+  background: #fff;
+  color: #281a16;
+}
+
+.owner-btn--outline {
+  border-color: #d9402f;
+  color: #d9402f;
+}
+
+.owner-btn--primary {
+  background: #d9402f;
+  border-color: #d9402f;
+  color: #fff;
+}
+
+.owner-btn--danger {
+  background: #b82a1f;
+  border-color: #b82a1f;
+  color: #fff;
+}
+
+.owner-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Tarjeta */
+.owner-card {
+  background: #fff;
+  border: 1px solid #f0e2dc;
+  border-radius: 0.9rem;
+  padding: 1.1rem 1.2rem;
+}
+
+.owner-card__title {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #7a6a63;
+  margin: 0 0 0.85rem;
+}
+
+.owner-card__note {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #756b67;
+  margin: 0.85rem 0 0;
+}
+
+.owner-vacio {
+  font-size: 0.82rem;
+  color: #756b67;
+  margin: 0.5rem 0;
+}
