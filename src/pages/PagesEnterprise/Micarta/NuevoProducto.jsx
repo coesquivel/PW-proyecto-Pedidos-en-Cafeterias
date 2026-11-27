@@ -336,8 +336,8 @@ export default function NuevoProducto({ onCancelar, onGuardar }) {
                     <strong className="np-preview__precio">
                       S/ {isNaN(precioNumero) ? "0.00" : precioNumero.toFixed(2)}
                     </strong>
-                    <button type="button" className="btn btn-danger btn-sm px-3" onClick={() => inputFotoRef.current?.click()}>
-                    Agregar
+                    <button type="button" className="btn btn-danger btn-sm px-3" tabIndex={-1}>
+                      Agregar
                     </button>
                   </div>
                 </div>
