@@ -1,0 +1,242 @@
+' docs\proyect_database.puml
+@startuml diagram proyect_database
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam ranksep 60
+skinparam nodesep 50
+skinparam entityFontSize 11
+skinparam entityFontStyle bold
+skinparam entityBackgroundColor #FEFECE
+skinparam entityBorderColor #A80036
+
+' ========================================================
+' 1. AUTENTICACIÓN Y USUARIOS
+' ========================================================
+entity "roles" as roles {
+  * id : INT <<PK>>
+  --
+  name : VARCHAR(20)
+}
+
+entity "users" as users {
+  * id : INT <<PK>>
+  --
+  email : VARCHAR(60)
+  phone : VARCHAR(15)
+  password : VARCHAR(100)
+  status : VARCHAR(20)
+  status_reason : VARCHAR(300)
+  role_id : INT <<FK>>
+}
+
+entity "diners" as diners {
+  * id : INT <<PK>>
+  --
+  first_name : VARCHAR(50)
+  last_name : VARCHAR(50)
+  user_id : INT <<FK>>
+}
+
+' ========================================================
+' 2. LOCALES, HORARIOS Y CARTA
+' ========================================================
+entity "stores" as stores {
+  * id : INT <<PK>>
+  --
+  commercial_name : VARCHAR(60)
+  campus_location : VARCHAR(100)
+  ruc : VARCHAR(11)
+  campus : VARCHAR(30)
+  description : VARCHAR(240)
+  logo_url : VARCHAR(150)
+  operative_status : VARCHAR(20)
+  reception_status : VARCHAR(20)
+  status_reason : VARCHAR(300)
+  user_id : INT <<FK>>
+}
+
+entity "store_photos" as store_photos {
+  * id : INT <<PK>>
+  --
+  url : VARCHAR(150)
+  store_id : INT <<FK>>
+}
+
+entity "store_schedules" as store_schedules {
+  * id : INT <<PK>>
+  --
+  day_of_week : INT
+  open_time : TIME
+  close_time : TIME
+  is_closed : BOOLEAN
+  store_id : INT <<FK>>
+}
+
+entity "categories" as categories {
+  * id : INT <<PK>>
+  --
+  name : VARCHAR(40)
+  display_order : INT
+  store_id : INT <<FK>>
+}
+
+entity "products" as products {
+  * id : INT <<PK>>
+  --
+  name : VARCHAR(60)
+  description: VARCHAR(160)
+  price : DECIMAL(10,2)
+  picture_url : VARCHAR(150)
+  available : BOOLEAN
+  daily_stock : INT
+  preparation_time: INT
+  category_id : INT <<FK>>
+  store_id : INT <<FK>>
+}
+
+entity "option_groups" as option_groups {
+  * id : INT <<PK>>
+  --
+  name : VARCHAR(50)
+  selection_type : VARCHAR(20)
+  is_required : BOOLEAN
+  product_id : INT <<FK>>
+}
+
+entity "product_options" as product_options {
+  * id : INT <<PK>>
+  --
+  name : VARCHAR(50)
+  additional_price : DECIMAL(10,2)
+  option_group_id : INT <<FK>>
+}
+
+' ========================================================
+' 3. CARRITO DE COMPRAS
+' ========================================================
+entity "carts" as carts {
+  * id : INT <<PK>>
+  --
+  diner_id : INT <<FK>>
+  store_id : INT <<FK>>
+}
+
+entity "cart_items" as cart_items {
+  * id : INT <<PK>>
+  --
+  quantity : INT
+  notes : VARCHAR(120)
+  cart_id : INT <<FK>>
+  product_id : INT <<FK>>
+}
+
+entity "cart_item_options" as cart_item_options {
+  * id : INT <<PK>>
+  --
+  cart_item_id : INT <<FK>>
+  product_option_id : INT <<FK>>
+}
+
+' ========================================================
+' 4. PEDIDOS
+' ========================================================
+entity "order_statuses" as order_statuses {
+  * id : INT <<PK>>
+  --
+  name : VARCHAR(30)
+}
+
+entity "orders" as orders {
+  * id : INT <<PK>>
+  --
+  code : VARCHAR(10)
+  pickup_date : DATE
+  pickup_time : TIME
+  total_amount : DECIMAL(10,2)
+  created : DATETIME
+  diner_id : INT <<FK>>
+  store_id : INT <<FK>>
+  status_id : INT <<FK>>
+}
+
+entity "order_items" as order_items {
+  * id : INT <<PK>>
+  --
+  product_name : VARCHAR(60)
+  unit_price : DECIMAL(10,2)
+  quantity : INT
+  subtotal : DECIMAL(10,2)
+  notes : VARCHAR(120)
+  order_id : INT <<FK>>
+  product_id : INT <<FK>>
+}
+
+entity "order_item_options" as order_item_options {
+  * id : INT <<PK>>
+  --
+  option_name : VARCHAR(50)
+  additional_price : DECIMAL(10,2)
+  order_item_id : INT <<FK>>
+}
+
+' ========================================================
+' 5. CALIFICACIONES
+' ========================================================
+entity "order_reviews" as order_reviews {
+  * id : INT <<PK>>
+  --
+  store_rating : INT
+  comment : TEXT
+  store_reply : VARCHAR(500)
+  created_at : DATETIME
+  order_id : INT <<FK>>
+  diner_id : INT <<FK>>
+  store_id : INT <<FK>>
+}
+
+entity "product_reviews" as product_reviews {
+  * id : INT <<PK>>
+  --
+  rating : INT
+  comment : TEXT
+  order_review_id : INT <<FK>>
+  product_id : INT <<FK>>
+}
+
+' ========================================================
+' RELACIONES
+' ========================================================
+roles ||--o{ users : "assigns"
+users ||--o| diners : "has profile"
+users ||--o| stores : "manages"
+
+stores ||--o{ store_schedules : "operates on"
+stores ||--o{ categories : "organizes"
+stores ||--o{ products : "sells"
+stores ||--o{ store_photos : "has"
+categories ||--o{ products : "groups"
+products ||--o{ option_groups : "configures"
+option_groups ||--o{ product_options : "contains"
+
+diners ||--o| carts : "creates"
+stores ||--o{ carts : "associated with"
+carts ||--o{ cart_items : "contains"
+products ||--o{ cart_items : "added to"
+cart_items ||--o{ cart_item_options : "customized by"
+product_options ||--o{ cart_item_options : "selected as"
+
+diners ||--o{ orders : "places"
+stores ||--o{ orders : "fulfills"
+order_statuses ||--o{ orders : "classifies"
+orders ||--o{ order_items : "composed of"
+products ||--o{ order_items : "references"
+order_items ||--o{ order_item_options : "details"
+
+orders ||--o| order_reviews : "receives feedback"
+diners ||--o{ order_reviews : "submits"
+stores ||--o{ order_reviews : "rated via"
+order_reviews ||--o{ product_reviews : "includes"
+products ||--o{ product_reviews : "evaluated in"
+
+@enduml

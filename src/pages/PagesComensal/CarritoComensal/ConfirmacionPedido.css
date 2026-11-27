@@ -1,0 +1,158 @@
+/* src/pages/CarritoComensal/ConfirmacionPedido.css */
+
+/* ==========================================================================
+   CONFIRMACIÓN DE PEDIDO - SISTEMA DE DISEÑO
+   ========================================================================== */
+
+.confirmacion-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 40px;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+}
+
+.confirmacion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+/* Tarjeta de Resumen / Selector */
+.confirmacion-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  box-shadow: var(--shadow-warm);
+}
+
+/* Banners y Alertas de Estado */
+.banner-alerta-franja {
+  background: #FDF6E2;
+  border: 1px solid #B7791F;
+  color: #B7791F;
+  padding: 12px 16px;
+  border-radius: var(--radius-container);
+  font-size: 13px;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.banner-alerta-suspendida {
+  background: var(--primary-soft);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 12px 16px;
+  border-radius: var(--radius-container);
+  font-size: 13px;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+/* Selector de Franjas Horarias */
+.franjas-grid-selector {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.franja-chip {
+  min-height: 44px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-container);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.franja-chip.selected {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  background: var(--surface);
+  font-weight: 600;
+}
+
+.franja-chip.disabled {
+  background: var(--bg);
+  border-color: var(--border);
+  color: var(--text-muted);
+  text-decoration: line-through;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Vista Pedido Confirmado (Pantalla Completa) */
+.confirmado-card-main {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 40px;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-warm);
+}
+
+.codigo-box-large {
+  background: var(--primary-soft);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.codigo-box-large span {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.8px;
+}
+
+.codigo-box-large h1 {
+  font-family: var(--font-heading);
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 4px 0 0 0;
+}
+
+.detalles-confirmacion-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.detalle-pill-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-container);
+  padding: 12px;
+}
+
+.detalle-pill-box label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: block;
+  text-transform: uppercase;
+}
+
+.detalle-pill-box span {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}

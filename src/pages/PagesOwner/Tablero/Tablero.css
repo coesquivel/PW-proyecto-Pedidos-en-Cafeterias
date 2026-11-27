@@ -1,0 +1,196 @@
+/* src/pages/PagesOwner/Tablero/Tablero.css */
+
+.tab-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tab-kpi__valor {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.01em;
+}
+
+.tab-kpi__valor--alerta {
+  color: #b7791f;
+}
+
+.tab-delta {
+  font-size: 0.75rem;
+}
+
+.tab-delta--sube   { color: #2f7a1d; }
+.tab-delta--baja   { color: #c0291b; }
+.tab-delta--neutro { color: #756b67; }
+
+.tab-row {
+  display: grid;
+  grid-template-columns: 1.9fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+/* Barras por día */
+.tab-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.45rem;
+  height: 11rem;
+  margin-top: 1rem;
+  padding-bottom: 1.5rem;
+}
+
+.tab-bars__col {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  min-width: 0;
+}
+
+.tab-bars__bar {
+  width: 100%;
+  background: #fbe5e1;
+  border-radius: 0.4rem 0.4rem 0 0;
+}
+
+.tab-bars__bar.is-pico { background: #d9402f; }
+.tab-bars__bar.is-bajo { background: #ece0db; }
+
+.tab-bars__label {
+  position: absolute;
+  left: 50%;
+  bottom: -1.5rem;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: #756b67;
+  white-space: nowrap;
+}
+
+/* Ventas por local */
+.tab-locales {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.tab-locales__fila {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  margin-bottom: 0.3rem;
+}
+
+.tab-locales__pista {
+  height: 0.5rem;
+  background: #efe3de;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.tab-locales__barra {
+  height: 100%;
+  background: #d9402f;
+  border-radius: 999px;
+}
+
+@media (max-width: 1000px) {
+  .tab-kpis { grid-template-columns: repeat(2, 1fr); }
+  .tab-row  { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  .tab-kpis { grid-template-columns: 1fr; }
+  .tab-kpi__valor { font-size: 1.7rem; }
+  .tab-bars { gap: 0.2rem; }
+}
+
+
+/* ==========================================================================
+   MEJORA VISUAL DEL TABLERO
+   ========================================================================== */
+
+/* KPIs: franja de color superior distinta por indicador */
+.tab-kpis .owner-card {
+  padding-top: 1.35rem;
+  overflow: hidden;
+}
+
+.tab-kpis .owner-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #d9402f;
+}
+
+.tab-kpis .owner-card:nth-child(2)::after { background: #2f7a1d; }
+.tab-kpis .owner-card:nth-child(3)::after { background: #b7791f; }
+.tab-kpis .owner-card:nth-child(4)::after { background: #7c6960; }
+
+.tab-kpi__valor {
+  font-size: 2.15rem;
+  color: #261915;
+}
+
+/* Variación como etiqueta (pill) */
+.tab-delta {
+  display: inline-block;
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.tab-delta--sube   { background: #e8f5e3; color: #2f7a1d; }
+.tab-delta--baja   { background: #fde8e5; color: #c0291b; }
+.tab-delta--neutro { background: #f3ece8; color: #756b67; }
+
+/* Gráfico de barras */
+.tab-bars {
+  border-bottom: 1px solid #efe3de;
+  background-image: repeating-linear-gradient(
+    to top,
+    transparent 0,
+    transparent calc(25% - 1px),
+    #f6ece8 calc(25% - 1px),
+    #f6ece8 25%
+  );
+}
+
+.tab-bars__bar {
+  background: #f6b9b0;
+}
+
+.tab-bars__bar.is-pico { background: linear-gradient(180deg, #e8503f, #d9402f); }
+.tab-bars__bar.is-bajo { background: #e6d8d2; }
+
+.tab-bars__col:hover .tab-bars__bar { background: #b82d20; }
+
+/* Ventas por local */
+.tab-locales__fila strong {
+  color: #261915;
+}
+
+.tab-locales__pista {
+  height: 0.6rem;
+  background: #f3e8e3;
+}
+
+.tab-locales__barra {
+  background: linear-gradient(90deg, #e8503f, #d9402f);
+}
+
+.tab-locales li:first-child .tab-locales__barra {
+  background: linear-gradient(90deg, #d9402f, #b82d20);
+}

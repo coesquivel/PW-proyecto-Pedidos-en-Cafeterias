@@ -1,0 +1,262 @@
+/* src/pages/PagesOwner/OwnerUI.css
+   Estilos compartidos por las páginas del owner (sin animaciones ni transiciones). */
+
+.owner-page {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 0.25rem 0 2rem;
+  color: #281a16;
+}
+
+.owner-page__crumbs {
+  font-size: 0.78rem;
+  color: #756b67;
+  margin: 0 0 0.25rem;
+}
+
+.owner-page__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.owner-page__title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.owner-page__sub {
+  font-size: 0.8rem;
+  color: #756b67;
+  margin: 0.3rem 0 0;
+}
+
+.owner-page__actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+/* Select con aspecto de botón */
+.owner-select {
+  position: relative;
+  display: inline-flex;
+}
+
+.owner-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #eadcd6;
+  border-radius: 0.6rem;
+  padding: 0.65rem 2rem 0.65rem 0.95rem;
+  font: inherit;
+  font-size: 0.82rem;
+  color: #281a16;
+  cursor: pointer;
+}
+
+.owner-select::after {
+  content: '▾';
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  pointer-events: none;
+}
+
+/* Botones */
+.owner-btn {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 0.6rem;
+  padding: 0.65rem 1.1rem;
+  cursor: pointer;
+  border: 1px solid #eadcd6;
+  background: #fff;
+  color: #281a16;
+}
+
+.owner-btn--outline {
+  border-color: #d9402f;
+  color: #d9402f;
+}
+
+.owner-btn--primary {
+  background: #d9402f;
+  border-color: #d9402f;
+  color: #fff;
+}
+
+.owner-btn--danger {
+  background: #b82a1f;
+  border-color: #b82a1f;
+  color: #fff;
+}
+
+.owner-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Tarjeta */
+.owner-card {
+  background: #fff;
+  border: 1px solid #f0e2dc;
+  border-radius: 0.9rem;
+  padding: 1.1rem 1.2rem;
+}
+
+.owner-card__title {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #7a6a63;
+  margin: 0 0 0.85rem;
+}
+
+.owner-card__note {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #756b67;
+  margin: 0.85rem 0 0;
+}
+
+.owner-vacio {
+  font-size: 0.82rem;
+  color: #756b67;
+  margin: 0.5rem 0;
+}
+
+/* ==========================================================================
+   MEJORA VISUAL (más vida, misma estructura) — sin animaciones ni transiciones
+   ========================================================================== */
+
+.owner-page {
+  color: #261915;
+}
+
+.owner-page__crumbs {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #d9402f;
+}
+
+.owner-page__head {
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid #f0e2dc;
+}
+
+.owner-page__title {
+  font-size: 1.85rem;
+  letter-spacing: -0.015em;
+  color: #261915;
+}
+
+.owner-page__sub {
+  font-size: 0.85rem;
+  color: #7c6960;
+}
+
+/* Tarjetas con relieve suave y detalle de color */
+.owner-card {
+  position: relative;
+  border: 1px solid #f0e2dc;
+  border-radius: 1rem;
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 1px 2px rgba(80, 40, 25, 0.05), 0 8px 20px -12px rgba(80, 40, 25, 0.18);
+}
+
+.owner-card:hover {
+  border-color: #e8cfc6;
+  box-shadow: 0 2px 4px rgba(80, 40, 25, 0.06), 0 12px 26px -12px rgba(217, 64, 47, 0.28);
+}
+
+.owner-card__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6b5a52;
+}
+
+.owner-card__title::before {
+  content: '';
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #d9402f;
+  flex-shrink: 0;
+}
+
+.owner-card__note {
+  padding: 0.65rem 0.85rem;
+  background: #fff6f3;
+  border-left: 3px solid #d9402f;
+  border-radius: 0.5rem;
+  color: #6b5a52;
+}
+
+/* Botones y selects con estados claros */
+.owner-btn {
+  box-shadow: 0 1px 2px rgba(80, 40, 25, 0.06);
+}
+
+.owner-btn:hover:not(:disabled) {
+  background: #fff3f0;
+  border-color: #d9402f;
+  color: #b82d20;
+}
+
+.owner-btn--outline:hover:not(:disabled) {
+  background: #d9402f;
+  color: #fff;
+}
+
+.owner-btn--primary {
+  box-shadow: 0 4px 12px -4px rgba(217, 64, 47, 0.55);
+}
+
+.owner-btn--primary:hover:not(:disabled) {
+  background: #b82d20;
+  border-color: #b82d20;
+  color: #fff;
+}
+
+.owner-btn--danger:hover:not(:disabled) {
+  background: #8f1f16;
+  border-color: #8f1f16;
+  color: #fff;
+}
+
+.owner-btn:focus-visible,
+.owner-select select:focus-visible {
+  outline: 2px solid #d9402f;
+  outline-offset: 2px;
+}
+
+.owner-select select {
+  box-shadow: 0 1px 2px rgba(80, 40, 25, 0.06);
+  font-weight: 500;
+}
+
+.owner-select select:hover {
+  border-color: #d9402f;
+}
+
+.owner-vacio {
+  padding: 1rem;
+  text-align: center;
+  background: #fff6f3;
+  border: 1px dashed #e8cfc6;
+  border-radius: 0.75rem;
+}

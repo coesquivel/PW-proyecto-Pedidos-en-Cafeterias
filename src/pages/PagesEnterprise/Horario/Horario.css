@@ -1,0 +1,292 @@
+/* Ajusta estas variables a las de tu enterprise.css si ya las tienes */
+.horario-container {
+    --hr-rojo: #d93a2b;
+    --hr-rojo-oscuro: #bf2f21;
+    --hr-verde: #3f9a32;
+    --hr-borde: #ece3dd;
+    --hr-texto: #2a2220;
+    --hr-suave: #6f6560;
+    --hr-fondo-cerrado: #f6efeb;
+    --hr-aviso-bg: #fbf1de;
+    --hr-aviso-borde: #f0dfba;
+    --hr-aviso-texto: #85571a;
+
+    max-width: 1000px;
+    padding: 1rem 0 2.5rem;
+    color: var(--hr-texto);
+}
+
+/* ===== Cabecera ===== */
+.horario-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.1rem;
+}
+
+.horario-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0.25rem 0 0.2rem;
+}
+
+.horario-sub {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--hr-suave);
+}
+
+.horario-acciones {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.btn-descartar,
+.btn-guardar-horario {
+    border-radius: 8px;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-descartar {
+    background: #fff;
+    color: var(--hr-texto);
+    border: 1px solid var(--hr-borde);
+}
+
+.btn-descartar:hover:not(:disabled) {
+    background: #faf5f2;
+}
+
+.btn-guardar-horario {
+    background: var(--hr-rojo);
+    color: #fff;
+    border: 1px solid var(--hr-rojo);
+}
+
+.btn-guardar-horario:hover:not(:disabled) {
+    background: var(--hr-rojo-oscuro);
+}
+
+.btn-descartar:disabled,
+.btn-guardar-horario:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ===== Layout ===== */
+.horario-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 230px;
+    gap: 1rem;
+    align-items: start;
+}
+
+.horario-panel,
+.horario-previa {
+    background: #fff;
+    border: 1px solid var(--hr-borde);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+}
+
+/* ===== Tabla ===== */
+.horario-tabla-wrap {
+    overflow-x: auto;
+}
+
+.horario-tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.horario-tabla thead th {
+    padding: 0 0.5rem 0.6rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: left;
+    color: var(--hr-suave);
+}
+
+.horario-tabla tbody th,
+.horario-tabla tbody td {
+    padding: 0.35rem 0.5rem;
+    vertical-align: middle;
+}
+
+.horario-tabla tbody th {
+    width: 100px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.dia-btn {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+.dia-btn:hover,
+.dia-btn.activo {
+    text-decoration: underline;
+    text-decoration-color: var(--hr-rojo);
+    text-underline-offset: 4px;
+}
+
+.fila-cerrada .dia-btn {
+    color: #a99f99;
+}
+
+/* ===== Selects de hora ===== */
+.horario-select {
+    min-width: 110px;
+    font-size: 0.85rem;
+    border-color: var(--hr-borde);
+    border-radius: 8px;
+    padding: 0.55rem 0.7rem;
+    background-color: #fffdfc;
+}
+
+.horario-select:focus {
+    border-color: var(--hr-rojo);
+    box-shadow: 0 0 0 0.2rem rgba(217, 58, 43, 0.15);
+}
+
+.horario-select.cambiado {
+    border-color: var(--hr-rojo);
+}
+
+.horario-select:disabled {
+    background-color: var(--hr-fondo-cerrado);
+    border-color: var(--hr-fondo-cerrado);
+    opacity: 1;
+}
+
+/* ===== Switch ===== */
+.horario-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 1.5rem;
+}
+
+.horario-switch .form-check-input {
+    float: none;
+    margin: 0;
+    width: 2.4em;
+    height: 1.3em;
+    cursor: pointer;
+}
+
+.horario-switch .form-check-input:checked {
+    background-color: var(--hr-verde);
+    border-color: var(--hr-verde);
+}
+
+.horario-switch .form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(63, 154, 50, 0.2);
+}
+
+.horario-switch .form-check-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.horario-switch .form-check-label.abierto {
+    color: var(--hr-verde);
+}
+
+.horario-switch .form-check-label.cerrado {
+    color: #a99f99;
+}
+
+.horario-errores {
+    margin: 0.75rem 0 0;
+    padding: 0.6rem 0.8rem 0.6rem 1.6rem;
+    font-size: 0.8rem;
+    color: #a3281c;
+    background: #fdeceb;
+    border-radius: 8px;
+}
+
+/* ===== Vista previa ===== */
+.previa-titulo {
+    margin: 0 0 0.8rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--hr-suave);
+}
+
+.previa-grilla {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.45rem;
+    margin: 0 0 0.8rem;
+    padding: 0;
+    list-style: none;
+}
+
+.franja {
+    padding: 0.45rem 0;
+    text-align: center;
+    font-size: 0.78rem;
+    border: 1px solid var(--hr-borde);
+    border-radius: 8px;
+    background: #fff;
+}
+
+.franja-puntos {
+    border-color: transparent;
+    color: var(--hr-suave);
+}
+
+.franja-cierre {
+    background: #f6e9e4;
+    border-color: #f6e9e4;
+    color: #8c7f79;
+    text-decoration: line-through;
+}
+
+.previa-texto {
+    margin: 0 0 0.8rem;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    color: var(--hr-suave);
+}
+
+.previa-aviso {
+    margin: 0;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    color: var(--hr-aviso-texto);
+    background: var(--hr-aviso-bg);
+    border: 1px solid var(--hr-aviso-borde);
+    border-radius: 8px;
+}
+
+.horario-aviso {
+    margin: 0.9rem 0 0;
+    font-size: 0.85rem;
+    color: #2f7a3a;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 860px) {
+    .horario-layout {
+        grid-template-columns: 1fr;
+    }
+}

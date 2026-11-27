@@ -1,0 +1,19 @@
+/* =========================
+    ESCALA FLUIDA PARA PANTALLAS GRANDES
+    Se activa agregando la clase "escala-fluida" al <body>.
+    Desde 1600px el tamaño base crece con el ancho de la ventana
+    (16px a 1600px; tope de 64px). Como el diseño usa rem, textos,
+    tarjetas, formularios e imagenes escalan juntos.
+========================= */
+
+@media (min-width: 1400px) {
+    html:has(body.escala-fluida) .container:not(.registro-page) {
+        max-width: 82.5rem;
+    }
+}
+
+@media (min-width: 1600px) {
+    html:has(body.escala-fluida) {
+        font-size: min(calc(16px + (100vw - 1600px) * 0.0075), 64px);
+    }
+}

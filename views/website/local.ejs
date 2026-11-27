@@ -1,0 +1,628 @@
+<%_
+    // Todo viene de la base de datos (website/controllers.js -> detalleLocal)
+    const local = localData;
+    const estaAbierto = local.abierto === true;
+    const cal = calificaciones || { summary: { average: null, total: 0, distribution: {} }, reviews: [] };
+    const estrellas = (n) => '★'.repeat(n) + '☆'.repeat(5 - n);
+    const textoCalificacion = cal.summary.total
+        ? `★ ${cal.summary.average} (${cal.summary.total})`
+        : 'Sin calificaciones aún';
+_%>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Pide | <%= local.nombre %></title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/Home/_navbarH.css">
+    <link rel="stylesheet" href="/assets/css/Home/_footerH.css">
+    <link rel="stylesheet" href="/assets/css/Home/_home.css">
+    <link rel="stylesheet" href="/assets/css/_escala.css">
+
+    <style>
+        body.lc-body {
+            --lc-red: #d93829;
+            --lc-red-dark: #c32f21;
+            --lc-red-soft: #fdf0ed;
+            --lc-border: #ece7e5;
+            --lc-ink: #252525;
+            --lc-muted: #6a6462;
+            --lc-dark: #281a16;
+            background-color: #fcfaf9;
+            color: var(--lc-ink);
+        }
+
+        /* ---------- Cabecera ---------- */
+        .lc-hero {
+            position: relative;
+            padding: 2.25rem 0 5rem;
+            background:
+                radial-gradient(circle at 88% 0%, rgba(217, 56, 41, .13), transparent 55%),
+                linear-gradient(120deg, #fdf0ed 0%, #fff9f6 100%);
+            border-bottom: 1px solid #f2dcd6;
+            overflow: hidden;
+        }
+
+        .breadcrumb-custom {
+            font-size: .92rem;
+            margin-bottom: 1.6rem;
+            color: #69615e;
+        }
+        .breadcrumb-custom a {
+            color: var(--lc-red);
+            text-decoration: none;
+            font-weight: 650;
+        }
+        .breadcrumb-custom a:hover { text-decoration: underline; }
+
+        .local-kicker {
+            display: inline-block;
+            color: var(--lc-red);
+            background: #fff;
+            border: 1px solid #f2d3cd;
+            border-radius: 3.125rem;
+            padding: .3rem .8rem;
+            font-size: .75rem;
+            font-weight: 750;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: .9rem;
+        }
+
+        .local-main-title {
+            font-weight: 800;
+            letter-spacing: -.03em;
+            line-height: 1.12;
+            font-size: clamp(2rem, 4.2vw, 3.2rem);
+            margin: 0;
+        }
+
+        .local-intro {
+            color: #514b49;
+            font-size: 1.08rem;
+            line-height: 1.8;
+            max-width: 38rem;
+            margin: 1rem 0 1.4rem;
+        }
+
+        .lc-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .4rem .85rem;
+            border-radius: 3.125rem;
+            font-size: .8rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .lc-pill::before {
+            content: '';
+            width: .5rem;
+            height: .5rem;
+            border-radius: 50%;
+            background: currentColor;
+        }
+        .lc-pill.open   { background: #e4f4df; color: #34762c; }
+        .lc-pill.closed { background: #ece9e8; color: #6c6260; }
+
+        .lc-closed-note {
+            display: inline-block;
+            margin-bottom: 1.2rem;
+            padding: .65rem .95rem;
+            background: #fff;
+            border: 1px dashed #d8c9c4;
+            border-radius: .75rem;
+            color: #5c5654;
+            font-size: .9rem;
+        }
+
+        .lc-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+        .lc-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .75rem 1.3rem;
+            border-radius: .7rem;
+            font-size: .92rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .lc-btn-primary {
+            background: var(--lc-red);
+            color: #fff;
+            box-shadow: 0 .5rem 1.25rem rgba(217, 56, 41, .25);
+        }
+        .lc-btn-primary:hover { background: var(--lc-red-dark); color: #fff; }
+        .lc-btn-ghost {
+            background: #fff;
+            color: var(--lc-ink);
+            border: 1px solid var(--lc-border);
+        }
+        .lc-btn-ghost:hover { border-color: var(--lc-red); color: var(--lc-red); }
+        .lc-btn-light { background: #fff; color: var(--lc-dark); }
+        .lc-btn-light:hover { color: var(--lc-red); }
+        .lc-btn-outline-light { border: 1px solid rgba(255, 255, 255, .45); color: #fff; }
+        .lc-btn-outline-light:hover { border-color: #fff; color: #fff; background: rgba(255, 255, 255, .08); }
+
+        .status-note {
+            font-size: .82rem;
+            color: #8a817e;
+            margin: 1.1rem 0 0;
+        }
+
+        /* Imagen */
+        .lc-media {
+            position: relative;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            box-shadow: 0 1.25rem 2.5rem rgba(50, 25, 15, .16);
+            border: 1px solid var(--lc-border);
+        }
+        .lc-media img {
+            display: block;
+            width: 100%;
+            height: 22rem;
+            object-fit: cover;
+        }
+        .lc-media::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(40, 26, 22, .5), transparent 50%);
+            pointer-events: none;
+        }
+        .lc-media .lc-pill { position: absolute; top: 1rem; left: 1rem; z-index: 2; box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .12); }
+        .lc-media-place {
+            position: absolute;
+            left: 1.1rem;
+            bottom: 1rem;
+            z-index: 2;
+            color: #fff;
+            font-weight: 700;
+            font-size: .95rem;
+            text-shadow: 0 1px .5rem rgba(0, 0, 0, .4);
+        }
+        .lc-cerrado .lc-media img { filter: grayscale(.85); opacity: .88; }
+
+        /* ---------- Datos rápidos ---------- */
+        .lc-facts { position: relative; z-index: 3; margin-top: -2.75rem; }
+        .lc-facts-card {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: #fff;
+            border: 1px solid var(--lc-border);
+            border-radius: 1rem;
+            box-shadow: 0 .75rem 2rem rgba(40, 20, 10, .09);
+        }
+        .lc-fact {
+            display: flex;
+            align-items: center;
+            gap: .9rem;
+            padding: 1.15rem 1.3rem;
+        }
+        .lc-fact + .lc-fact { border-left: 1px solid var(--lc-border); }
+        .lc-fact-icon {
+            flex: none;
+            width: 2.75rem;
+            height: 2.75rem;
+            display: grid;
+            place-items: center;
+            border-radius: .8rem;
+            background: var(--lc-red-soft);
+            font-size: 1.25rem;
+        }
+        .lc-fact small {
+            display: block;
+            color: #8a817e;
+            font-size: .7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            margin-bottom: .15rem;
+        }
+        .lc-fact strong { display: block; font-size: .95rem; line-height: 1.35; }
+
+        /* ---------- Secciones ---------- */
+        .local-info-section { padding: 3rem 0 3.5rem; }
+
+        .section-heading { margin-bottom: 1.25rem; }
+        .section-heading .eyebrow {
+            color: var(--lc-red);
+            font-weight: 750;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: .75rem;
+            margin-bottom: .4rem;
+        }
+        .section-heading h2 {
+            font-size: clamp(1.4rem, 2vw, 1.8rem);
+            font-weight: 800;
+            margin: 0;
+        }
+        .section-heading p {
+            color: var(--lc-muted);
+            margin: .55rem 0 0;
+            line-height: 1.65;
+        }
+
+        /* Destacados */
+        .lc-chips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+            gap: .9rem;
+        }
+        .lc-chip {
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            padding: 1rem 1.1rem;
+            background: #fff;
+            border: 1px solid var(--lc-border);
+            border-radius: .9rem;
+            font-weight: 700;
+        }
+        .lc-chip:hover {
+            border-color: #f0b9b1;
+            box-shadow: 0 .6rem 1.4rem rgba(217, 56, 41, .1);
+        }
+        .lc-chip-emoji { font-size: 1.7rem; line-height: 1; }
+
+        /* Descripción */
+        .lc-card {
+            height: 100%;
+            padding: 1.6rem;
+            background: #fff;
+            border: 1px solid var(--lc-border);
+            border-radius: 1rem;
+            box-shadow: 0 3px 12px rgba(40, 20, 10, .03);
+        }
+        .lc-card h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: .85rem; }
+        .lc-card p { color: #5c5654; line-height: 1.8; margin: 0; }
+        .lc-card.accent {
+            background: linear-gradient(160deg, #fff 0%, #fff6f3 100%);
+            border-left: .25rem solid var(--lc-red);
+        }
+        .lc-feature { color: var(--lc-ink) !important; font-weight: 800; font-size: 1.05rem; }
+        .lc-quote {
+            margin-top: 1.1rem !important;
+            padding: .9rem 1rem;
+            background: var(--lc-red-soft);
+            border-radius: .75rem;
+            color: #4d3b36 !important;
+            font-style: italic;
+        }
+
+        /* Otros locales */
+        .lc-other {
+            display: block;
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid var(--lc-border);
+            border-radius: 1rem;
+            color: inherit;
+            text-decoration: none;
+        }
+        .lc-other:hover {
+            box-shadow: 0 .9rem 1.8rem rgba(50, 30, 20, .1);
+            color: inherit;
+        }
+        .lc-other img { display: block; width: 100%; height: 8rem; object-fit: cover; }
+        .lc-other.is-closed img { filter: grayscale(.85); opacity: .88; }
+        .lc-other-body { padding: .9rem 1rem 1rem; }
+        .lc-other-name {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: .5rem;
+            font-weight: 800;
+            font-size: .95rem;
+        }
+        .lc-other-name .lc-pill { font-size: .68rem; padding: .25rem .6rem; }
+        .lc-other-meta { color: #7d7471; font-size: .8rem; margin-top: .4rem; }
+
+        .lc-more { color: var(--lc-red); font-weight: 650; font-size: .92rem; text-decoration: none; }
+        .lc-more:hover { text-decoration: underline; }
+
+        /* Llamado a la acción */
+        .lc-cta {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 2rem 2.25rem;
+            background: var(--lc-dark);
+            border-radius: 1.25rem;
+        }
+        .lc-cta::before {
+            content: '';
+            position: absolute;
+            right: -4rem;
+            top: -5rem;
+            width: 16rem;
+            height: 16rem;
+            border-radius: 50%;
+            background: rgba(217, 56, 41, .28);
+        }
+        .lc-cta > * { position: relative; }
+        .lc-cta h2 { color: #fff; font-size: clamp(1.25rem, 2.4vw, 1.75rem); font-weight: 800; margin: 0 0 .35rem; }
+        .lc-cta p { color: #d4c7c2; margin: 0; }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 991.98px) {
+            .lc-hero { padding-bottom: 4.5rem; }
+            .lc-media img { height: 17rem; }
+            .lc-facts-card { grid-template-columns: repeat(2, 1fr); }
+            .lc-fact + .lc-fact { border-left: 0; }
+            .lc-fact:nth-child(even) { border-left: 1px solid var(--lc-border); }
+            .lc-fact:nth-child(n+3) { border-top: 1px solid var(--lc-border); }
+        }
+        @media (max-width: 575.98px) {
+            .lc-hero { padding: 1.5rem 0 4rem; }
+            .local-intro { font-size: 1rem; }
+            .lc-media img { height: 14rem; }
+            .lc-facts-card { grid-template-columns: 1fr; }
+            .lc-fact:nth-child(even) { border-left: 0; }
+            .lc-fact + .lc-fact { border-top: 1px solid var(--lc-border); }
+            .local-info-section { padding-top: 2.25rem; }
+            .lc-cta { padding: 1.5rem; }
+            .lc-actions .lc-btn, .lc-cta .lc-actions { width: 100%; justify-content: center; }
+        }
+
+        /* ---- Calificaciones ---- */
+        .lc-reviews-empty { text-align: center; color: #6b7280; }
+        .lc-rating { text-align: center; }
+        .lc-rating-num { font-size: 2.6rem; font-weight: 800; line-height: 1; }
+        .lc-rating-stars { color: #f5a623; font-size: 1.2rem; margin: .3rem 0; }
+        .lc-rating-total { color: #6b7280; font-size: .85rem; margin-bottom: .8rem; }
+        .lc-dist { display: grid; grid-template-columns: 32px 1fr 28px; gap: .5rem; align-items: center; font-size: .8rem; color: #6b7280; }
+        .lc-dist-bar { height: 8px; background: #eee; border-radius: 99px; overflow: hidden; }
+        .lc-dist-bar > div { height: 100%; background: #f5a623; }
+        /* Lista acotada: nunca crece sin límite aunque haya muchas calificaciones */
+        .lc-review-preview { display: flex; flex-direction: column; gap: .75rem; height: 100%; justify-content: space-between; }
+        .lc-preview-label { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #6b7280; }
+        .lc-ver-todas { align-self: flex-start; border: 0; cursor: pointer; }
+        .lc-modal-body { display: flex; flex-direction: column; gap: .75rem; background: #faf8f7; }
+        .lc-review { margin: 0; overflow-wrap: anywhere; word-break: break-word; }
+        .lc-review-head { display: flex; align-items: center; gap: .7rem; }
+        .lc-review-avatar { width: 36px; height: 36px; flex: none; border-radius: 50%; background: #FCEAE7; display: grid; place-items: center; font-weight: 700; }
+        .lc-review-who { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.2; }
+        .lc-review-who small { color: #6b7280; }
+        .lc-review-stars { color: #f5a623; white-space: nowrap; }
+        .lc-review-text { margin: .7rem 0 0; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+        .lc-review-products { list-style: none; margin: .7rem 0 0; padding: .6rem 0 0; border-top: 1px solid #eee; font-size: .85rem; }
+        .lc-review-products li { display: flex; flex-wrap: wrap; gap: .2rem .6rem; padding: 2px 0; }
+        .lc-review-prod-name { font-weight: 600; }
+        .lc-review-prod-stars { color: #f5a623; }
+        .lc-review-products em { flex-basis: 100%; color: #6b7280; }
+        .lc-review-more, .lc-reviews-more { color: #6b7280; font-size: .8rem; }
+        .lc-review-reply { margin-top: .7rem; padding: .6rem .8rem; background: #FCEAE7; border-radius: 8px; font-size: .85rem; }
+        .lc-reviews-more { text-align: center; margin: .25rem 0 0; }
+    </style>
+</head>
+<body class="escala-fluida lc-body">
+
+    <!-- NAVBAR -->
+    <%- include('../partials/Home/_navbar') %>
+
+    <!-- CABECERA DEL LOCAL -->
+    <section class="lc-hero <%= estaAbierto ? '' : 'lc-cerrado' %>">
+        <div class="container">
+            <div class="breadcrumb-custom">
+                <a href="/locales">← Volver a todos los locales</a>
+                <span> / <%= local.nombre %></span>
+            </div>
+
+            <div class="row align-items-center g-4 g-lg-5">
+                <div class="col-lg-6">
+                    <span class="local-kicker">Campus <%= local.campus %></span>
+
+                    <div class="d-flex align-items-center gap-3 flex-wrap">
+                        <h1 class="local-main-title"><%= local.nombre %></h1>
+                    </div>
+
+                    <p class="local-intro"><%= local.descripcion %></p>
+
+                    <% if (!estaAbierto) { %>
+                        <div class="lc-closed-note">
+                            🔒 Este local está cerrado por ahora · Horario: <strong><%= local.horario %></strong>
+                        </div>
+                    <% } %>
+
+                    <div class="lc-actions">
+                        <a href="/register" class="lc-btn lc-btn-primary">Crear cuenta para pedir →</a>
+                        <a href="/comoFunciona" class="lc-btn lc-btn-ghost">Cómo funciona</a>
+                    </div>
+
+                    <p class="status-note">
+                        Estado mostrado según la información configurada para este local.
+                    </p>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="lc-media">
+                        <% if (estaAbierto) { %>
+                            <span class="lc-pill open">Abierto</span>
+                        <% } else { %>
+                            <span class="lc-pill closed">Cerrado</span>
+                        <% } %>
+                        <img src="<%= local.imagen %>" alt="Imagen de <%= local.nombre %>">
+                        <span class="lc-media-place">📍 <%= local.ubicacion %></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DATOS RÁPIDOS -->
+    <div class="container lc-facts">
+        <div class="lc-facts-card">
+            <div class="lc-fact">
+                <div class="lc-fact-icon">📍</div>
+                <div><small>Ubicación</small><strong><%= local.ubicacion %></strong></div>
+            </div>
+            <div class="lc-fact">
+                <div class="lc-fact-icon">🕒</div>
+                <div><small>Horario de atención</small><strong><%= local.horario %></strong></div>
+            </div>
+            <div class="lc-fact">
+                <div class="lc-fact-icon">⭐</div>
+                <div><small>Calificación</small><strong><%= textoCalificacion %></strong></div>
+            </div>
+            <div class="lc-fact">
+                <div class="lc-fact-icon">🏫</div>
+                <div><small>Campus</small><strong><%= local.campus %></strong></div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container local-info-section">
+
+        <!-- DESCRIPCIÓN -->
+        <section class="mb-5">
+            <article class="lc-card">
+                <h3>Acerca de este local</h3>
+                <p><%= local.descripcion %></p>
+            </article>
+        </section>
+
+        <!-- CALIFICACIONES -->
+        <section class="mb-5">
+            <div class="section-heading">
+                <div class="eyebrow">Opiniones</div>
+                <h2>Calificaciones de <%= local.nombre %></h2>
+            </div>
+
+            <% if (cal.summary.total === 0) { %>
+                <div class="lc-card lc-reviews-empty">Este local aún no tiene calificaciones.</div>
+            <% } else { %>
+                <div class="row g-3 align-items-stretch">
+                    <div class="col-lg-4">
+                        <article class="lc-card lc-rating h-100">
+                            <div class="lc-rating-num"><%= cal.summary.average %></div>
+                            <div class="lc-rating-stars"><%= estrellas(Math.round(cal.summary.average)) %></div>
+                            <div class="lc-rating-total"><%= cal.summary.total %> <%= cal.summary.total === 1 ? 'calificación' : 'calificaciones' %></div>
+                            <% [5, 4, 3, 2, 1].forEach(function (n) {
+                                const cantidad = cal.summary.distribution[n] || 0;
+                                const pct = Math.round((cantidad / cal.summary.total) * 100); %>
+                                <div class="lc-dist">
+                                    <span><%= n %>★</span>
+                                    <div class="lc-dist-bar"><div style="width: <%= pct %>%"></div></div>
+                                    <span><%= cantidad %></span>
+                                </div>
+                            <% }); %>
+                        </article>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="lc-review-preview">
+                            <div class="lc-preview-label">Última calificación</div>
+                            <% [cal.reviews[0]].forEach(function (r) { %>
+<article class="lc-card lc-review">
+                                <div class="lc-review-head">
+                                    <div class="lc-review-avatar"><%= r.author.charAt(0) %></div>
+                                    <div class="lc-review-who">
+                                        <strong><%= r.author %></strong>
+                                        <small><%= r.date %></small>
+                                    </div>
+                                    <span class="lc-review-stars"><%= estrellas(r.rating) %></span>
+                                </div>
+                                <% if (r.comment) { %><p class="lc-review-text"><%= r.comment %></p><% } %>
+                                <% if (r.products.length) { %>
+                                    <ul class="lc-review-products">
+                                        <% r.products.slice(0, 3).forEach(function (pr) { %>
+                                            <li>
+                                                <span class="lc-review-prod-name"><%= pr.name %></span>
+                                                <span class="lc-review-prod-stars"><%= estrellas(pr.rating) %></span>
+                                                <% if (pr.comment) { %><em><%= pr.comment %></em><% } %>
+                                            </li>
+                                        <% }); %>
+                                        <% if (r.products.length > 3) { %><li class="lc-review-more">+<%= r.products.length - 3 %> productos más</li><% } %>
+                                    </ul>
+                                <% } %>
+                                <% if (r.reply) { %><div class="lc-review-reply"><strong>Respuesta del local:</strong> <%= r.reply %></div><% } %>
+                            </article>
+                                                        <% }); %>
+                            <button type="button" class="lc-btn lc-btn-primary lc-ver-todas" data-bs-toggle="modal" data-bs-target="#modalCalificaciones">
+                                Ver todas las calificaciones (<%= cal.summary.total %>)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </section>
+
+        <!-- LLAMADO A LA ACCIÓN -->
+        <section class="lc-cta">
+            <div>
+                <h2>Pide antes, recoge sin hacer cola</h2>
+                <p>Elige un local, arma tu pedido y recoge con tu código en el mostrador.</p>
+            </div>
+            <div class="lc-actions">
+                <a href="/register" class="lc-btn lc-btn-light">Crear cuenta</a>
+                <a href="/comoFunciona" class="lc-btn lc-btn-outline-light">Cómo funciona</a>
+            </div>
+        </section>
+
+    </main>
+
+    <% if (cal.summary.total > 0) { %>
+    <!-- VENTANA FLOTANTE DE CALIFICACIONES -->
+    <div class="modal fade" id="modalCalificaciones" tabindex="-1" aria-labelledby="tituloCalificaciones" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title" id="tituloCalificaciones">Calificaciones de <%= local.nombre %></h5>
+                        <small class="text-muted">★ <%= cal.summary.average %> · <%= cal.summary.total %> <%= cal.summary.total === 1 ? 'calificación' : 'calificaciones' %></small>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body lc-modal-body">
+                    <% cal.reviews.forEach(function (r) { %>
+<article class="lc-card lc-review">
+                        <div class="lc-review-head">
+                            <div class="lc-review-avatar"><%= r.author.charAt(0) %></div>
+                            <div class="lc-review-who">
+                                <strong><%= r.author %></strong>
+                                <small><%= r.date %></small>
+                            </div>
+                            <span class="lc-review-stars"><%= estrellas(r.rating) %></span>
+                        </div>
+                        <% if (r.comment) { %><p class="lc-review-text"><%= r.comment %></p><% } %>
+                        <% if (r.products.length) { %>
+                            <ul class="lc-review-products">
+                                <% r.products.slice(0, 3).forEach(function (pr) { %>
+                                    <li>
+                                        <span class="lc-review-prod-name"><%= pr.name %></span>
+                                        <span class="lc-review-prod-stars"><%= estrellas(pr.rating) %></span>
+                                        <% if (pr.comment) { %><em><%= pr.comment %></em><% } %>
+                                    </li>
+                                <% }); %>
+                                <% if (r.products.length > 3) { %><li class="lc-review-more">+<%= r.products.length - 3 %> productos más</li><% } %>
+                            </ul>
+                        <% } %>
+                        <% if (r.reply) { %><div class="lc-review-reply"><strong>Respuesta del local:</strong> <%= r.reply %></div><% } %>
+                    </article>
+                                        <% }); %>
+                    <% if (cal.summary.total > cal.reviews.length) { %>
+                        <p class="lc-reviews-more">Mostrando las <%= cal.reviews.length %> más recientes de <%= cal.summary.total %> calificaciones.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+    <!-- FOOTER -->
+    <%- include('../partials/Home/_footer') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

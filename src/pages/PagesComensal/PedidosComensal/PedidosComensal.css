@@ -1,0 +1,153 @@
+/* src/pages/PedidosComensal/PedidosComensal.css */
+
+/* ==========================================================================
+   MIS PEDIDOS - EN CURSO E HISTÓRICOS (SISTEMA DE DISEÑO EXACTO)
+   ========================================================================== */
+
+.pedidos-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 40px;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+}
+
+.pedidos-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+}
+
+.section-label-group {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.8px;
+  margin: 24px 0 12px 0;
+  text-transform: uppercase;
+}
+
+.section-label-group--muted {
+  color: var(--text-muted);
+}
+
+/* Tarjeta Horizontal del Pedido */
+.pedido-row-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 16px 24px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-warm);
+}
+
+.pedido-row-card--listo {
+  background: #E8F5E9;
+  border-color: #48BB78;
+}
+
+.pedido-info-block {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.pedido-title-code h3 {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text);
+}
+
+.pedido-title-code span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.pedido-meta-item label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.pedido-meta-item span {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Badges de Estado Exactos de la Guía */
+.badge-status-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-chip);
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.badge-status-preparacion {
+  background: #FDF6E2;
+  color: #B7791F;
+}
+
+.badge-status-listo {
+  background: #5B9B2E;
+  color: var(--surface);
+}
+
+.badge-status-entregado {
+  background: var(--border);
+  color: var(--text-muted);
+}
+
+.badge-status-rechazado {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+/* Paginador Inferior */
+.pagination-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 28px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.page-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.page-btn.active {
+  background: var(--primary);
+  color: var(--surface);
+  border-color: var(--primary);
+}

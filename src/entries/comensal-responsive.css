@@ -1,0 +1,160 @@
+/* src/entries/comensal-responsive.css
+   Ajustes responsive para todas las vistas de /comensales/*
+   (header, subheader con tabs, locales, pedidos, calificaciones, mi cuenta, carrito, confirmación) */
+
+/* Evita desbordes horizontales en toda la app */
+.app, .app-body { max-width: 100%; overflow-x: hidden; }
+img, svg { max-width: 100%; }
+
+/* ---------- Tablet (<= 900px) ---------- */
+@media (max-width: 900px) {
+  .carrito-layout,
+  .pedidos-layout,
+  .confirmacion-layout,
+  .comensal-main-layout { padding: 20px 20px; }
+
+  .carrito-grid-main,
+  .confirmacion-grid { grid-template-columns: 1fr; }
+
+  .detalle-layout { grid-template-columns: 1fr; }
+
+  .detalles-confirmacion-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- Móvil (<= 768px) ---------- */
+@media (max-width: 768px) {
+  /* Header: marca + carrito/usuario arriba, buscador y local abajo */
+  .comensal-navbar {
+    height: auto;
+    padding: 10px 16px;
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+  .comensal-navbar__left { order: 1; flex: 1 1 auto; min-width: 0; gap: 10px; }
+  .comensal-navbar__right { order: 2; gap: 8px; }
+  .comensal-navbar__center { order: 3; flex: 1 1 100%; max-width: 100%; }
+  .comensal-navbar__select { max-width: 160px; text-overflow: ellipsis; }
+  .comensal-navbar__user-name,
+  .comensal-navbar__user-chevron { display: none; }
+  .comensal-navbar__user-btn { padding: 0 4px; }
+  .comensal-navbar__menu { right: 0; }
+
+  /* Subheader: tabs con scroll horizontal, sin saltos de línea */
+  .comensal-subheader-tabs {
+    padding: 0 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .comensal-subheader-tabs::-webkit-scrollbar { display: none; }
+  .tabs-list { gap: 18px; width: max-content; }
+  .tab-link { white-space: nowrap; }
+
+  /* Carrito */
+  .cart-card-container { padding: 14px; }
+  .cart-item-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .cart-item-right {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* Pedidos */
+  .pedidos-header-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .pedido-row-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px;
+  }
+  .pedido-info-block {
+    flex-wrap: wrap;
+    gap: 12px 24px;
+  }
+  .pedido-title-code { min-width: 0 !important; width: 100%; }
+
+  /* Calificaciones */
+  .calif-product-row { flex-wrap: wrap; }
+  .calif-product-left { width: 100%; }
+  .calif-actions { flex-wrap: wrap; }
+  .calif-actions button { flex: 1 1 140px; }
+
+  /* Locales y confirmación */
+  .locales-grid,
+  .proximas-grid,
+  .productos-grid { grid-template-columns: 1fr; }
+  .franjas-grid-selector { grid-template-columns: repeat(3, 1fr); }
+  .detalles-confirmacion-grid { grid-template-columns: 1fr; }
+
+  /* Modales */
+  .modal-detalle-card { width: calc(100% - 24px); max-width: 100%; max-height: 90vh; overflow-y: auto; }
+}
+
+/* ---------- Móvil pequeño (<= 480px) ---------- */
+@media (max-width: 480px) {
+  .carrito-layout,
+  .pedidos-layout,
+  .confirmacion-layout,
+  .comensal-main-layout { padding: 16px 12px; }
+
+  .comensal-navbar__brand { font-size: 17px; }
+  .comensal-navbar__cart-btn { padding: 0 12px; }
+  .locales-title { font-size: 22px; }
+}
+
+
+/* ==========================================================================
+   LAYOUT UNIFICADO (escritorio): header, tabs, contenido y footer comparten
+   el mismo eje: contenido de hasta 1120px centrado, con 40px mínimo a los lados.
+   ========================================================================== */
+@media (min-width: 769px) {
+  .comensal-navbar {
+    max-width: none;
+    margin: 0;
+    padding-left: max(40px, calc((100% - 1120px) / 2));
+    padding-right: max(40px, calc((100% - 1120px) / 2));
+  }
+
+  .comensal-subheader-tabs {
+    padding-left: max(40px, calc((100% - 1120px) / 2));
+    padding-right: max(40px, calc((100% - 1120px) / 2));
+  }
+
+  .enterprise-footer {
+    padding-left: max(40px, calc((100% - 1120px) / 2));
+    padding-right: max(40px, calc((100% - 1120px) / 2));
+  }
+
+  /* Todas las vistas: mismo ancho, centradas y con el mismo respiro vertical */
+  .comensal-main-layout,
+  .carrito-layout,
+  .pedidos-layout,
+  .confirmacion-layout {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 40px 48px;
+    box-sizing: border-box;
+  }
+}
+
+/* Mismo título en todas las vistas */
+.locales-title,
+.calif-title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 32px;
+  color: var(--text);
+}
+
+/* Las vistas rellenan el alto disponible (el footer queda abajo, sin huecos) */
+.app-body > main { flex: 1 0 auto; }

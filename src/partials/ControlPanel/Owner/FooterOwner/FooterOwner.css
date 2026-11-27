@@ -1,0 +1,29 @@
+/* src/partials/ControlPanel/Owner/FooterOwner/FooterOwner.css */
+
+.owner-footer {
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 37px 0 35px;
+  background-color: #FFFFFF;
+  border-top: 1px solid #EFE2DC;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  color: #7C6960;
+}
+
+.owner-footer__left {
+  display: flex;
+  gap: 27px;
+}
+
+.owner-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.owner-footer a:hover {
+  text-decoration: underline;
+}

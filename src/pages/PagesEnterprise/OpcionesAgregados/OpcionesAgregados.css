@@ -1,0 +1,577 @@
+/* =========================================================
+   CONTENEDOR Y CABECERA PRINCIPAL (ESTILOS ORIGINALES)
+   ========================================================= */
+.opciones-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 28px 24px 48px;
+}
+
+.opciones-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.opciones-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #261915;
+    margin: 4px 0 4px;
+}
+
+.opciones-nuevo {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    background-color: #DF402F;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+.opciones-nuevo:hover {
+    background-color: #c83225;
+}
+
+.opciones-aviso {
+    background: #EEF5E7;
+    color: #467A21;
+    border: 1px solid #CFE3BC;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13.5px;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.opciones-vacio {
+    background: #ffffff;
+    border: 1px dashed #DFCFC7;
+    border-radius: 12px;
+    padding: 32px 20px;
+    text-align: center;
+    color: #7C6960;
+    font-size: 14px;
+}
+
+/* =========================================================
+   LAYOUT DE 2 COLUMNAS (GRUPOS A LA IZQUIERDA, FORM A LA DERECHA)
+   ========================================================= */
+.opciones-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    align-items: start;
+}
+
+@media (max-width: 920px) {
+    .opciones-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.opciones-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* =========================================================
+   TARJETAS DE GRUPOS DE OPCIONES ("Tipo de pan", "Agregados", etc.)
+   ========================================================= */
+.grupo-card {
+    background: #ffffff;
+    border: 1px solid #EFE2DC;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(38, 25, 21, 0.025);
+}
+
+.grupo-card.grupo-editando {
+    border-color: #DF402F;
+    box-shadow: 0 0 0 3px rgba(223, 64, 47, 0.12);
+}
+
+.grupo-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid #F3EAE5;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.grupo-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #261915;
+    margin: 0;
+}
+
+.grupo-tags {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.tag-rojo {
+    background-color: #FCEAE7;
+    color: #C83225;
+}
+
+.tag-gris {
+    background-color: #F3ECE7;
+    color: #6E5D54;
+}
+
+.link-editar {
+    background: none;
+    border: none;
+    color: #DF402F;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 2px 6px;
+}
+
+.link-editar:hover {
+    text-decoration: underline;
+}
+
+/* Lista de alternativas dentro de cada grupo */
+.grupo-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.grupo-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 20px;
+    border-bottom: 1px solid #F6EFEA;
+    font-size: 14px;
+    color: #261915;
+}
+
+.grupo-items li:last-child {
+    border-bottom: none;
+}
+
+.grupo-items li strong {
+    font-weight: 700;
+    color: #261915;
+}
+
+.grupo-items li strong.sin-costo {
+    font-weight: 500;
+    color: #7C6960;
+}
+
+/* =========================================================
+   FORMULARIO LATERAL ("NUEVO GRUPO DE OPCIONES")
+   ========================================================= */
+.grupo-form {
+    background: #ffffff;
+    border: 1px solid #EFE2DC;
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 2px 10px rgba(38, 25, 21, 0.025);
+}
+
+.form-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #7C6960;
+    margin: 0 0 6px;
+    text-transform: uppercase;
+}
+
+.form-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #7C6960;
+    margin-top: 6px;
+    text-transform: uppercase;
+    display: block;
+}
+
+.form-input {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #E5D6CE;
+    border-radius: 9px;
+    font-size: 13.5px;
+    color: #261915;
+    background: #ffffff;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+.form-input:focus {
+    border-color: #DF402F;
+}
+
+.form-radios {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 2px 0 4px;
+}
+
+.radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: #5C4B43;
+    cursor: pointer;
+}
+
+.radio input[type="radio"] {
+    accent-color: #DF402F;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.radio.activo {
+    color: #261915;
+    font-weight: 600;
+}
+
+/* Switch Obligatorio */
+.switch-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: #261915;
+    cursor: pointer;
+    margin: 4px 0;
+}
+
+.switch {
+    appearance: none;
+    width: 38px;
+    height: 22px;
+    background: #D7C8C0;
+    border-radius: 999px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+}
+
+.switch::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    background: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+
+.switch:checked {
+    background: #DF402F;
+}
+
+.switch:checked::after {
+    transform: translateX(16px);
+}
+
+/* Filas de alternativas en el formulario */
+.alt-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.alt-fila {
+    display: grid;
+    grid-template-columns: 1fr 95px 24px;
+    gap: 8px;
+    align-items: center;
+}
+
+.alt-quitar {
+    background: none;
+    border: none;
+    color: #7C6960;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}
+
+.alt-quitar:hover {
+    color: #DF402F;
+}
+
+.link-agregar {
+    align-self: flex-start;
+    padding: 4px 0;
+    font-size: 13px;
+}
+
+.form-error {
+    color: #B4322B;
+    background: #FCEAE7;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 12.5px;
+    margin: 4px 0 0;
+}
+
+.form-guardar {
+    margin-top: 8px;
+    width: 100%;
+    padding: 11px;
+    border-radius: 10px;
+    background-color: #DF402F;
+    color: #ffffff;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.form-guardar:hover {
+    background-color: #c83225;
+}
+
+.form-secundarios {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+}
+
+.link-secundario {
+    background: none;
+    border: none;
+    font-size: 13px;
+    color: #7C6960;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.link-secundario:hover {
+    text-decoration: underline;
+}
+
+.link-peligro {
+    color: #B4322B;
+}
+
+/* =========================================================
+   GALERÍA DE SELECCIÓN DE PRODUCTOS (NUEVO)
+   ========================================================= */
+.productos-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.productos-buscador {
+    max-width: 320px;
+}
+
+.productos-categorias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.cat-chip {
+    background: #ffffff;
+    border: 1px solid #EFE2DC;
+    color: #7C6960;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cat-chip:hover {
+    border-color: #DF402F;
+    color: #DF402F;
+}
+
+.cat-chip.activo {
+    background: #FCEAE7;
+    border-color: #DF402F;
+    color: #DF402F;
+    font-weight: 600;
+}
+
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.producto-card-select {
+    background: #ffffff;
+    border: 1px solid #EFE2DC;
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.producto-card-select:hover {
+    transform: translateY(-3px);
+    border-color: #DF402F;
+    box-shadow: 0 8px 22px rgba(38, 25, 21, 0.08);
+}
+
+.producto-card-img {
+    position: relative;
+    height: 150px;
+    background: #F7EFEA;
+    overflow: hidden;
+}
+
+.producto-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.producto-cat-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(38, 25, 21, 0.78);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.producto-card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 12px;
+}
+
+.producto-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.producto-card-header h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #261915;
+    margin: 0;
+    line-height: 1.35;
+}
+
+.producto-precio {
+    font-size: 14px;
+    font-weight: 700;
+    color: #DF402F;
+    white-space: nowrap;
+}
+
+.producto-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.btn-configurar-opciones {
+    margin-top: 4px;
+    width: 100%;
+    background: #FFFBF8;
+    border: 1px solid #EFE2DC;
+    color: #DF402F;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.producto-card-select:hover .btn-configurar-opciones {
+    background: #DF402F;
+    color: #ffffff;
+    border-color: #DF402F;
+}
+
+.opciones-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-volver-productos {
+    background: #ffffff;
+    border: 1px solid #EFE2DC;
+    color: #261915;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.btn-volver-productos:hover {
+    border-color: #DF402F;
+    color: #DF402F;
+    background: #FCEAE7;
+}
+
+.breadcrumb-link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.breadcrumb-link:hover {
+    color: #DF402F;
+}

@@ -1,0 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap");
+
+/* Formulario de producto (nuevo / editar).
+   Todo va dentro de .np-app para no afectar otras páginas
+   (se quitó el reset global de html/body/#root que rompía el layout enterprise). */
+
+.np-app {
+  /* Variables de Bootstrap sobrescritas solo dentro de este componente */
+  --bs-body-font-family: "Inter", system-ui, sans-serif;
+  --bs-body-font-size: 0.875rem;
+  --bs-body-color: #261915;
+  --bs-danger: #d9402f;
+  --bs-danger-rgb: 217, 64, 47;
+  --bs-border-color: #eadcd6;
+  --np-rayas-1: #f6e3df;
+  --np-rayas-2: #fbefec;
+  --np-suave: #7c6960;
+
+  /* Ocupa el área de contenido, igual que las demás páginas de enterprise */
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 22px 28px 32px !important;
+  background: #fffbf8;
+  color: var(--bs-body-color);
+  font-family: var(--bs-body-font-family);
+  font-size: var(--bs-body-font-size);
+  line-height: 1.5;
+}
+
+/* ---------- Ruta y título ---------- */
+.np-xs { font-size: 0.8rem; }
+
+.np-app .breadcrumb {
+  --bs-breadcrumb-divider: "›";
+  font-weight: 600;
+}
+.np-app .breadcrumb-item { color: var(--np-suave); }
+.np-app .breadcrumb-item.active { color: #d9402f; }
+
+.np-titulo {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem !important;
+  letter-spacing: -0.015em;
+  color: #261915;
+}
+
+/* ---------- Tarjeta del formulario ---------- */
+.np-card {
+  width: 100%;
+  border: 1px solid #f0e2dc;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(80, 40, 25, 0.05), 0 10px 24px -14px rgba(80, 40, 25, 0.2);
+}
+.np-card .card-body { padding: 1.5rem !important; }
+
+/* Etiquetas y textos de ayuda */
+.np-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--np-suave);
+}
+
+.np-ayuda {
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--np-suave);
+}
+
+/* ---------- Campos ---------- */
+.np-app .form-control,
+.np-app .form-select {
+  font-size: 0.9rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.6rem;
+  border-color: var(--bs-border-color);
+  background-color: #fffdfc;
+}
+
+.np-app .form-control:focus,
+.np-app .form-select:focus {
+  border-color: #d9402f;
+  box-shadow: 0 0 0 0.2rem rgba(217, 64, 47, 0.15);
+}
+
+.np-textarea { min-height: 110px; resize: vertical; }
+
+/* Precio: prefijo "S/" integrado al campo */
+.np-prefijo {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--np-suave);
+  background: #fffdfc;
+  border-color: var(--bs-border-color);
+  border-right: 0;
+  border-radius: 0.6rem 0 0 0.6rem;
+  padding-right: 0;
+}
+.np-precio { border-left: 0; padding-left: 0.4rem !important; border-radius: 0 0.6rem 0.6rem 0 !important; }
+
+/* ---------- Fotografía ---------- */
+.np-placeholder {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(135deg, var(--np-rayas-1) 0 8px, var(--np-rayas-2) 8px 16px);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  color: var(--np-suave);
+}
+.np-placeholder img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.np-miniatura { width: 84px; height: 84px; border-radius: 0.75rem; border: 1px solid #f0e2dc; }
+
+.np-btn-foto {
+  width: 100%;
+  max-width: 230px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.6rem;
+  background: #fff;
+  --bs-btn-color: #d9402f;
+  --bs-btn-border-color: #d9402f;
+  --bs-btn-hover-bg: #d9402f;
+  --bs-btn-hover-border-color: #d9402f;
+  --bs-btn-active-bg: #b82d20;
+  --bs-btn-active-border-color: #b82d20;
+}
+
+/* ---------- Botones Cancelar / Guardar ---------- */
+.np-btn {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.6rem 1.3rem;
+  border-radius: 0.6rem;
+}
+
+.np-app .btn-danger {
+  --bs-btn-bg: #d9402f;
+  --bs-btn-border-color: #d9402f;
+  --bs-btn-hover-bg: #b82d20;
+  --bs-btn-hover-border-color: #b82d20;
+  --bs-btn-active-bg: #b82d20;
+  --bs-btn-active-border-color: #b82d20;
+  box-shadow: 0 4px 12px -4px rgba(217, 64, 47, 0.45);
+}
+
+/* ---------- Vista previa del comensal ---------- */
+.np-preview {
+  max-width: 320px;
+  border: 1px solid #f0e2dc;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(80, 40, 25, 0.05), 0 10px 24px -14px rgba(80, 40, 25, 0.2);
+}
+.np-preview__foto { aspect-ratio: 1 / 1; width: 100%; }
+.np-preview__nombre { font-size: 1rem; font-weight: 700; color: #261915; }
+.np-preview__desc { font-size: 0.85rem; color: var(--np-suave); line-height: 1.45; }
+.np-preview__precio { font-family: "Poppins", sans-serif; font-size: 1.1rem; color: #d9402f; }
+
+/* En pantallas grandes la vista previa queda visible al hacer scroll */
+@media (min-width: 992px) {
+  .np-app aside { position: sticky; top: 0; align-self: flex-start; }
+}
+
+/* ---------- Pantallas chicas ---------- */
+@media (max-width: 576px) {
+  .np-app { padding: 16px 14px 24px !important; }
+  .np-titulo { font-size: 1.35rem !important; }
+  .np-card .card-body { padding: 1rem !important; }
+  .np-preview { max-width: 100%; }
+}

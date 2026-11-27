@@ -1,0 +1,104 @@
+/* src/pages/PagesOwner/VentasProducto/VentasProducto.css */
+
+.vp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+/* Franjas */
+.vp-franjas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.vp-franjas__fila {
+  display: grid;
+  grid-template-columns: 3rem 1fr 2.2rem;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+}
+
+.vp-franjas__hora { color: #756b67; }
+
+.vp-franjas__pista {
+  height: 0.7rem;
+  background: #efe3de;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.vp-franjas__barra {
+  height: 100%;
+  background: #d9402f;
+  border-radius: 999px;
+}
+
+.vp-franjas__barra.is-pico { background: #a82a1d; }
+
+.vp-franjas__valor { text-align: right; }
+
+/* Tabla de productos */
+.vp-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.vp-tabla th {
+  text-align: left;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a6a63;
+  font-weight: 700;
+  padding: 0 0 0.45rem;
+  border-bottom: 1px solid #f0e2dc;
+}
+
+.vp-tabla td {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #f4ebe7;
+  vertical-align: middle;
+}
+
+.vp-tabla tr:last-child td { border-bottom: none; }
+
+.vp-tabla .num {
+  text-align: right;
+  white-space: nowrap;
+  padding-left: 0.6rem;
+}
+
+/* Sin movimiento */
+.vp-sin {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.vp-sin li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  background: #fffaf7;
+  border: 1px solid #f0e2dc;
+  border-radius: 0.6rem;
+  padding: 0.65rem 0.8rem;
+}
+
+@media (max-width: 1100px) {
+  .vp-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 720px) {
+  .vp-grid { grid-template-columns: 1fr; }
+}

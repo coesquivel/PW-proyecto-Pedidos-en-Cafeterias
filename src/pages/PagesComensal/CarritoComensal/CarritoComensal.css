@@ -1,0 +1,161 @@
+/* src/pages/CarritoComensal/CarritoComensal.css */
+
+/* ==========================================================================
+   CARRITO COMENSAL - SISTEMA DE DISEÑO
+   ========================================================================== */
+
+.carrito-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 40px;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+}
+
+.breadcrumbs {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.breadcrumbs span {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.carrito-grid-main {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  margin-top: 16px;
+  align-items: start;
+}
+
+/* Aviso informativo del mismo local */
+.info-banner-local {
+  background: var(--primary-soft);
+  border: 1px solid var(--primary-soft);
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: var(--radius-container);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.info-banner-local i {
+  color: var(--primary);
+  font-style: normal;
+  font-weight: bold;
+}
+
+/* Tarjeta de Lista de Ítems */
+.cart-card-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  box-shadow: var(--shadow-warm);
+}
+
+.cart-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  margin-bottom: 12px;
+  background: var(--surface);
+}
+
+.cart-item-left {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.cart-item-thumb {
+  width: 60px;
+  height: 60px;
+  background: repeating-linear-gradient(-45deg, #FCEAE7, #FCEAE7 5px, #EFE2DC 5px, #EFE2DC 10px);
+  border-radius: var(--radius-container);
+  flex-shrink: 0;
+}
+
+.cart-item-info h4 {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  color: var(--text);
+}
+
+.cart-item-info p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.cart-item-info .nota-text {
+  font-style: italic;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.cart-item-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-link-danger {
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-link-danger:hover {
+  text-decoration: underline;
+}
+
+/* Panel Resumen Lateral */
+.resumen-card-side {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  box-shadow: var(--shadow-warm);
+}
+
+.resumen-card-side h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: var(--text);
+}
+
+.resumen-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.resumen-line--total {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: 12px;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 600;
+}

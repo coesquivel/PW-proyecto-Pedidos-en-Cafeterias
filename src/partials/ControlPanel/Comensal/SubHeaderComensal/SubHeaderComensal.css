@@ -1,0 +1,59 @@
+/* ==========================================================================
+   SUBHEADER TABS - BASADO EN EL SISTEMA DE DISEÑO
+   ========================================================================== */
+
+.comensal-subheader-tabs {
+  background: #FFFFFF; /* surface */
+  border-bottom: 1px solid #EFE2DC; /* border */
+  padding: 0 40px;
+}
+
+.tabs-list {
+  display: flex !important;
+  flex-direction: row !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 28px;
+  align-items: center;
+}
+
+.tabs-list li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.tab-link {
+  display: flex;
+  align-items: center;
+  padding: 14px 4px;
+  text-decoration: none !important;
+  color: #7C6960; /* text-muted */
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.tab-link:hover {
+  color: #261915; /* text */
+}
+
+.tab-link--active {
+  color: #D6402F !important; /* primary */
+  border-bottom-color: #D6402F !important; /* primary */
+  font-weight: 600;
+}
+
+.tab-badge {
+  background: #FCEAE7; /* primary-soft */
+  color: #D6402F; /* primary */
+  border-radius: 999px; /* chip 999px de la guía */
+  padding: 2px 8px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 6px;
+}

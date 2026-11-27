@@ -1,0 +1,185 @@
+/* src/entries/enterprise-ui.css
+   Mejora visual compartida de las páginas de enterprise (mismo estilo que owner).
+   Solo CSS: no cambia estructura ni lógica. Se importa al final de enterprise.jsx
+   para que prevalezca sobre los estilos de cada página. */
+
+/* ---------- Ocupar todo el ancho, sin espacio en blanco ---------- */
+.app-content {
+    padding: 22px 28px 32px;
+}
+
+.page-container,
+.bandeja-container,
+.resumen-container,
+.agotados-container,
+.horario-container,
+.perfil-container,
+.opciones-container,
+.reviews-content,
+.micarta-container {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Entrega es un formulario angosto: se queda centrado */
+.entrega-container {
+    margin: 0 auto;
+}
+
+/* ---------- Títulos y cabeceras ---------- */
+.bandeja-topbar,
+.resumen-topbar,
+.opciones-topbar {
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #f0e2dc;
+}
+
+.bandeja-topbar h1,
+.resumen-topbar h1,
+.resumen-title,
+.agotados-title,
+.entrega-title,
+.horario-title,
+.perfil-title,
+.opciones-title {
+    color: #261915;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+}
+
+/* ---------- Tarjetas con relieve suave ---------- */
+.pedido-card,
+.panel,
+.stat-card,
+.perfil-panel,
+.grupo-card,
+.entrega-card,
+.product-card {
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(80, 40, 25, 0.05), 0 8px 20px -12px rgba(80, 40, 25, 0.18);
+}
+
+.pedido-card:hover,
+.panel:hover,
+.stat-card:hover,
+.perfil-panel:hover,
+.grupo-card:hover,
+.product-card:hover {
+    box-shadow: 0 2px 4px rgba(80, 40, 25, 0.06), 0 12px 26px -12px rgba(217, 64, 47, 0.28);
+}
+
+.panel,
+.stat-card,
+.perfil-panel,
+.grupo-card {
+    border-color: #f0e2dc;
+}
+
+.panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.panel-title::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d9402f;
+    flex-shrink: 0;
+}
+
+/* Tarjetas de resumen con franja de color superior */
+.stat-card {
+    position: relative;
+    overflow: hidden;
+    padding-top: 18px;
+}
+
+.stat-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #d9402f;
+}
+
+.stat-card:nth-child(2)::after { background: #2f7a1d; }
+.stat-card:nth-child(3)::after { background: #b7791f; }
+.stat-card:nth-child(4)::after { background: #7c6960; }
+
+/* ---------- Botones: estados claros ---------- */
+.btn-guardar,
+.btn-guardar-horario,
+.btn-configurar-opciones,
+.btn-danger-custom,
+.custom-btn-product {
+    box-shadow: 0 4px 12px -4px rgba(217, 64, 47, 0.45);
+}
+
+.btn-guardar:hover,
+.btn-guardar-horario:hover,
+.btn-configurar-opciones:hover,
+.btn-danger-custom:hover {
+    filter: brightness(0.92);
+}
+
+.btn-cancelar:hover,
+.btn-descartar:hover,
+.btn-outline-custom:hover,
+.btn-volver-productos:hover,
+.btn-restablecer:hover {
+    background: #fff3f0;
+    border-color: #d9402f;
+    color: #b82d20;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #d9402f;
+    outline-offset: 2px;
+}
+
+/* ---------- Pantallas chicas ---------- */
+@media (max-width: 768px) {
+    .app-content {
+        padding: 16px 14px 24px;
+    }
+}
+
+
+/* ==========================================================================
+   LAYOUT UNIFICADO: todas las páginas de enterprise comparten el mismo marco
+   (mismo fondo, mismo relleno y scroll dentro del área de contenido).
+   ========================================================================== */
+.reviews-main {
+    padding: 22px 28px 32px;
+    background: #FFFBF8;
+}
+
+.micarta-container {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 22px 28px 32px !important;
+    background-color: #FFFBF8;
+}
+
+@media (max-width: 768px) {
+    .reviews-main,
+    .micarta-container {
+        padding: 16px 14px 24px !important;
+    }
+}

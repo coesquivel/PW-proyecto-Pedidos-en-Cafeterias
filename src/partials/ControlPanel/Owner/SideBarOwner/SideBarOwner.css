@@ -1,0 +1,71 @@
+/* src/partials/ControlPanel/Owner/SideBarOwner/SideBarOwner.css */
+
+.sidebar-owner {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px 13px;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-y: auto;
+}
+
+.sidebar-owner__section {
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid #EFE2DC;
+}
+
+.sidebar-owner__section:last-child {
+  border-bottom: none;
+}
+
+.sidebar-owner__title {
+  margin: 0 0 9px;
+  padding: 0 10px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 1.5px;
+  color: #7C6960;
+}
+
+.sidebar-owner__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 37px;
+  margin-bottom: 1px;
+  padding: 0 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #261915;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sidebar-owner__item:hover {
+  background-color: #FAF7F6;
+  color: #261915;
+}
+
+.sidebar-owner__item--active,
+.sidebar-owner__item--active:hover {
+  background-color: #E7EEF7;
+  color: #2F5C8A;
+  font-weight: 600;
+}
+
+.sidebar-owner__badge {
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background-color: #D6402F;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+}

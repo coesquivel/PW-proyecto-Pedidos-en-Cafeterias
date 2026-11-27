@@ -1,0 +1,178 @@
+/* ===== Contenedor centrado y angosto ===== */
+.entrega-container {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.entrega-title {
+    margin: 2px 0 4px;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+.entrega-sub { margin: 0 0 18px; font-size: 13px; }
+
+/* ===== Formulario ===== */
+.entrega-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    color: #7c716b;
+}
+.entrega-busqueda {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+.entrega-input {
+    flex: 1;
+    min-width: 0;
+    height: 48px;
+    box-sizing: border-box;
+    padding: 0 16px;
+    background: #fff;
+    border: 2px solid #e5ddda;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #211815;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+.entrega-input::placeholder { color: #c8bfba; }
+.entrega-input:focus,
+.entrega-input.con-resultado { border-color: #5a9e2f; }
+.entrega-input.con-error { border-color: #d9402f; }
+
+.entrega-buscar {
+    height: 48px;
+    padding: 0 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #e0443a;
+    color: #fff;
+    border: 1px solid #e0443a;
+}
+.entrega-buscar:hover { background: #c93a31; }
+
+.entrega-error {
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: #b4322b;
+}
+.entrega-ok {
+    margin: 14px 0 0;
+    padding: 10px 14px;
+    background: #e8f5e3;
+    border: 1px solid #8fcf7e;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2f6a1d;
+}
+
+/* ===== Tarjeta de resultado (colores por estado) ===== */
+.entrega-card {
+    --c-main: #3f7d1f;
+    --c-bg: #e8f5e3;
+    --c-border: #5a9e2f;
+    --c-pill: #4f9a28;
+    margin-top: 16px;
+    padding: 16px 18px;
+    background: var(--c-bg);
+    border: 2px solid var(--c-border);
+    border-radius: 14px;
+}
+.est-recibido    { --c-main: #2f6db5; --c-bg: #eaf2fb; --c-border: #b9d2ef; --c-pill: #2f6db5; }
+.est-preparacion { --c-main: #9a5f10; --c-bg: #fdf1dd; --c-border: #f2c879; --c-pill: #b9741a; }
+.est-entregado   { --c-main: #6a5a53; --c-bg: #f1efec; --c-border: #dcd8d3; --c-pill: #7a7570; }
+
+.entrega-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.entrega-card-head h2 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--c-main);
+}
+.entrega-pill {
+    flex-shrink: 0;
+    padding: 3px 12px;
+    border-radius: 999px;
+    background: var(--c-pill);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.entrega-items {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-bottom: 1px solid var(--c-border);
+}
+.entrega-items li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--c-main);
+}
+.entrega-items strong { white-space: nowrap; }
+
+.entrega-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0 14px;
+    font-size: 12px;
+    color: var(--c-main);
+}
+.entrega-total strong { font-size: 24px; white-space: nowrap; }
+
+.entrega-confirmar {
+    width: 100%;
+    height: 42px;
+    border-radius: 8px;
+    background: #5a9e2f;
+    color: #fff;
+    border: 1px solid #5a9e2f;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.entrega-confirmar:hover { background: #4d8a27; }
+
+.entrega-aviso {
+    margin: 0;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    font-size: 13px;
+    text-align: center;
+    color: var(--c-main);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+    .entrega-busqueda { flex-direction: column; }
+    .entrega-buscar { width: 100%; }
+    .entrega-total { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .entrega-card-head h2 { font-size: 17px; }
+}

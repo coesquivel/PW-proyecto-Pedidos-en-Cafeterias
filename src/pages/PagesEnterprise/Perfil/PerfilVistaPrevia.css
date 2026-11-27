@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap");
+
+/* Vista previa del perfil del local.
+   Todo va dentro de .pv-app para no afectar otras páginas (se quitó el reset global de html/body/#root). */
+
+.pv-app {
+  /* Variables de Bootstrap sobrescritas solo dentro de este componente */
+  --bs-body-font-family: "Inter", system-ui, sans-serif;
+  --bs-body-font-size: 0.875rem;
+  --bs-body-color: #261915;
+  --bs-danger: #d9402f;
+  --bs-danger-rgb: 217, 64, 47;
+  --bs-success: #3f9a32;
+  --bs-success-rgb: 63, 154, 50;
+  --bs-border-color: #f0e2dc;
+
+  --pv-rayas-1: #f6e3df;
+  --pv-rayas-2: #fbefec;
+  --pv-suave: #7c6960;
+
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding: 22px 28px 32px !important;
+  background: #FFFBF8;
+  color: var(--bs-body-color);
+  font-family: var(--bs-body-font-family);
+  font-size: var(--bs-body-font-size);
+  line-height: 1.5;
+}
+
+/* ---------- Ruta y encabezado ---------- */
+.pv-xs { font-size: 0.8rem; }
+
+.pv-app .breadcrumb {
+  --bs-breadcrumb-divider: "›";
+  --bs-breadcrumb-item-active-color: #d9402f;
+  font-weight: 600;
+}
+
+.pv-app .breadcrumb-item { color: var(--pv-suave); }
+.pv-app .breadcrumb-item.active { color: #d9402f; }
+
+.pv-titulo {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: -0.015em;
+  color: #261915;
+}
+
+/* Botón "Editar perfil" */
+.pv-app .btn-outline-danger {
+  --bs-btn-color: #d9402f;
+  --bs-btn-border-color: #d9402f;
+  --bs-btn-hover-bg: #d9402f;
+  --bs-btn-hover-border-color: #d9402f;
+  --bs-btn-active-bg: #b82d20;
+  --bs-btn-active-border-color: #b82d20;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem !important;
+  border-radius: 0.6rem;
+  box-shadow: 0 1px 2px rgba(80, 40, 25, 0.06);
+}
+
+/* ---------- Tarjeta principal ---------- */
+.pv-card {
+  width: 100%;
+  border: 1px solid #f0e2dc;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(80, 40, 25, 0.05), 0 10px 24px -14px rgba(80, 40, 25, 0.2);
+}
+
+.pv-card .card-body { padding: 1.1rem 1.25rem !important; }
+
+/* Fondo rayado para portada, logo y galería */
+.pv-placeholder {
+  background: repeating-linear-gradient(135deg, var(--pv-rayas-1) 0 8px, var(--pv-rayas-2) 8px 16px);
+  display: grid;
+  place-items: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  color: var(--pv-suave);
+  text-align: center;
+}
+
+.pv-portada { height: clamp(100px, 11vw, 160px); }
+
+.pv-logo-local {
+  width: 76px;
+  height: 76px;
+  border-radius: 0.9rem;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 14px -4px rgba(80, 40, 25, 0.3);
+  margin-top: -2.4rem; /* sube sobre la portada */
+}
+
+.pv-foto {
+  height: 84px;
+  border-radius: 0.7rem;
+}
+
+/* ---------- Información del local ---------- */
+.pv-nombre {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.pv-app .badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.35em 0.75em;
+}
+
+.pv-chip-claro { background: #fdece9; color: #b82d20; }
+.pv-app .text-bg-success { background-color: #e7f3dc !important; color: #2f5c12 !important; }
+
+.pv-app p.text-secondary { color: var(--pv-suave) !important; font-size: 0.85rem; }
+
+.pv-descripcion {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  max-width: 70ch;
+  color: #3d2f2a;
+}
+
+/* ---------- Datos de contacto y métricas ---------- */
+.pv-datos {
+  border-top: 1px solid #f0e2dc !important;
+  row-gap: 1rem;
+}
+
+.pv-datos dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--pv-suave);
+  margin-bottom: 0.2rem;
+}
+
+.pv-datos dd {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0;
+  word-break: break-word;
+  color: #261915;
+}
+
+/* ---------- Pantallas chicas ---------- */
+@media (max-width: 576px) {
+  .pv-titulo { font-size: 1.4rem; }
+  .pv-nombre { font-size: 1.25rem; }
+  .pv-foto { height: 70px; }
+  .pv-logo-local { width: 72px; height: 72px; margin-top: -2.4rem; }
+  .pv-card .card-body { padding: 1rem !important; }
+}

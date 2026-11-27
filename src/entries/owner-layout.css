@@ -1,0 +1,112 @@
+/* src/entries/owner-layout.css
+   Unifica el layout de TODAS las páginas del owner (x@x): mismos márgenes,
+   misma cabecera de página (migas, título, subtítulo, filtros) y mismas tarjetas.
+   Se importa al final de owner.jsx para prevalecer sobre los estilos de cada página. */
+
+/* ---------- Estructura: header, contenido y footer alineados ---------- */
+.owner-navbar,
+.owner-footer { padding-left: 36px; padding-right: 36px; }
+
+.owner-app-content {
+  padding: 28px 36px 36px;
+  box-sizing: border-box;
+}
+
+/* Todas las páginas ocupan el ancho completo y nunca desbordan */
+.owner-page,
+.ranking-page,
+.solicitudes-page {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 0 2rem;
+  box-sizing: border-box;
+  background: transparent;
+  min-height: 0;
+  color: #261915;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ---------- Cabecera de página igual en todas ---------- */
+.owner-page__head,
+.ranking-topbar,
+.solicitudes-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid #f0e2dc;
+}
+
+.owner-page__crumbs,
+.ranking-breadcrumb,
+.solicitudes-breadcrumb {
+  display: block;
+  margin: 0 0 0.25rem;
+  font-size: 0.78rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #d9402f;
+}
+
+.owner-page__title,
+.ranking-title,
+.solicitudes-title {
+  margin: 0;
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: #261915;
+}
+
+.owner-page__sub,
+.ranking-subtitle,
+.solicitudes-subtitle {
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #7c6960;
+}
+
+/* Filtros / acciones a la derecha, con el mismo aspecto */
+.owner-page__actions,
+.ranking-filtros,
+.solicitudes-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.ranking-select,
+.solicitudes-select,
+.owner-select select {
+  border: 1px solid #eadcd6;
+  border-radius: 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #281a16;
+  box-shadow: 0 1px 2px rgba(80, 40, 25, 0.06);
+}
+
+/* ---------- Tarjetas con el mismo relieve ---------- */
+.ranking-card,
+.solicitudes-card {
+  background: #fff;
+  border: 1px solid #f0e2dc;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(80, 40, 25, 0.05), 0 8px 20px -12px rgba(80, 40, 25, 0.18);
+}
+
+/* ---------- Pantallas chicas ---------- */
+@media (max-width: 900px) {
+  .owner-app-content { padding: 20px 18px 28px; }
+  .owner-navbar,
+  .owner-footer { padding-left: 18px; padding-right: 18px; }
+}
